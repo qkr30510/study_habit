@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  https://programmers.co.kr/learn/courses/30/lessons/12982?language=javascript
+<script>
+  function solution(d, b) {
+    let budget = b;
+    let answer = 0;
+
+    d.sort((a,b)=> a-b).forEach(item => {
+      budget = budget-item;
+      if(budget < 0) return;
+      answer++;
+    });
+    
+    return answer
+  }
+
+  console.log(
+    'answer',
+    solution([1,100,3,2,5,4], 9),
+    solution([2,2,3,3], 10)
+  )
+</script>
+</body>
+</html>
