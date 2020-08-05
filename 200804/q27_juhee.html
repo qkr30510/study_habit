@@ -24,18 +24,16 @@
         ```
     </pre>ss 
     <script>
-
-        const name = prompt('').split(' ');
-        const math = prompt('').split(' ');
-        const aa = {}
-
-
-        for (let i = 0; i < name.length; i++) {            
-            aa[name[i]] = math[i]
+        const aa = prompt('').split(' ');
+        const bb = prompt('').split(' ');
+        console.log(aa,bb)
+        const cc ={};
+        for( let i = 0; i<aa.length; i++ ){
+            cc[aa[i]] = bb[i]
         }
-        console.log(aa)
-
+        console.log(cc)
     </script>
+    
     <p>객체의 key값 넣을땐 aa[name[i]] 이런식으로 </p>
 </body>
 
