@@ -4,7 +4,12 @@
  */
 
  
-const n = prompt('수를 입력하세요.').split(' ');
+const n = prompt('수를 입력하세요.').split(' '); //if ('2, 4')일 때,
 //n = n.split(' ');
   
 console.log(Math.pow(parseInt(n[0], 10), parseInt(n[1], 10)));
+
+/**
+ * Math.Pow(밑, 지수);
+ * 제곱함수를 구할 때 쓴다.
+ */
