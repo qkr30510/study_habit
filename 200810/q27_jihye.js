@@ -14,10 +14,22 @@
 
 const keys = prompt('이름을 입력하세요').split(' ');
 const values = prompt('점수를 입력하세요').split(' ');
-const obj = {};
+const obj = {};  // 객체구문
 
 for (let i=0; i<keys.length; i++) {
   obj[keys[i]] = parseInt(values[i], 10);
 }
 
 console.log(obj);
+
+/**
+ * 객체는 변수이다. 그러나 객체에는 많은 값이 포함될 수 있다.
+ * 객체는 중괄호 표기를 이용하여 만들 수 있다.
+ * 객체는 각각의 key/value에 대한 정보를 나열할 수 있다.
+ * Key는 문자열 또는 기호여야 한다.
+ * Value는 모든 유형이 될 수 있다.
+ * 객체는 한 쌍의 key/value 뒤에 쉼표를 이용하여 그 뒤에 오는 key/value와 구분해주어야 한다.
+ * 객체에서 명명된 값을 Properties라고 한다.
+ * 변수는 예약어의 이름을 가질 수 없지만 객체는 어떠한 이름이어도 상관없다.
+ * 객체 변수를 복사하면 참조가 복사되고 객체가 복제되지 않는다.
+ */
