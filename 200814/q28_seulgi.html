@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제34 : sort 구현하기](https://www.notion.so/34-sort-35f9e8bed7f34f5a8722588b400d0d8c)<br>
+
+<script>
+
+var solution = (height) => {
+  var heightArr = height.split(' ');
+  var compareArr = [...heightArr].sort((a,b) => a-b);
+
+  for(var i =0; i<heightArr.length; i++) {
+    if(heightArr[i] !== compareArr[i]) {
+      console.log(1)
+      return 'No';
+    } 
+  }
+  return 'Yes';
+}
+
+console.log(
+  solution('1 100 77 176 156 155 165 166 169'),
+  solution('155 156 165 166 169 176'),
+)
+</script>
+</body>
+</html>
