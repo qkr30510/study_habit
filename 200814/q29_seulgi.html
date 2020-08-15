@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제35 : Factory 함수 사용하기](https://www.notion.so/35-Factory-6a3a32fd25344c7e9e7ae5eaa7a37dc2)<br>
+
+<script>
+
+function one(n){
+    function two(n2){
+     return Math.pow(n2, n);
+    }
+    return two;
+}
+
+const a = one(2);
+const b = one(3);
+const c = one(4);
+
+console.log(a(10));
+console.log(b(10));
+console.log(c(10));
+</script>
+</body>
+</html>
