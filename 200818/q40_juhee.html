@@ -14,16 +14,20 @@
     주어집니다. 몸무게는 무작위로 주어집니다. ```jsx **입력** 50 5 20 20 20 20
     20 **출력** 2 ```
     <script>
-        const weight = prompt(' ');
-        const n = prompt('');
-        const person = prompt(' ').split(' ');
-        let result = 0
-        console.log(weight, n, person)
-        
+        const weight = prompt('제한무게');
+        const n = prompt('인원');        
+        let AddPerson = 0;
+        let count = 0;
+
         for(let i = 0; i<n; i++){
-            console.log(person[i])
-            result += person[i]+person[i+1]
+            AddPerson += Number(prompt('몸무게'));
+            //console.log(AddPerson)
+            if( AddPerson < weight){
+              count = i;             
+            }
+            console.log(count)
         }
+
 
     </script>
   </body>
