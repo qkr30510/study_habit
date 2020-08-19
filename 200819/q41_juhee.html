@@ -10,13 +10,20 @@
 
     <script>
         const n = Number(prompt(''));
-        let result = 0;
-        for(let i=0; i<9; i++){
-            
-            result = n/i
+        let result = [];
 
-        }
-        console.log(result)
+        for(let i=0; i<=n; i++){
+
+            if(n%i === 0){
+                result += [i]
+                console.log('yes',result)                
+            }else{
+                console.log('no')
+                
+            }    
+            
+            console.log(result.length)
+        }1
             
 
             // if (n%i<3){
