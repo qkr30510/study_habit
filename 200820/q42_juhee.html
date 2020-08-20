@@ -8,15 +8,28 @@
 <body>
     https://www.notion.so/42-ea0fccb3abed4d69b2e5ef9007807a03
     <script>
-        const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-        let d = '';
-
+        
+        
+        const mm = prompt('월');
+        const dd = prompt('일')
+        
         function solution(a,b){
-            for(let i = 1; i <= 31; i++){
-                d = day[i]      
-            }
-            console.log(d)
+            const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+            // for(let i = 1; i <= 31; i++){
+            //     console.log(day[i])
+            // }
+
+            const x = new Date('2020-'+a+'-'+b);
+            console.log('x',x)
+            return day[x.getDay()];
         }
+        console.log(solution(mm,dd));
+
     </script>
+    <p>
+        getDay() 메서드는 주어진 날짜의 현지 시간 기준 요일을 반환합니다. 0은 일요일을 나타냅니다. 
+        현재의 일을 반환하려면 date.prototype.getDate()를 사용하세요.
+
+    </p>
 </body>
 </html>
