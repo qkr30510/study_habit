@@ -1,29 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     https://www.notion.so/41-994743b827054aadadbe471001b6531c
 
     <script>
-        const n = Number(prompt(''));
-        let result = 0;
-        for(let i=0; i<9; i++){
-            
-            result = n/i
+      const n = Number(prompt(""));
+      let result = [];
 
+      for (let i = 0; i <= n; i++) {
+        if (n % i === 0) {
+          result += [i];
+          console.log("yes", result);
+        } else {
+          console.log("no");
         }
-        console.log(result)
-            
 
-            // if (n%i<3){
-            //     console.log('yes')
-            // }else{
-            //     console.log('no')
-            // }
+        console.log(result.length);
+      }
+
+      //         const num = prompt('숫자를 입력하세요.');
+
+      // function check_prime(num) {
+      //   for (let i=2; i<num; i++) {
+      //     const result = num % i;
+      //     if (result === 0) {
+      //       console.log('NO');
+      //       return false;
+      //     }
+      //   }
+      //   if (num === 1) {
+      //     console.log('NO');
+      //     return;
+      //   }
+      //   console.log('YES');
+      // }
+
+      // check_prime(num);
+      
     </script>
-</body>
+  </body>
 </html>
