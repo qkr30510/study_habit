@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제41](https://www.notion.so/41-9c8c063b97544eb3b2cac3da47f1bab0)
+
+<script>
+
+var solution = (num) => {
+  let answer = 'YES';
+
+  if(num === 1) {
+    return 'NO';
+  }
+
+  for(var i=2; i<num; i++) {
+    if(num%i === 0) {
+      answer = 'NO';
+      break;
+    }
+  }
+  return answer
+}
+
+console.log(
+  solution(1),
+  solution(2),
+  solution(3),
+  solution(4),
+  solution(5),
+  solution(6),
+  solution(7),
+  solution(8),
+  solution(9),
+  solution(10),
+)
+</script>
+</body>
+</html>
