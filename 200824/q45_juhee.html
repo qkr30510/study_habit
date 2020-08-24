@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>https://www.notion.so/45-getTime-88b0941980cc47859649df7576966391</p>
+    Date객체의 메소드 중 하나인 getTime()은 1970년 1월 1일 0시 0분 0초
+    이후로부터 지금까지 흐른 시간을 천분의 1초 단위(ms)로 반환합니다. 이를
+    이용하여 **현재 연도(2019)를 출력해보세요.**
+    <script>
+        
+        const a = new Date();
+        let b = a.getTime();
+
+//        console.log(a,b)
+        b = Math.floor(b/(3600*24*355*1000))+1970
+        console.log(b)
+    </script>
+  </body>
+</html>
