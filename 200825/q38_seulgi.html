@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제44 : 각 자리수의 합](https://www.notion.so/44-a15b4323690f449ebb91275d7d38662f)<br>
+
+<script>
+
+function solution (num) {
+  let answer = 0;
+  
+  // while(n !== 0){
+  //   sum += (n % 10);
+  //   n = Math.floor(n/10);
+  // }
+  
+  const str = String(num);
+  for(let i=0; i<str.length; i++) {
+    answer += Number(str[i]);
+  }
+
+  return answer;
+}
+
+console.log(
+  solution(18234),
+  solution(3849),
+)
+</script>
+</body>
+</html>
