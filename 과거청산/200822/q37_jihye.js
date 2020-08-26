@@ -10,10 +10,10 @@
 // 출력 : 2 4 6 8 10 12 14 16 18
 
 const num = prompt('1 ~ 9까지의 숫자 중 하나를 입력하세요.')
+//const n = 2;
 let result = '';
-
-for (let i=1; i<=9; i++){
-  result += i*num + ' ';
+var i;
+for(i=0; i<=9; i++){
+  result += n * i + ' ';
 }
-
 console.log(result);

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제42 : 2020년](https://www.notion.so/42-2020-ae1dd4dc05cd43dbb7475afb52bc00c4)
+
+<script>
+
+
+const yoil = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+function solution(mon,day){
+  const date = new Date(`2020-${mon}-${day}`);
+
+  return yoil[date.getDay()];
+}
+
+console.log(solution(9,1));
+</script>
+</body>
+</html>
