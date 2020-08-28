@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제45 : getTime()함수 사용하기](https://www.notion.so/45-getTime-88b0941980cc47859649df7576966391)<br>
+
+<script>
+
+console.log('방법 1', new Date().getFullYear() )
+
+const solution = () => {
+  const time = new Date().getTime();
+  const year = 60*60*24*365*1000;
+  return 1970+Math.floor(time/year);
+}
+
+console.log('방법 2', solution() )
+</script>
+</body>
+</html>
