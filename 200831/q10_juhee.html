@@ -8,21 +8,26 @@
   <body>
     <p>https://www.notion.so/10-eef6ed7fe8f14292b0886c561d7f6090</p>
     <script>
-      const n = prompt("");
+      
+      const n = prompt('숫자를 입력하세요.');
+      let tree = '';
 
-      let result = "";
-
-      for (let i = 1; i <= n; i++) {
-        let star = "";
-        for (let j = 1; j <= n - 1; j++) {
-          star += "";
+      for(let i=1; i<=n; i++){
+        let star = '';
+        console.log('d',star)
+        for(let j=1; j<=n-i; j++){
+          star += ' ';
+          console.log('z',star)
         }
-        for (let s = 1; s <= 2 * i - 1; s++) {
-          let star = "";
-          result += "*";
+        for(let k=1; k<=2*i-1; k++){
+          star += '*';
+          console.log('k',star)
         }
-        result += star + "/n";
+        tree += star + '\n';
       }
+
+      console.log(tree);
+
     </script>
   </body>
 </html>
