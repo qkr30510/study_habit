@@ -6,6 +6,7 @@
  * 3849 = 3+8+4+9 이고 정답은 24입니다.
  */
 
+
 // 입출력
 
 // 입력 : 18234
@@ -13,4 +14,24 @@
 
 // 입력 : 3849
 // 출력 : 24
+
+
+let n = '18234';
+n = n.split('');
+let result = 0;
+
+for(var i = 0; i <= n.length; i++){
+  var a;
+  console.log(n[i]);
+  a = Math.floor(n[i]);
+  b = Math.floor(n[i+1]);
+  // result = a;
+  // result = result + a;
+  //console.log(b);
+  result = Math.floor(a + b, 10);
+  console.log(result);
+}
+
+//console.log(result);
+
 
