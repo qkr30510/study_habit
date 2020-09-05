@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제49 : 최댓값 구하기](https://www.notion.so/49-2052f88fe90f4bde93cea5fb63627483)<br>
+
+  <script>
+    const solution = (str) => {
+      const numArr = str.split(' ');
+
+      const numSort = numArr.sort((a,b) => b-a);
+      console.log(numArr)
+    
+      return numSort[0];
+    }
+    console.log(solution('10 9 8 7 6 5 4 3 2 1'))
+    </script>
+</body>
+</html>
