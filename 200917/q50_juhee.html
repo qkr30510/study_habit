@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function bubble(arr) {
+  let result = arr.slice(); // 원본 배열 복사
+
+  for (let i = 0; i < result.length - 1; i++) {
+    for (let j = 0; j < result.length - i; j++) {
+      if (result[j] > result[j + 1]) {
+        let temp = result[j];
+        result[j] = result[j+1];
+        result[j+1] = temp;
+      }
+    }
+  }
+  return result;
+}
+
+      
+      const items = "5 4 2 3 1 6".split(' ').map((n) => {
+        return parseInt(n, 10);
+      });
+      
+      console.log(bubble(items));
+</script>
+      </body>
+</html>
