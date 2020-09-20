@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제53 : 괄호 문자열](https://www.notion.so/53-8776d8e89b91496cb7a3bfa09a84fe49)<br>
+<script>
+
+function mathBrackets(arr) {
+  let count = 0;
+
+  // 갯수확인
+  for(let i=0; i<arr.length; i++) {
+    if(arr[i] === '(') {
+      count++
+    }
+    
+    if(arr[i] === ')') {
+      count--
+    }
+  }
+
+  if(count !== 0) {
+    return false;
+  }
+
+  let braket = [];
+  // 왼쪽/오른쪽 짝맞추기
+  for(let i=0; i<arr.length; i++) {
+    if(arr[i] === '(') {
+      braket.push('(');
+    }
+
+    if(arr[i] === ')') {
+      if(braket.length === 0) {
+        return false;
+      }
+      braket.pop();
+    }
+
+    return true;
+  }
+}
+
+
+const n = '(())('.split('');
+
+console.log( mathBrackets(n) )
+
+</script>
+</body>
+</html>
