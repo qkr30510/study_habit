@@ -8,7 +8,16 @@ var costs = [60, 50, 60, 58, 54, 54, 58, 50, 52, 54, 48, 10, 34, 55, 51, 52, 44,
 
 // scores배열에서 가장 큰 점수 구하기
 function printAndGetHighScore(){    
+    var highScore = 0;
+    var output;
     // 비눗방울 용액 #30 점수 : 44
+    for(var i = 0; i < scores.length; i++){
+        if (scores[i] > highScore){
+            highScore = scores[i];
+        }
+        return highScore // 리턴을 꼭 해줘야 한다!!
+        console.log(highScore);
+    }
 }
 // 최고 비눗방울 점수 : 69
 console.log("최고 비눗방울 점수 : " + highScore);
