@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제62 : 20190923출력하기](https://www.notion.so/62-20190923-536feccb025549db9e6c0d1f54766f13)
+<script>
+
+var solution_inflearn = function (str) {
+  return `${str.match(/a/g).length}${Number(str.match(/b/g))}${str.match(/c/g).length}${str.match(/d/g).length}${Number(str.match(/e/g))}${str.match(/f/g).length}${str.match(/g/g).length}${str.match(/h/g).length}`;
+}
+
+//20190923
+console.log(solution_inflearn('aacdddddddddfffffffffgghhh'))
+
+</script>
+</body>
+</html>
