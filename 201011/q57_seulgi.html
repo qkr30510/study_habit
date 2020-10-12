@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제64 : 이상한 엘레베이터](https://www.notion.so/64-a116e985b125441d9480e953ff6c9f55)
+<script>
+
+// 인프런 
+var n = 24;
+var result = 0;
+while(true) {
+  if(n%7 == 0) {
+    result += parseInt(n/7,10)
+    console.log(result);
+    break;
+  }
+
+  n-= 3;
+  result += 1;
+  
+  if(n < 0) {
+    console.log(-1);
+    break;
+  }
+}
+</script>
+</body>
+</html>
