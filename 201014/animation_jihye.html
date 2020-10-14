@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>w3schools try it - animationstart</title>
+    <style>
+        #myDIV {
+            position: relative;
+            width: 550px;
+            height: 100px;
+            padding: 15px;
+            background: greenyellow;
+        }
+
+        /* For Chorme, Safari, Opera */
+        @-webkit-keyframes mymove {
+            from {top: 0;}
+            to {top: 200px;}
+        }
+
+        /* Standard syntax */
+        @keyframes mymove {
+            from {top: 0;}
+            to {top: 200px;}
+        }
+    </style>
+</head>
+
+<body>
+    <h1>w3schools try it - animationstart</h1>
+    <h2>DOM Event - animationstart, animaitoniteration, animationend</h2>
+    
+    <div id="myDIV" onclick="myFunction()">Click me to start animation.</div>
+
+    <script>
+        var x = document.getElementById("myDIV");
+
+        // Start the animation with Javascript
+        function myFunction(){
+            x.style.WebkitAnimation = "mymove 4s 2"; // For Chorme, Safari, Opera
+            x.style.animation = "mymove 4s 2"; // Standard syntax
+        }
+        function myStartFunction(){
+            this.style.backgroundColor = "pink";
+        }
+        function myRepeatFunction(){
+            this.style.backgroundColor = "lightblue";
+        }
+        function myEndFunction(){
+            this.style.backgroundColor = "lightgray";
+        }
+
+        // For Chorme, Safari, Opera
+        x.addEventListener("webkitAnimationStart", myStartFunction);
+        x.addEventListener("webkitAnimationIteration", myRepeatFunction);
+        x.addEventListener("webkitAnimationEnd", myEndFunction);
+
+        // Standard syntax
+        x.addEventListener("animationstart", myStartFunction);
+        x.addEventListener("animationiteration", myRepeatFunction);
+        x.addEventListener("animationend", myEndFunction);
+    </script>
+</body>
+</html>
