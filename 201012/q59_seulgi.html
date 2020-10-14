@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제66 : 블럭탑쌓기](https://www.notion.so/66-5ef70cd266994056a4831cc0da15092f)
+<script>
+
+// 인프런 
+var 탑 = ["ABCDEF", "BCAD", "ADEFQRX", "BEDFG", "EFGHZ"];
+var 규칙 = "ABD";
+
+var 결과 = 탑.map((item, idx)=> {
+  var state = 규칙.indexOf(규칙[0]); 
+  // indexOf = ()안의 문자의 index 를 리턴
+  // includes = ()안의 문자가 포함되면 true 리턴
+  for(var word of item) {
+    var current = 규칙.indexOf(word);
+    if( current > -1 ) { 
+      if(state > current) return '불가능';
+      state = current;
+    }    
+  }
+
+  return '가능';
+})
+
+console.log(결과);
+</script>
+</body>
+</html>
