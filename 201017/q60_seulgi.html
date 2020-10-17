@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제67 : 민규의 악수](https://www.notion.so/67-0d9ed353a2df4b04aa9f3a60c39c74c7)
+<script>
+
+// 인프런 
+function solution(n) {
+  var 사람 = 0;
+  var 총악수 = 0;
+  var temp = 0;
+
+  while(true){
+    총악수=parseInt(사람*(사람-1)/2);
+    if(n<총악수){
+      break;
+    }
+    temp = 총악수;    
+    사람+=1;
+  }
+  return [parseInt(n-temp), 사람];
+
+}
+console.log( solution(59) );
+</script>
+</body>
+</html>
