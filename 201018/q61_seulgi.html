@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제68 : 버스 시간표](https://www.notion.so/68-e9da4bcbd44d4f9e99c3882a04e2a342)
+<script>
+var 버스시간 = ["12:30", "13:20", "14:13"];
+var 기준시간 = "12:40";
+
+// 인프런 
+function solution(n) {
+  var answer = [];
+
+  기준시간 = 기준시간.split(':').map(n => parseInt(n));
+  기준시간 = 기준시간[0]*60+기준시간[1];
+
+  for(var i in 버스시간) {
+    var 버스 = 버스시간[i].split(':').map(n => parseInt(n));
+    버스 = 버스[0]*60+버스[1];
+    if( 버스 < 기준시간) {
+      answer.push('지나갔습니다')
+    } else {
+      var 시간 = parseInt((버스-기준시간)/60);
+      var 분 = (버스-기준시간)%60;
+
+      answer.push(String(시간).padStart(2, 0)+'시간 '+String(분).padStart()+'분');
+    }
+  }
+
+  return answer; 
+}
+console.log( solution(버스시간, 기준시간) );
+</script>
+</body>
+</html>
