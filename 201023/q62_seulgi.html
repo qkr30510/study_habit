@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제69 : 골드바흐의 추측](https://www.notion.so/69-418c74bcce5941a18cb855fdb13d51c3)
+<script>
+var 소수 = [];
+var 소수판별 = true;
+
+for(var i=2;i<100;i++){
+  for(var j=2;j<i;j++) {
+    if(i%j ==0) {
+      소수판별 = false;
+    }
+
+  }
+
+  if(소수판별) {
+    소수.push(i);
+  }
+
+  소수판별 = true;
+}
+
+var 숫자 = 100;
+var 순회 = 0;
+var 골드바흐파티션 = [];
+
+for(var n of 소수) {
+  if(소수.includes(숫자-n)){
+    골드바흐파티션.push([n, 숫자-n])
+  }
+
+  if(순회>parseInt(소수.length/2)){
+    break;
+  }
+  순회++;
+}
+
+//파티션 두 값의 차이
+var 차 = 골드바흐파티션.map(i => i[1]-i[0]);
+//차이가 제일 적은 것
+var 최소값인덱스 = 차.indexOf(Math.min.apply(null,차));
+
+console.log(골드바흐파티션[최소값인덱스])
+
+
+//에라토스테네스의 체 확인!
+
+  </script>
+  </body>
+  </html>
