@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제70 : 행렬 곱하기](https://www.notion.so/70-0fac9f804935478a9ed6f18b6e2f5f7e)
+<script>
+const a = [[1, 2], [2, 4]];
+const b = [[1, 0],	[0, 3]];
+
+const solution = () => {
+  var c = [];
+
+  const len = a.length;
+  if(len === b[0].length){
+    for(let i=0;i<len;i++){
+      let row=[];
+      for(let j=0;j<len;j++){
+        let x=0;
+        for(let k=0;k<len;k++){
+          x+=a[i][k]*b[k][j];
+        }
+        row.push(x);
+      }
+      c.push(row)
+    }
+  } else {
+    return -1;
+  }
+
+  return c;
+}
+
+console.log(solution(a,b))
+  </script>
+  </body>
+  </html>
