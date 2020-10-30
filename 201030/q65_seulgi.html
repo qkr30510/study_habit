@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제73 : 최단 경로 찾기](https://www.notion.so/73-e6ab3ead317a449c8bfa82a2207bf959)
+ 
+<script>
+
+var graph = {'A': ['B', 'C'],
+        'B': ['A', 'D', 'E'],
+        'C': ['A', 'F'],
+        'D': ['B'],
+        'E': ['B', 'F'],
+        'F': ['C', 'E']}
+
+var start = 'A';
+var end = 'F';
+
+var queue = [start];
+var visited = [start];
+
+function solution () {
+  var count = -1;
+
+  while(queue.length !== 0) {
+    count+=1;
+    var size = queue.length;
+    for(var i=0; i<size; i++) {
+      var node = queue.splice(0,1);
+      if(node == end) {
+        return count;
+      }
+
+      for(var next_node in graph[node]) {
+        if(!visited.includes(graph[node][next_node])) {
+          visited.push(graph[node][next_node]);
+          queue.push(graph[node][next_node]);
+        }
+      }
+    }
+  }
+}
+
+
+console.log(solution())
+</script>
+  </body>
+  </html>
