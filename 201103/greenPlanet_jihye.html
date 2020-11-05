@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headfirst JS - 6. Green planet</title>
+    <style>
+        .redtext { color: red; }
+    </style>
+    <script>
+        function init() {
+            var planet = document.getElementById("greenplanet");
+            planet.innerHTML = "적색 경보: 박격포에 맞았습니다.";
+            planet.setAttribute("class", "redtext");
+            // setAttribute : 클래스 속성을 변경할 수 있다.
+        }
+        window.onload = init;
+        // 페이지가 완전히 로딩된 후에 init()함수 호출
+    </script>
+</head>
+<body>
+    <h1>Headfirst JS - 6. Green planet</h1>
+
+    <h2>녹색행성</h2>
+    <p id="greenplanet">모두 정상입니다.</p>
+    <h2>적색행성</h2>
+    <p id="redplanet">보고할 사항 없습니다.</p>
+    <h2>청색행성</h2>
+    <p id="blueplanet">모든 시스템 정상입니다.</p>
+</body>
+</html>
