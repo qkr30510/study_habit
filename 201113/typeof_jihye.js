@@ -19,4 +19,4 @@ console.log(typeof test6); // undifined
 console.log(typeof test7); // object
 console.log(typeof test8); // object
 console.log(typeof test9); // function
-console.log(typeof test10); // null
+console.log(typeof test10); // object
