@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  [문제79 : 순회하는 리스트](https://www.notion.so/79-fae97e083f6c45feb81eb60a54a79520)
+<script>
+function solution (arr, n) {
+  let combi = [];
+
+  const f = (pre,arr) => {
+    for(var i=0; i< arr.length; i++) {
+      combi.push(pre+arr[i]);
+      f(pre+arr[i], arr.slice(i+1))
+    }
+  }
+
+  f('', arr);
+
+  const result = combi.filter(x=>x.length===n);
+  return result;
+}
+
+console.log(solution(['ㄱ','ㄴ','ㄷ','ㄹ'], 3));
+</script>
+</body>
+</html>
