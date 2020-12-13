@@ -36,7 +36,29 @@ exclude : 빌드 예외 대상
 
 ## 문법
 ### @ decorator
+https://joshua1988.github.io/vue-camp/ts/pdecorator.html#%EB%A7%9B%EB%B3%B4%EA%B8%B0-%EC%BD%94%EB%93%9C
+
+1. @component : 클래스 스타일로 컴포넌트를 만들 수 있다.
 ```js
-    // @ is an alias to /src
-    import message from '@/components/message.vue'; 
-~~~
+  import { Component, Vue } from 'vue-property-decorator';
+
+  export default class Message extends Vue {
+    message: string = '메세지를 입력해주세요';
+  }
+```
+
+2. @prop : 부모 컴포넌트가 자식컴포넌트에게 데이터를 전달
+
+error : Property 'parentMessage' has no initializer and is not definitely assigned in the constructor.
+- 컴파일러 옵션에 strict 가 true 이면, undefined 를 포함하지 않는 클래스 속성은 반드시 초기화되어야한다.
+- 속성을 옵션으로 표시해야함. " ?: "
+```
+  @Prop() parentMessage ?: string;    
+```
+
+[동적인 데이터를 자식 컴포넌트에 내릴 때]
+```
+// 속성 앞에 : 을 붙이면 표현식으로 넘어갈 수 있어서 값에 변수를 넣을 수 있다.
+<children :parentMessage="message" />
+message: string = 'hello world';
+```
