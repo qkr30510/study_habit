@@ -1,5 +1,8 @@
 // Headfirst JS - 7. validate 2
 
+// 오류발견!! 123-456 일 경우에도 true 리턴.
+// 이 코드의 버그를 split() 메서드를 이용하여 수정.
+
 /**
  * 다음과 같은 형태의 전화번호를 입력 받습니다.
  * "123-4567"
@@ -17,12 +20,13 @@ function validate(phoneNumber) {
     if (isNaN(first) || isNaN(second)) {
         return false;
     }
-    if (phoneNumber.length === 8) {
-        return (phoneNumber.charAt(3) === "-"); // true 또는 false 리턴
+  
+    if (phoneNumber.charAt(3) === "-") {
+        if (phoneNumber.split('-')[1].length !== 4) {
+            return false;
+        }
     }
     return true;
 }
-console.log(validate("123-4567"));
+console.log(validate("123-456")); // false
 
-// 이 코드에서 버그 찾기
-// 오류발견!! 123-456 일 경우에도 true 리턴.
