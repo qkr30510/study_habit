@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <pre>
+        ---
+title: 함수
+date: 2020-11-05 00:11:60
+category: javascript
+draft: false
+---
+
+**함수**는 일련의 과정을 문으로 구현하고 코드 블록으로 감싸서 하나의 실행 단위로 정의한 것이다.
+함수 내부로 입력을 전달받는 변수를 **매개변수**, 입력을 **인수**, 출력을 **반환값**이라 한다.
+
+```javascript
+function add(x, y) {
+  return x + y
+}
+add(2, 5)
+
+// add = 함수이름
+// (x,y) = 매개변수
+// x+y = 반환값
+//(2,5) = 인수
+```
+
+> 인수는 매개변수를 통해 함수에 전달하면서 함수의 실행을 명시적으로 지시해야한다. 이를 **함수 호출**이라 한다.
+
+```javascript
+//함수 호출
+var result = add(2, 5)
+
+//함수 add에 인수 2, 5를 전달하면서 호출하면 반환값 7을 반환한다.
+console.log(result)
+```
+
+    </pre>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <pre>
+        ---
+title: 원시값과 객체의 비교
+date: 2020-11-04 23:11:68
+category: javascript
+draft: false
+---
+
+**1. 원시타입**
+
+- 변경 불가능한 값 (값이 저장되는 메모리의 위치가 변경됨)
+- 변수에 할당하면 변수에는 **실제 값**이 저장됨
+- 다른 변수에 할당하면 원본의 **원시 값이 복사되어 전달** 되며 이를 *값에 의한 전달*이라고 한다.
+
+**2. 객체**
+
+- 변경 가능한 값 (메모리위치 그대로 값이 변경됨)
+- 변수에 할당하면 변수에는 **참조 값**이 저장됨.
+- 다른 변수에 할당하면 원본의 **참조 값이 복사되어 전달** 되며 이를 *참조에 의한 전달*이라고 한다.
+
+> 변수는 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 식별하기 위해 붙인 이름이고, 값은 변수에 저장된 데이터로써 표현식이 평가되어 생성된 결과를 말한다. 변경 불가능하다는 것은 변수가 아니라 값에 대한 진술이다.
+
+```javascript
+//원시타입 예제 소스
+
+var score = 80
+
+//copy 변수에는 score 변수의 값 80이 복사되어 할당된다.
+var copy = score
+
+console.log(score, copy) // 80, 80
+console.log(score === copy) //true
+
+//score 변수와 copy 변수의 값은 다른 메모리 공간에 저장된 별개의 값이다.
+// 따라서 score 변수의 값을 변경해도 copy 변수의 값에는 어떠한 영향도 주지 않는다.
+
+score = 100
+
+console.log(score, copy) // 100 80
+console.log(score === copy) // false
+```
+
+    </pre>
+</body>
+</html>
