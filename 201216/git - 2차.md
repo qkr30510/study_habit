@@ -26,6 +26,17 @@ staging area를 하나의 버전으로 남기는 것
 * **alias, aliasing**
     : 길이가 긴 커맨드에 별명을 붙이는 것.
 
+git history 는 현재 위치한 branch 의 내용만 확인가능하다. 
+
+--all 옵션을 사용하면 전체 branch 의 커밋 로그를 확인 가능하다
+--graph 옵션은 커밋 로그를 그림으로 확인 가능하다.
+
+```
+    git history --all
+
+    git history --all --graph
+```
+
 ### 커밋 메시지 작성법
 ```
     git commit -m [message]
