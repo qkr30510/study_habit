@@ -27,8 +27,9 @@ git commit -m "[메시지]"
 ```#리모드 레포지토리를 만드는 이유
 - 안정성 : 로컬 내용이 망가졌을 때 대응
 - 협업 가능
-// 처음 푸쉬할 때
+// 처음 푸쉬할 때 (로컬의 현재 브런치와 리모트의 master 브런치를 tracking connection)
 git push --set-upstream origin master
+git push -u origin master
 // 그 외
 git push
 ```
