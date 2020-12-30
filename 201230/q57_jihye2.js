@@ -8,17 +8,20 @@
  * 출력해 주세요.
  */
 
-// es6 for of 활용 (for in 사용해도 동일)
-let s = ''
-for (let i = 0; i <= 1000; i++){
-  s += i;
-}
-let count = 0;
-for (let k of s){ // s안에 있는 문자열 K를 하나씩 순회
-  //console.log(k);
-  if (k == 1){
-    count++;
-  }
-}
-console.log(count);
+// 고전 풀이식 이해하기
+const obj = {};
 
+for (let i = 0; i <= 1000; i++) {
+    let tmp = i;
+    while (tmp > 0) { // ex) 15라고 하면,
+    //몫이 0이 될 때까지 반복
+        let num = tmp % 10; // i를 10으로 나눈 나머지 ex) 5, 0이 된다.
+        if (obj[num]) {
+            obj[num]++;
+        } else {
+            obj[num] = 1; // tmp가 0이라면 obj[num]은 1 ex) 5, 1(0이었던 값은 1이 된다.)
+        }
+        tmp = parseInt(tmp/10, 10); // 10진수의 정수로 변환 ex) 0.5 --> 0
+    }
+}
+console.log(obj[1]); // obj에서 1만 추출
