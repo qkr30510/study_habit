@@ -8,4 +8,24 @@
  * 출력해 주세요.
  */
 
- 
+// 나의 풀이
+const arrNum = 1000;
+let arr = [];
+let sum = '';
+
+for (var i = 1; i < arrNum + 1; i++){
+  arr.push(i);
+}
+//console.log(arr);
+
+for (var i = 0; i < arrNum; i++){
+  let index = '';
+  index = String(arr[i]);
+  sum += index;
+}
+//console.log(sum);
+
+let result = sum.match(/1/g);
+if (result != null){
+  console.log(result.length);
+} // 301
