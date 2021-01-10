@@ -1,3 +1,6 @@
+# python
+
+## for
 ```python
   # 변수에는 list요소가 들어간다.
   for 변수 in list : 
