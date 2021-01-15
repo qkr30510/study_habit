@@ -11,6 +11,32 @@ js 의 객체와 비슷한 듯.
   dictionary[키] = 값
 ```
 
+
+### values
+```python
+  값 in list.values() 
+  # for 값 in list.values() 
+```
+- 어떤 값이 있는 지 확인
+- bool 이 리턴
+
+
+### keys
+```python
+  list.keys()
+  # for key in list.keys()
+```
+- key list 가 리턴
+
+### keys
+```python
+  for key,value in list.items()
+```
+- 헤당 인덱스의 key value 가 리턴
+
+
+
+
 ## Aliasing ( 가명 )
 
 ```python
