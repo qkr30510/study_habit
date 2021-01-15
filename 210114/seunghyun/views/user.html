@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>유저 페이지</title>
+</head>
+
+<body>
+    {% set node = 'Node.js' %}
+    {% set javascript = 'Javascript' %}
+    <h1>유저
+        {{title}}
+        {{ user}}</h1>
+    <input type='text' placeholder='연습 {{ title }} {{ node }}' />
+    <p>{{ '<strong>이스케이프</strong>' }}</p>
+    <p>{{ '<strong>이스케이프</strong>'|safe }}</p>
+    <ul>
+        {% set fruits = ['사과', '배', '오렌지', '바나나', '복숭아'] %}
+        {% for item in fruits %}
+        <li>{{ loop.index }}
+            {{ item }}</li>
+        {% endfor %}
+    </ul>
+    {% set isLoggedIn = true %}
+    {% if isLoggendIn %}
+    <div>로그인되었습니다.</div>
+    {% else %}
+    <div>로그인이 필요합니다.</div>
+    {% endif %}
+    {% set fruit = 'banan' %}
+    {% if fruit === 'apple' %}
+    <p>사과입니다.</p>
+    {% elif fruit === 'banana' %}
+    <p>바나나입니다.</p>
+    {% else %}
+    <p>사과도 바나나도 아닙니다.</p>
+    {% endif %}
+    block
+</body>
+
+</html>
+<!-- ['사과', '배', '오렌지', '바나나', '복숭아'] -->
