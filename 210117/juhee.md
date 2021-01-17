@@ -7,7 +7,7 @@ Vue.js의 라이프 사이클은 크게 Creation, Mounting, Updating, Destructio
 1. Creation
 Creation 단계에서 실행되는 훅(hook)들이 라이프사이클 중에서 가장 처음 실행된다. 이 단계는 컴포넌트가 돔에 추가되기 전이다. 서버 렌더링에서도 지원되는 훅이다.
 따라서 클라이언트 단과 서버단 렌더링 모두에서 처리해야할일이 있다면 이단계에서 하면된다. 아직 컴포넌트가 돔에 추가되기 전이기 때문에 돔에 접근하거나 this.$el를 사용할 수 없다.
-이 단계에서는 beforeCreate 훅과 Created 훅이 있다.
+이 단계에서는 beforeCreate 훅과 Created 훅이 있다..
 
 2. Mounting
 
