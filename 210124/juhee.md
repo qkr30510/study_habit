@@ -17,6 +17,6 @@ slot
       </template>
     </a>
 
-    
+    /// template 안에 div 를 사용하지 않으면 css 수정이 안되니 꼭!! div를 넣을것.
 
 ```
