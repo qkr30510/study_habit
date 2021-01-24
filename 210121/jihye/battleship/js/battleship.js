@@ -30,7 +30,7 @@ var model = {
     fire: function(guess) {
         for (var i = 0; i < this.numberShip; i++) {
             var ship = this.ships[i];
-            locations = ship.locations;
+            locations = ship.locations;// ["06", "16", "26"];
             console.log(locations);
             var index = locations.indexOf(guess);
             console.log(index);
@@ -46,4 +46,3 @@ var model = {
 };
 
 //guess = "16";
-//locations = ["06", "16", "26"];
