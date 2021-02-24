@@ -22,20 +22,20 @@ console.log("a" + str_a.length + "b" + str_b.length + "c" + str_c.length + "d" +
 
 
 // 답안
-const user_s = new String(prompt('문자열을 입력하세요'));
+const user_s = new String(prompt('문자열을 입력하세요')); // aaabbbbcdddd
 let result_s = '';
-let store_s = user_s[0];
+let store_s = user_s[0]; // a
 let count = 0;
 
-for (let i of user_s){
-  if (i === store_s){
-    count += 1;
+for (let i of user_s){ // for of문 반복가능한 객체 : Array, Map, Set, String, TypedArray, arguments
+  if (i === store_s){ // i === a
+    count += 1; // 1
   } else{
-    result_s += store_s + String(count);
-    store_s = i;
-    count = 1;
+    result_s += store_s + String(count); // a3
+    store_s = i; // a = b
+    count = 1; // 
   }
 }
 
-result_s += store_s + String(count);
-console.log(result_s);
+result_s += store_s + String(count); //a3b4c1 + d4
+console.log(result_s); // a3b4c1d4
