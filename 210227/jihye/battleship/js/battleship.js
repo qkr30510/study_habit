@@ -72,6 +72,23 @@ var model = {
     generateShip: function() {
         var direction = Math.floor(Math.random() * 2); // 0과 1사이의 난수 생성
         var row, col;
+
+        if (direction === 1) { // direction이 1이면,
+            // 가로로 놓인 전함의 위치를 생성
+        } else { // direction이 0이면,
+            // 세로로 놓인 전합의 위치를 생성
+        }
+
+        var newShipLocations = [];
+        for (var i = 0; i < this.shipLength; i++) {
+            if (direction === 1) {
+                //새로운 가로 방향 전함의 배열에 위치를 추가
+            } else {
+                //새로운 세로 방향 전함의 배열에 위치를 추가
+            }
+        }
+
+        return newShipLocations;
     }
 };
 
