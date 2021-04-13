@@ -14,11 +14,7 @@
  * 만약 어떻게 해도 정량이 N이 되지 않는다면 -1을 출력합니다
  */
 
-//const n = prompt('정량을 입력하세요.');
-const n = 24;
-const weight = [3, 7]
-const weight1 = weight[0];
-const weight2 = weight[1];
+let n = 24;
 let result = 0;
 
 // 만약 n이 24일때
@@ -33,15 +29,14 @@ let result = 0;
 while (true) {
     if( n % 7 == 0 ) { // 7로 나눠서 0인 수라면,
         result = parseInt(n / 7, 10); // n을 7로 나눈 뒤 10진수 변환
-    } else {
-        let j = 0;
-        n - ( 7 * j )
+        console.log(result);
+        break;
+    }
+    n -= 3 // 3을 빼고,
+    result += 1; // result에 1을 추가
+    if(n < 0) { // n이 0보다 작으면 -1을 출력
+        console.log(-1);
+        break;
     }
 }
-
-
-// 이전결과 a보다 현재결과 result가 작으면 answer 리턴.
-// if (result < a){ return answer; }
-let answer = '';
-console.log(answer);
 
