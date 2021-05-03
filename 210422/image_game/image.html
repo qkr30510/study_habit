@@ -16,7 +16,9 @@
             var images = document.getElementsByTagName("img");
             for (var i = 0; i < images.length; i++) {
                 // 모든 img태그에 클릭이벤트 함수를 넣어준다. = <img src="zeroblur.jpg" onclick="showAnswer()">
-                images[i].onclick = showAnswer;
+                //images[i].onclick = showAnswer;
+                images[i].onmouseover = showAnswer;
+                images[i].onmouseout = reblur;
             }
         }
 
@@ -25,14 +27,18 @@
             var name = image.id;
             name = name + ".jpg";
             image.src = name;
-
-            setTimeout(reblur, 2000, image); // setTimeout(함수 또는 매개변수 func or param, delay, 인자 arg)
+            console.log(image);
+            //setTimeout(reblur, 2000, image); // setTimeout(함수 또는 매개변수 func or param, delay, 인자 arg)
+            //image.addEventListener("mouseout", reblur);
         }
 
-        function reblur(image) {
+        function reblur(eventObj) {
+            var image = eventObj.target;
             var name = image.id; // zero
             name = name + "blur.jpg"; // zeroblur.jpg
             image.src = name; // src="zeroblur.jpg"
+            
+            console.log(name);
         }
     </script>
 </head>
