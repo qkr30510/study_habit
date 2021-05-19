@@ -1,0 +1,339 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+새로운 크로스 플랫폼 PowerShell 사용 https://aka.ms/pscore6
+
+PS C:\Users\ddock> mysql -uroot -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use practice_sql
+Database changed
+mysql>
+mysql> SELECT '영업부', AVG(salary) FROM tstaff WHERE depart='영업부';
++--------+-------------+
+| 영업부 | AVG(salary) |
++--------+-------------+
+| 영업부 |    347.8571 |
++--------+-------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT AVG(salary) FROM tstaff WHERE depart='영업부';
++-------------+
+| AVG(salary) |
++-------------+
+|    347.8571 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT depart, AVG(salary) FROM tstaff GROUP BY depart;
++--------+-------------+
+| depart | AVG(salary) |
++--------+-------------+
+| 영업부 |    347.8571 |
+| 총무부 |    370.0000 |
+| 인사과 |    327.2857 |
++--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT salary, AVG(salary) FROM tstaff GROUP BY depart;
++--------+-------------+
+| salary | AVG(salary) |
++--------+-------------+
+|    320 |    347.8571 |
+|    420 |    370.0000 |
+|    340 |    327.2857 |
++--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> DESC tstaff;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| name     | char(15)     | NO   | PRI | NULL    |       |
+| depart   | char(10)     | NO   |     | NULL    |       |
+| gender   | char(3)      | NO   |     | NULL    |       |
+| joindate | date         | NO   |     | NULL    |       |
+| grade    | char(10)     | NO   |     | NULL    |       |
+| salary   | int          | NO   |     | NULL    |       |
+| score    | decimal(5,2) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> SELECT name, AVG(salary) FROM tstaff GROUP BY depart;
++--------+-------------+
+| name   | AVG(salary) |
++--------+-------------+
+| 강감찬 |    347.8571 |
+| 김유신 |    370.0000 |
+| 논개   |    327.2857 |
++--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT name, depart, AVG(salary) FROM tstaff GROUP BY depart;
++--------+--------+-------------+
+| name   | depart | AVG(salary) |
++--------+--------+-------------+
+| 강감찬 | 영업부 |    347.8571 |
+| 김유신 | 총무부 |    370.0000 |
+| 논개   | 인사과 |    327.2857 |
++--------+--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT name, depart, AVG(salary) FROM tstaff GROUP BY name;
++----------+--------+-------------+
+| name     | depart | AVG(salary) |
++----------+--------+-------------+
+| 강감찬   | 영업부 |    320.0000 |
+| 김유신   | 총무부 |    420.0000 |
+| 논개     | 인사과 |    340.0000 |
+| 대조영   | 총무부 |    290.0000 |
+| 선덕여왕 | 인사과 |    315.0000 |
+| 성삼문   | 영업부 |    285.0000 |
+| 신사임당 | 영업부 |    400.0000 |
+| 안중근   | 인사과 |    256.0000 |
+| 안창호   | 영업부 |    370.0000 |
+| 유관순   | 영업부 |    380.0000 |
+| 윤봉길   | 영업부 |    350.0000 |
+| 을지문덕 | 영업부 |    330.0000 |
+| 이사부   | 총무부 |    375.0000 |
+| 이율곡   | 총무부 |    385.0000 |
+| 장보고   | 인사과 |    440.0000 |
+| 정몽주   | 총무부 |    370.0000 |
+| 정약용   | 총무부 |    380.0000 |
+| 허난설헌 | 인사과 |    285.0000 |
+| 홍길동   | 인사과 |    380.0000 |
+| 황진이   | 인사과 |    275.0000 |
++----------+--------+-------------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT name, depart, salary FROM tstaff;
++----------+--------+--------+
+| name     | depart | salary |
++----------+--------+--------+
+| 강감찬   | 영업부 |    320 |
+| 김유신   | 총무부 |    420 |
+| 논개     | 인사과 |    340 |
+| 대조영   | 총무부 |    290 |
+| 선덕여왕 | 인사과 |    315 |
+| 성삼문   | 영업부 |    285 |
+| 신사임당 | 영업부 |    400 |
+| 안중근   | 인사과 |    256 |
+| 안창호   | 영업부 |    370 |
+| 유관순   | 영업부 |    380 |
+| 윤봉길   | 영업부 |    350 |
+| 을지문덕 | 영업부 |    330 |
+| 이사부   | 총무부 |    375 |
+| 이율곡   | 총무부 |    385 |
+| 장보고   | 인사과 |    440 |
+| 정몽주   | 총무부 |    370 |
+| 정약용   | 총무부 |    380 |
+| 허난설헌 | 인사과 |    285 |
+| 홍길동   | 인사과 |    380 |
+| 황진이   | 인사과 |    275 |
++----------+--------+--------+
+20 rows in set (0.00 sec)
+
+mysql> SEPECT depart, COUNT(*), MAX(joindate), AVG(score) FROM tstaff GROUP BY depart;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SEPECT depart, COUNT(*), MAX(joindate), AVG(score) FROM tstaff GROUP BY depart' at line 1
+mysql> SELECT depart, COUNT(*), MAX(joindate), AVG(score) FROM tstaff GROUP BY depart;
++--------+----------+---------------+------------+
+| depart | COUNT(*) | MAX(joindate) | AVG(score) |
++--------+----------+---------------+------------+
+| 영업부 |        7 | 2019-06-29    |  76.240000 |
+| 총무부 |        6 | 2020-07-07    |  68.900000 |
+| 인사과 |        7 | 2020-01-05    |  57.257143 |
++--------+----------+---------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> desc tcity;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| name   | char(10) | NO   | PRI | NULL    |       |
+| area   | int      | YES  |     | NULL    |       |
+| popu   | int      | YES  |     | NULL    |       |
+| metro  | char(1)  | NO   |     | NULL    |       |
+| region | char(6)  | NO   |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tcity;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  605 |  974 | y     | 경기   |
+| 순천 |  910 |   27 | n     | 전라   |
+| 오산 |   42 |   21 | n     | 경기   |
+| 전주 |  205 |   65 | n     | 전라   |
+| 청주 |  940 |   83 | n     | 충청   |
+| 춘천 | 1116 |   27 | n     | 강원   |
+| 홍천 | 1819 |    7 | n     | 강원   |
++------+------+------+-------+--------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT region, SUM(popu) FROM tcity GROUP BY region;
++--------+-----------+
+| region | SUM(popu) |
++--------+-----------+
+| 경상   |       342 |
+| 경기   |       995 |
+| 전라   |        92 |
+| 충청   |        83 |
+| 강원   |        34 |
++--------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT gender AVG(salary) FROM tstaff GROUP BY gender;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(salary) FROM tstaff GROUP BY gender' at line 1
+mysql> SELECT gender, AVG(salary) FROM tstaff GROUP BY gender;
++--------+-------------+
+| gender | AVG(salary) |
++--------+-------------+
+| 남     |    353.6429 |
+| 여     |    332.5000 |
++--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT depart, gender, COUNT(*) FROM tstaff GROUP BY depart, gender;
++--------+--------+----------+
+| depart | gender | COUNT(*) |
++--------+--------+----------+
+| 영업부 | 남     |        5 |
+| 총무부 | 남     |        6 |
+| 인사과 | 여     |        4 |
+| 영업부 | 여     |        2 |
+| 인사과 | 남     |        3 |
++--------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT depart, gender, COUNT(*) FROM tstaff GROUP BY depart, gender ORDER BY gender, depart;
++--------+--------+----------+
+| depart | gender | COUNT(*) |
++--------+--------+----------+
+| 영업부 | 남     |        5 |
+| 인사과 | 남     |        3 |
+| 총무부 | 남     |        6 |
+| 영업부 | 여     |        2 |
+| 인사과 | 여     |        4 |
++--------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT depart, gender, COUNT(*) FROM tstaff GROUP BY depart, gender ORDER BY gender, depart DESC;
++--------+--------+----------+
+| depart | gender | COUNT(*) |
++--------+--------+----------+
+| 총무부 | 남     |        6 |
+| 인사과 | 남     |        3 |
+| 영업부 | 남     |        5 |
+| 인사과 | 여     |        4 |
+| 영업부 | 여     |        2 |
++--------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT depart, gender, COUNT(*) FROM tstaff GROUP BY depart, gender ORDER BY gender, depart;
++--------+--------+----------+
+| depart | gender | COUNT(*) |
++--------+--------+----------+
+| 영업부 | 남     |        5 |
+| 인사과 | 남     |        3 |
+| 총무부 | 남     |        6 |
+| 영업부 | 여     |        2 |
+| 인사과 | 여     |        4 |
++--------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT depart, AVG(salary) FROM tstaff GROUP BY depart HAVING AVG(salary) >= 340;
++--------+-------------+
+| depart | AVG(salary) |
++--------+-------------+
+| 영업부 |    347.8571 |
+| 총무부 |    370.0000 |
++--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT depart, AVG(salary) FROM tstaff GROUP BY depart HAVING AVG(salary) >= 340 ORDER BY AVG(salary);
++--------+-------------+
+| depart | AVG(salary) |
++--------+-------------+
+| 영업부 |    347.8571 |
+| 총무부 |    370.0000 |
++--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT depart, AVG(salary) FROM tstaff GROUP BY depart HAVING AVG(salary) >= 340 ORDER BY AVG(salary) DESC;
++--------+-------------+
+| depart | AVG(salary) |
++--------+-------------+
+| 총무부 |    370.0000 |
+| 영업부 |    347.8571 |
++--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT depart, AVG(salary) FROM tstaff WHERE salary >= 300 GROUP BY depart HAVING AVG(salary) >= 360 ORDER BY AVG(salary) DESC;
++--------+-------------+
+| depart | AVG(salary) |
++--------+-------------+
+| 총무부 |    386.0000 |
+| 인사과 |    368.7500 |
++--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> DESC tcity;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| name   | char(10) | NO   | PRI | NULL    |       |
+| area   | int      | YES  |     | NULL    |       |
+| popu   | int      | YES  |     | NULL    |       |
+| metro  | char(1)  | NO   |     | NULL    |       |
+| region | char(6)  | NO   |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tcity;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  605 |  974 | y     | 경기   |
+| 순천 |  910 |   27 | n     | 전라   |
+| 오산 |   42 |   21 | n     | 경기   |
+| 전주 |  205 |   65 | n     | 전라   |
+| 청주 |  940 |   83 | n     | 충청   |
+| 춘천 | 1116 |   27 | n     | 강원   |
+| 홍천 | 1819 |    7 | n     | 강원   |
++------+------+------+-------+--------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT region, SUM(area) FROM tcity WHERE popu >= 50 GROUP BY region;
++--------+-----------+
+| region | SUM(area) |
++--------+-----------+
+| 경상   |       765 |
+| 경기   |       605 |
+| 전라   |       205 |
+| 충청   |       940 |
++--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT region, AVG(area) FROM tcity WHERE area >= 1000 GROUP BY region;
++--------+-----------+
+| region | AVG(area) |
++--------+-----------+
+| 강원   | 1467.5000 |
++--------+-----------+
+1 row in set (0.00 sec)
+
+mysql>
