@@ -1,0 +1,366 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+새로운 크로스 플랫폼 PowerShell 사용 https://aka.ms/pscore6
+
+PS C:\Users\ddock> mysql -uroot -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use practice_sql
+Database changed
+mysql> SELECT * FROM tStaff;
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 강감찬   | 영업부 | 남     | 2018-10-09 | 사원  |    352 | 56.00 |
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 논개     | 인사과 | 여     | 2010-09-16 | 대리  |    340 | 46.20 |
+| 대조영   | 총무부 | 남     | 2020-07-07 | 차장  |    290 | 49.90 |
+| 선덕여왕 | 인사과 | 여     | 2017-08-03 | 대리  |    315 | 45.10 |
+| 성삼문   | 영업부 | 남     | 2014-06-08 | 대리  |    314 | 87.75 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    440 | 92.00 |
+| 안중근   | 인사과 | 남     | 2012-05-05 | 대리  |    256 | 76.50 |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    407 | 74.20 |
+| 유관순   | 영업부 | 여     | 2009-03-01 | 대리  |    418 |  NULL |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 을지문덕 | 영업부 | 남     | 2019-06-29 | 사원  |    363 |  NULL |
+| 이사부   | 총무부 | 남     | 2000-02-03 | 대리  |    375 | 50.00 |
+| 이율곡   | 총무부 | 남     | 2016-03-08 | 과장  |    385 | 65.40 |
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
+| 정몽주   | 총무부 | 남     | 2010-09-16 | 대리  |    370 | 89.50 |
+| 정약용   | 총무부 | 남     | 2020-03-14 | 과장  |    380 | 69.80 |
+| 허난설헌 | 인사과 | 여     | 2020-01-05 | 대리  |    285 | 44.50 |
+| 홍길동   | 인사과 | 남     | 2019-08-08 | 차장  |    380 | 77.70 |
+| 황진이   | 인사과 | 여     | 2012-05-05 | 대리  |    275 | 52.50 |
++----------+--------+--------+------------+-------+--------+-------+
+20 rows in set (0.02 sec)
+
+mysql> SELECT * FROM tStaff WHERE score = (SELECT MAX(score) FROM tStaff);
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    440 | 92.00 |
++----------+--------+--------+------------+-------+--------+-------+
+1 row in set (0.01 sec)
+
+mysql> SELECT category FROM WHERE item = '청바지';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE item = '청바지'' at line 1
+mysql> SHOW DATABASES;
++-----------------------+
+| Database              |
++-----------------------+
+| base_sql              |
+| clone_blackdesert_lab |
+| information_schema    |
+| mysql                 |
+| nodebird              |
+| nodejs                |
+| performance_schema    |
+| practice_sql          |
+| shopping              |
+| sys                   |
++-----------------------+
+10 rows in set (0.01 sec)
+
+mysql> use shoppping
+ERROR 1049 (42000): Unknown database 'shoppping'
+mysql> use shopping
+Database changed
+mysql> SHOW TABLES;
++--------------------+
+| Tables_in_shopping |
++--------------------+
+| tcategory          |
+| titem              |
+| tmember            |
+| torder             |
++--------------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT * FROM titem;
++----------+----------+-----+--------+----------+
+| item     | company  | num | price  | category |
++----------+----------+-----+--------+----------+
+| 노트북   | 샘성     |   3 | 820000 | 가전     |
+| 대추     | 보은농원 |  19 |  15000 | 식품     |
+| 마우스   | 논리텍   |   3 |  90000 | 가전     |
+| 사과     | 문경농원 |  24 |  16000 | 식품     |
+| 전자담배 | TNG      |   4 |  70000 | 성인     |
+| 청바지   | 방방     |  80 |  32000 | 패션     |
++----------+----------+-----+--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tcategory;
++----------+----------+----------+----------+
+| category | discount | delivery | takeback |
++----------+----------+----------+----------+
+| 가전     |       20 |     2500 | y        |
+| 성인     |        5 |     1000 | n        |
+| 식품     |        0 |     3000 | n        |
+| 패션     |       10 |     2000 | y        |
++----------+----------+----------+----------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT * FROM tacategory WHERE category = (SELECT category FROM titem WHERE item = '청바지');
+ERROR 1146 (42S02): Table 'shopping.tacategory' doesn't exist
+mysql> SELECT * FROM tcategory WHERE category = (SELECT category FROM titem WHERE item = '청바지');
++----------+----------+----------+----------+
+| category | discount | delivery | takeback |
++----------+----------+----------+----------+
+| 패션     |       10 |     2000 | y        |
++----------+----------+----------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT delivery FROM tcategory WHERE category = (SELECT category FROM titem WHERE item = '청바지');
++----------+
+| delivery |
++----------+
+|     2000 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT delivery as '청바지 배송비' FROM tcategory WHERE category = (SELECT category FROM titem WHERE item = '청바지');
++---------------+
+| 청바지 배송비 |
++---------------+
+|          2000 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> torder
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'torder' at line 1
+mysql> SELECT * FROM torder;
+Empty set (0.01 sec)
+
+mysql> INSERT INTO tOrder (member,item,orderDate,num,status) VALUES ('춘향','청바지','2019-12-3',3,2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tOrder (member,item,orderDate,num,status) VALUES ('향단','대추','2019-12-4',10,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tOrder (member,item,orderDate,num,status) VALUES ('방자','전자담배','2019-12-2',4,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tOrder (member,item,orderDate,num,status) VALUES ('향단','사과','2019-12-5',5,2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tOrder (member,item,orderDate,num,status) VALUES ('흥부','노트북','2019-12-5',2,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tOrder (member,item,orderDate,num,status) VALUES ('방자','핸드폰','2019-11-1',1,3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM torder;
++---------+--------+----------+------------+-----+--------+--------+
+| orderID | member | item     | orderDate  | num | status | remark |
++---------+--------+----------+------------+-----+--------+--------+
+|       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+|       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+|       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+|       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+|       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   |
+|       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   |
++---------+--------+----------+------------+-----+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM titem;
++----------+----------+-----+--------+----------+
+| item     | company  | num | price  | category |
++----------+----------+-----+--------+----------+
+| 노트북   | 샘성     |   3 | 820000 | 가전     |
+| 대추     | 보은농원 |  19 |  15000 | 식품     |
+| 마우스   | 논리텍   |   3 |  90000 | 가전     |
+| 사과     | 문경농원 |  24 |  16000 | 식품     |
+| 전자담배 | TNG      |   4 |  70000 | 성인     |
+| 청바지   | 방방     |  80 |  32000 | 패션     |
++----------+----------+-----+--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tmember;
++--------+-----+--------------------+-------------+--------+-------+-------------+
+| member | age | email              | addr        | money  | grade | remark      |
++--------+-----+--------------------+-------------+--------+-------+-------------+
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |   1000 |     1 | 요주의 고객 |
+| 이도령 |  18 | wolf@gmail.com     | 서울 신사동 | 150000 |     3 |             |
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 |  20000 |     2 |             |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |   5000 |     2 |             |
++--------+-----+--------------------+-------------+--------+-------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tMember WHERE member = (SELECT member FROM torder WHERE item = (SELECT item FROM titem WHERE price = 7000
+0));
++--------+-----+--------------------+-------------+-------+-------+-------------+
+| member | age | email              | addr        | money | grade | remark      |
++--------+-----+--------------------+-------------+-------+-------+-------------+
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |  1000 |     1 | 요주의 고객 |
++--------+-----+--------------------+-------------+-------+-------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT member, money FROM tMember FROM member = (SELECT member FROM torder WHERE item = '대추');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM member = (SELECT member FROM torder WHERE item = '대추')' at line 1
+mysql> SELECT member, money FROM tMember WHERE member = (SELECT member FROM torder WHERE item = '대추');
++--------+-------+
+| member | money |
++--------+-------+
+| 향단   |  5000 |
++--------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT member, money \FROM tMember WHERE member = (SELECT member FROM torder WHERE item = '대추');
+ERROR:
+Unknown command '\F'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\FROM tMember WHERE member = (SELECT member FROM torder WHERE item = '대추')' at line 1
+mysql> SELECT item, price FROM titem WHERE item = (SELECT item FROM torder WHERE member = '춘향');
++--------+-------+
+| item   | price |
++--------+-------+
+| 청바지 | 32000 |
++--------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT price tItem WHERE item = (SELECT item FROM tOrder WHERE member = '향단');
+ERROR 1054 (42S22): Unknown column 'price' in 'field list'
+mysql> SELECT price FROM tItem WHERE item = (SELECT item FROM tOrder WHERE member = '향단');
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> SELECT price FROM tItem WHERE item = (SELECT item FROM tOrder WHERE member = '향단') ORDER BY item OFFSET 0 ROWS FETCH
+NEWX 1 ROWS ONLY;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OFFSET 0 ROWS FETCH NEWX 1 ROWS ONLY' at line 1
+mysql> SELECT price FROM tItem WHERE item IN (SELECT item FROM tOrder WHERE member = '향단');
++-------+
+| price |
++-------+
+| 15000 |
+| 16000 |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT item, price FROM tItem WHERE item IN (SELECT item FROM tOrder WHERE member = '향단');
++------+-------+
+| item | price |
++------+-------+
+| 대추 | 15000 |
+| 사과 | 16000 |
++------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT price FROM tItem WHERE item = (SELECT item FROM tOrder WHERE member = '이도령');
+Empty set (0.00 sec)
+
+mysql> use practice_sql;
+Database changed
+mysql> SELECT * depart FROM tStaff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'depart FROM tStaff' at line 1
+mysql> SELECT * FROM tStaff;
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 강감찬   | 영업부 | 남     | 2018-10-09 | 사원  |    352 | 56.00 |
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 논개     | 인사과 | 여     | 2010-09-16 | 대리  |    340 | 46.20 |
+| 대조영   | 총무부 | 남     | 2020-07-07 | 차장  |    290 | 49.90 |
+| 선덕여왕 | 인사과 | 여     | 2017-08-03 | 대리  |    315 | 45.10 |
+| 성삼문   | 영업부 | 남     | 2014-06-08 | 대리  |    314 | 87.75 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    440 | 92.00 |
+| 안중근   | 인사과 | 남     | 2012-05-05 | 대리  |    256 | 76.50 |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    407 | 74.20 |
+| 유관순   | 영업부 | 여     | 2009-03-01 | 대리  |    418 |  NULL |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 을지문덕 | 영업부 | 남     | 2019-06-29 | 사원  |    363 |  NULL |
+| 이사부   | 총무부 | 남     | 2000-02-03 | 대리  |    375 | 50.00 |
+| 이율곡   | 총무부 | 남     | 2016-03-08 | 과장  |    385 | 65.40 |
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
+| 정몽주   | 총무부 | 남     | 2010-09-16 | 대리  |    370 | 89.50 |
+| 정약용   | 총무부 | 남     | 2020-03-14 | 과장  |    380 | 69.80 |
+| 허난설헌 | 인사과 | 여     | 2020-01-05 | 대리  |    285 | 44.50 |
+| 홍길동   | 인사과 | 남     | 2019-08-08 | 차장  |    380 | 77.70 |
+| 황진이   | 인사과 | 여     | 2012-05-05 | 대리  |    275 | 52.50 |
++----------+--------+--------+------------+-------+--------+-------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT depart FROM tStaff WHERE name = '안중근';
++--------+
+| depart |
++--------+
+| 인사과 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT depart FROM tStaff WHERE name = '윤봉길';
++--------+
+| depart |
++--------+
+| 영업부 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM tStaff WHERE depart = (SELECT depart FROM tStaff WHERE = '윤봉길') AND gender = (SELECT gender FROM tStaff WHERE name = '윤봉길');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= '윤봉길') AND gender = (SELECT gender FROM tStaff WHERE name = '윤봉길')' at line 1
+mysql> SELECT * FROM tStaff WHERE depart = (SELECT depart FROM tStaff WHERE name = '윤봉길') AND gender = (SELECT gender FROM tStaff WHERE name = '윤봉길');
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 강감찬   | 영업부 | 남     | 2018-10-09 | 사원  |    352 | 56.00 |
+| 성삼문   | 영업부 | 남     | 2014-06-08 | 대리  |    314 | 87.75 |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    407 | 74.20 |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 을지문덕 | 영업부 | 남     | 2019-06-29 | 사원  |    363 |  NULL |
++----------+--------+--------+------------+-------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tStaff WHERE (depart, gender) = (SELECT depart, gender FROM tStaff WHERE name = '윤봉길');
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 강감찬   | 영업부 | 남     | 2018-10-09 | 사원  |    352 | 56.00 |
+| 성삼문   | 영업부 | 남     | 2014-06-08 | 대리  |    314 | 87.75 |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    407 | 74.20 |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 을지문덕 | 영업부 | 남     | 2019-06-29 | 사원  |    363 |  NULL |
++----------+--------+--------+------------+-------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tStaff WHERE (depart, salary) IN (SELECT depart, MAX(salary) FROM tStaff GROUP BY depart);
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    440 | 92.00 |
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
++----------+--------+--------+------------+-------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT depart, MAX(salary) FROM tStaff GROUP BY depart;
++--------+-------------+
+| depart | MAX(salary) |
++--------+-------------+
+| 영업부 |         440 |
+| 총무부 |         420 |
+| 인사과 |         440 |
++--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tStaff WHERE (depart, salary) = (SELECT depart, MAX(salary) FROM tStaff GROUP BY depart);
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> SELECT * FROM tStaff WHERE (depart, salary) IN (SELECT depart, MAX(salary) FROM tStaff GROUP BY depart);
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    440 | 92.00 |
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
++----------+--------+--------+------------+-------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
