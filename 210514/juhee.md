@@ -31,4 +31,9 @@ event는 하위가 상위로 변경되었다고 알려주는 것이다.
       </label>
 
       slot을 넘겨주면         <custom-checkbox v-model="notice" value="1" class="notice">쇼핑 SMS 수신 [선택]</custom-checkbox> 안에 데이터로 담김 
+
+
+      좀 더 뷰 스럽게 인풋에 숫자만 기입
+           v-on:input="userPhone = $event.target.value.replace(/[^0-9]/g, '')"
+           
       
