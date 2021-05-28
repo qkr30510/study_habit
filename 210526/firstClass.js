@@ -58,3 +58,17 @@ var allPaid = processPassengers(passengers, checkNoPaid);
 if (!allPaid){
     console.log("비행기가 이륙할 수 없습니다. 요금을 지불하지 않은 승객이 있습니다.");
 }
+
+
+function printPassenger(passenger){
+    var message = passenger.name;
+    if (passenger.paid === true){
+        message = message + "는 요금을 지불했습니다.";
+    } else {
+        message = message + "는 요금을 지불하지 않았습니다.";
+    }
+    console.log(message);
+    return false;
+}
+  
+function processPassengers(passengers, printPassenger);
