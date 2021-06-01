@@ -1,0 +1,500 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+새로운 크로스 플랫폼 PowerShell 사용 https://aka.ms/pscore6
+
+PS C:\Users\ddock> mysql -uroot -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use practice_sql;
+Database changed
+mysql> use shopping
+Database changed
+mysql> SELECT * tMember, tOrder;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tMember, tOrder' at line 1
+mysql> SELECT * FROM tMember, tOrder;
++--------+-----+--------------------+-------------+--------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+
+| member | age | email              | addr        | money  | grade | remark      | orderID | member | item     | orderDate  | num | status | remark |
++--------+-----+--------------------+-------------+--------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |   1000 |     1 | 요주의 고객 |       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+| 이도령 |  18 | wolf@gmail.com     | 서울 신사동 | 150000 |     3 |             |       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 |  20000 |     2 |             |       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |   5000 |     2 |             |       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |   1000 |     1 | 요주의 고객 |       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+| 이도령 |  18 | wolf@gmail.com     | 서울 신사동 | 150000 |     3 |             |       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 |  20000 |     2 |             |       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |   5000 |     2 |             |       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |   1000 |     1 | 요주의 고객 |       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+| 이도령 |  18 | wolf@gmail.com     | 서울 신사동 | 150000 |     3 |             |       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 |  20000 |     2 |             |       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |   5000 |     2 |             |       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |   1000 |     1 | 요주의 고객 |       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+| 이도령 |  18 | wolf@gmail.com     | 서울 신사동 | 150000 |     3 |             |       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 |  20000 |     2 |             |       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |   5000 |     2 |             |       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |   1000 |     1 | 요주의 고객 |       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   |
+| 이도령 |  18 | wolf@gmail.com     | 서울 신사동 | 150000 |     3 |             |       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   |
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 |  20000 |     2 |             |       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |   5000 |     2 |             |       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   |
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |   1000 |     1 | 요주의 고객 |       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   |
+| 이도령 |  18 | wolf@gmail.com     | 서울 신사동 | 150000 |     3 |             |       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   |
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 |  20000 |     2 |             |       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |   5000 |     2 |             |       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   |
++--------+-----+--------------------+-------------+--------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+
+24 rows in set (0.02 sec)
+
+mysql> SEELCT * FROM tMember;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SEELCT * FROM tMember' at line 1
+mysql> SELECT * FROM tMember;
++--------+-----+--------------------+-------------+--------+-------+-------------+
+| member | age | email              | addr        | money  | grade | remark      |
++--------+-----+--------------------+-------------+--------+-------+-------------+
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |   1000 |     1 | 요주의 고객 |
+| 이도령 |  18 | wolf@gmail.com     | 서울 신사동 | 150000 |     3 |             |
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 |  20000 |     2 |             |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |   5000 |     2 |             |
++--------+-----+--------------------+-------------+--------+-------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tOrder;
++---------+--------+----------+------------+-----+--------+--------+
+| orderID | member | item     | orderDate  | num | status | remark |
++---------+--------+----------+------------+-----+--------+--------+
+|       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+|       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+|       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+|       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+|       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   |
+|       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   |
++---------+--------+----------+------------+-----+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM tOrder, tOrder;
+ERROR 1066 (42000): Not unique table/alias: 'tOrder'
+mysql> SELECT COUNT(*) FROM tMember, tOrder;
++----------+
+| COUNT(*) |
++----------+
+|       24 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM tMember M, tOrder O WHERE M.member = O.Member;
++--------+-----+--------------------+-------------+-------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+
+| member | age | email              | addr        | money | grade | remark      | orderID | member | item     | orderDate  | num | status | remark |
++--------+-----+--------------------+-------------+-------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 | 20000 |     2 |             |       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |  5000 |     2 |             |       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |  1000 |     1 | 요주의 고객 |       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |  5000 |     2 |             |       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |  1000 |     1 | 요주의 고객 |       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   |
++--------+-----+--------------------+-------------+-------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT M.addr, M.member, O.item, O.num, O.orderDate FROM tMember M INNER JOIN tOrder O ON M.member = O.member;
++-------------+--------+----------+-----+------------+
+| addr        | member | item     | num | orderDate  |
++-------------+--------+----------+-----+------------+
+| 전남 남원시 | 춘향   | 청바지   |   3 | 2019-12-03 |
+| 전남 남원시 | 향단   | 대추     |  10 | 2019-12-04 |
+| 서울 개포동 | 방자   | 전자담배 |   4 | 2019-12-02 |
+| 전남 남원시 | 향단   | 사과     |   5 | 2019-12-05 |
+| 서울 개포동 | 방자   | 핸드폰   |   1 | 2019-11-01 |
++-------------+--------+----------+-----+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT M.addr, M.member, O.item, O.num, O.orderDate FROM tMember M LEFT OUTER JOIN tOrder O ON M.member = O.member;
++-------------+--------+----------+------+------------+
+| addr        | member | item     | num  | orderDate  |
++-------------+--------+----------+------+------------+
+| 서울 개포동 | 방자   | 전자담배 |    4 | 2019-12-02 |
+| 서울 개포동 | 방자   | 핸드폰   |    1 | 2019-11-01 |
+| 서울 신사동 | 이도령 | NULL     | NULL | NULL       |
+| 전남 남원시 | 춘향   | 청바지   |    3 | 2019-12-03 |
+| 전남 남원시 | 향단   | 대추     |   10 | 2019-12-04 |
+| 전남 남원시 | 향단   | 사과     |    5 | 2019-12-05 |
++-------------+--------+----------+------+------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM tMember M LEFT OUTER JOIN tOrder O ON M.member = O.member;
++----------+
+| COUNT(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT M.addr, M.member, O.item, O.num, O.orderDate FROM tMember M RIGHT OUTER JOIN tOrder O ON M.member = O.member;
++-------------+--------+----------+-----+------------+
+| addr        | member | item     | num | orderDate  |
++-------------+--------+----------+-----+------------+
+| 전남 남원시 | 춘향   | 청바지   |   3 | 2019-12-03 |
+| 전남 남원시 | 향단   | 대추     |  10 | 2019-12-04 |
+| 서울 개포동 | 방자   | 전자담배 |   4 | 2019-12-02 |
+| 전남 남원시 | 향단   | 사과     |   5 | 2019-12-05 |
+| NULL        | NULL   | 노트북   |   2 | 2019-12-05 |
+| 서울 개포동 | 방자   | 핸드폰   |   1 | 2019-11-01 |
++-------------+--------+----------+-----+------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT M.addr, O.member, O.item, O.num, O.orderDate FROM tMember M RIGHT OUTER JOIN tOrder O ON M.member = O.member;
++-------------+--------+----------+-----+------------+
+| addr        | member | item     | num | orderDate  |
++-------------+--------+----------+-----+------------+
+| 전남 남원시 | 춘향   | 청바지   |   3 | 2019-12-03 |
+| 전남 남원시 | 향단   | 대추     |  10 | 2019-12-04 |
+| 서울 개포동 | 방자   | 전자담배 |   4 | 2019-12-02 |
+| 전남 남원시 | 향단   | 사과     |   5 | 2019-12-05 |
+| NULL        | 흥부   | 노트북   |   2 | 2019-12-05 |
+| 서울 개포동 | 방자   | 핸드폰   |   1 | 2019-11-01 |
++-------------+--------+----------+-----+------------+
+6 rows in set (0.00 sec)
+
+mysql> SEELCT M.addr, M.member, O.member, O.item, O.num, O.orderDate FROM tMember M FULL OUTER JOIN tOrder O ON M.member = O.member;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SEELCT M.addr, M.member, O.member, O.item, O.num, O.orderDate FROM tMember M FUL' at line 1
+mysql> SELECT M.addr, M.member, O.member, O.item, O.num, O.orderDate FROM tMember M FULL OUTER JOIN tOrder O ON M.member = O.member;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FULL OUTER JOIN tOrder O ON M.member = O.member' at line 1
+mysql> SELECT * FROM tItem;
++----------+----------+-----+--------+----------+
+| item     | company  | num | price  | category |
++----------+----------+-----+--------+----------+
+| 노트북   | 샘성     |   3 | 820000 | 가전     |
+| 대추     | 보은농원 |  19 |  15000 | 식품     |
+| 마우스   | 논리텍   |   3 |  90000 | 가전     |
+| 사과     | 문경농원 |  24 |  16000 | 식품     |
+| 전자담배 | TNG      |   4 |  70000 | 성인     |
+| 청바지   | 방방     |  80 |  32000 | 패션     |
++----------+----------+-----+--------+----------+
+6 rows in set (0.01 sec)
+
+mysql> SHOW TABLES;
++--------------------+
+| Tables_in_shopping |
++--------------------+
+| tcategory          |
+| titem              |
+| tmember            |
+| torder             |
++--------------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT * FROM tcategory;
++----------+----------+----------+----------+
+| category | discount | delivery | takeback |
++----------+----------+----------+----------+
+| 가전     |       20 |     2500 | y        |
+| 성인     |        5 |     1000 | n        |
+| 식품     |        0 |     3000 | n        |
+| 패션     |       10 |     2000 | y        |
++----------+----------+----------+----------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT I.*, C.discount, C.delivery FROM tItem I INNER JOIN tCategory C ON I.category = C.category;
++----------+----------+-----+--------+----------+----------+----------+
+| item     | company  | num | price  | category | discount | delivery |
++----------+----------+-----+--------+----------+----------+----------+
+| 노트북   | 샘성     |   3 | 820000 | 가전     |       20 |     2500 |
+| 마우스   | 논리텍   |   3 |  90000 | 가전     |       20 |     2500 |
+| 전자담배 | TNG      |   4 |  70000 | 성인     |        5 |     1000 |
+| 대추     | 보은농원 |  19 |  15000 | 식품     |        0 |     3000 |
+| 사과     | 문경농원 |  24 |  16000 | 식품     |        0 |     3000 |
+| 청바지   | 방방     |  80 |  32000 | 패션     |       10 |     2000 |
++----------+----------+-----+--------+----------+----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tOrder;
++---------+--------+----------+------------+-----+--------+--------+
+| orderID | member | item     | orderDate  | num | status | remark |
++---------+--------+----------+------------+-----+--------+--------+
+|       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+|       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+|       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+|       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+|       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   |
+|       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   |
++---------+--------+----------+------------+-----+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tOrder WHERE member = (SELECT name FROM tMember WHERE name = '춘향');
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> SELECT * FROM tMember;
++--------+-----+--------------------+-------------+--------+-------+-------------+
+| member | age | email              | addr        | money  | grade | remark      |
++--------+-----+--------------------+-------------+--------+-------+-------------+
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |   1000 |     1 | 요주의 고객 |
+| 이도령 |  18 | wolf@gmail.com     | 서울 신사동 | 150000 |     3 |             |
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 |  20000 |     2 |             |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |   5000 |     2 |             |
++--------+-----+--------------------+-------------+--------+-------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tOrder WHERE member = (SELECT name FROM tMember WHERE member = '춘향');
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> SELECT * FROM tOrder WHERE member = (SELECT member FROM tMember WHERE member = '춘향');
++---------+--------+--------+------------+-----+--------+--------+
+| orderID | member | item   | orderDate  | num | status | remark |
++---------+--------+--------+------------+-----+--------+--------+
+|       1 | 춘향   | 청바지 | 2019-12-03 |   3 |      2 | NULL   |
++---------+--------+--------+------------+-----+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM tItem WHERE member = (SELECT member FROM tOrder WHERE member = '춘향');
+ERROR 1054 (42S22): Unknown column 'member' in 'where clause'
+mysql> SELECT * FROM tItem WHERE member = (SELECT item FROM tMember WHERE member = '춘향');
+ERROR 1054 (42S22): Unknown column 'member' in 'where clause'
+mysql> SELECT * FROM tItem WHERE item = (SELECT item FROM tMember WHERE member = '춘향');
++----------+----------+-----+--------+----------+
+| item     | company  | num | price  | category |
++----------+----------+-----+--------+----------+
+| 노트북   | 샘성     |   3 | 820000 | 가전     |
+| 대추     | 보은농원 |  19 |  15000 | 식품     |
+| 마우스   | 논리텍   |   3 |  90000 | 가전     |
+| 사과     | 문경농원 |  24 |  16000 | 식품     |
+| 전자담배 | TNG      |   4 |  70000 | 성인     |
+| 청바지   | 방방     |  80 |  32000 | 패션     |
++----------+----------+-----+--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tItem WHERE item = (SELECT item FROM tOrder WHERE member = '춘향');
++--------+---------+-----+-------+----------+
+| item   | company | num | price | category |
++--------+---------+-----+-------+----------+
+| 청바지 | 방방    |  80 | 32000 | 패션     |
++--------+---------+-----+-------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM tItem I INNER JOIN tOrder O ON I.item = O.item;
++----------+----------+-----+--------+----------+---------+--------+----------+------------+-----+--------+--------+
+| item     | company  | num | price  | category | orderID | member | item     | orderDate  | num | status | remark |
++----------+----------+-----+--------+----------+---------+--------+----------+------------+-----+--------+--------+
+| 청바지   | 방방     |  80 |  32000 | 패션     |       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+| 대추     | 보은농원 |  19 |  15000 | 식품     |       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+| 전자담배 | TNG      |   4 |  70000 | 성인     |       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+| 사과     | 문경농원 |  24 |  16000 | 식품     |       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+| 노트북   | 샘성     |   3 | 820000 | 가전     |       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   |
++----------+----------+-----+--------+----------+---------+--------+----------+------------+-----+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tItem I INNER JOIN tOrder O ON I.item = O.item WHERE O.member;
+Empty set, 6 warnings (0.00 sec)
+
+mysql> SELECT * FROM tItem I INNER JOIN tOrder O ON I.item = O.item WHERE O.member = '춘향';
++--------+---------+-----+-------+----------+---------+--------+--------+------------+-----+--------+--------+
+| item   | company | num | price | category | orderID | member | item   | orderDate  | num | status | remark |
++--------+---------+-----+-------+----------+---------+--------+--------+------------+-----+--------+--------+
+| 청바지 | 방방    |  80 | 32000 | 패션     |       1 | 춘향   | 청바지 | 2019-12-03 |   3 |      2 | NULL   |
++--------+---------+-----+-------+----------+---------+--------+--------+------------+-----+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT O.item, I.price, O.num FROM tItem I INNER JOIN tOrder O ON I.item = O.item WHERE O.member = '춘향';
++--------+-------+-----+
+| item   | price | num |
++--------+-------+-----+
+| 청바지 | 32000 |   3 |
++--------+-------+-----+
+1 row in set (0.00 sec)
+
+mysql> SELECT O.item, I.price, O.num FROM tItem I INNER JOIN tOrder O ON I.item = O.item WHERE O.member = '향단';
++------+-------+-----+
+| item | price | num |
++------+-------+-----+
+| 대추 | 15000 |  10 |
+| 사과 | 16000 |   5 |
++------+-------+-----+
+2 rows in set (0.00 sec)
+
+mysql> SELECT item, price, (SELECT num FROM tOrder O WHERE O.item = I.item) FROM tItem I WHERE item IN (SELECT item FROM tOrder WHERE member ='향단');
++------+-------+--------------------------------------------------+
+| item | price | (SELECT num FROM tOrder O WHERE O.item = I.item) |
++------+-------+--------------------------------------------------+
+| 대추 | 15000 |                                               10 |
+| 사과 | 16000 |                                                5 |
++------+-------+--------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCategory;
++----------+----------+----------+----------+
+| category | discount | delivery | takeback |
++----------+----------+----------+----------+
+| 가전     |       20 |     2500 | y        |
+| 성인     |        5 |     1000 | n        |
+| 식품     |        0 |     3000 | n        |
+| 패션     |       10 |     2000 | y        |
++----------+----------+----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tItem;
++----------+----------+-----+--------+----------+
+| item     | company  | num | price  | category |
++----------+----------+-----+--------+----------+
+| 노트북   | 샘성     |   3 | 820000 | 가전     |
+| 대추     | 보은농원 |  19 |  15000 | 식품     |
+| 마우스   | 논리텍   |   3 |  90000 | 가전     |
+| 사과     | 문경농원 |  24 |  16000 | 식품     |
+| 전자담배 | TNG      |   4 |  70000 | 성인     |
+| 청바지   | 방방     |  80 |  32000 | 패션     |
++----------+----------+-----+--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tOrder;
++---------+--------+----------+------------+-----+--------+--------+
+| orderID | member | item     | orderDate  | num | status | remark |
++---------+--------+----------+------------+-----+--------+--------+
+|       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+|       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+|       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+|       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+|       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   |
+|       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   |
++---------+--------+----------+------------+-----+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT O.*, I.category FROM tOrder O INNER JOIN tItem I ON I.category = '패션';
++---------+--------+----------+------------+-----+--------+--------+----------+
+| orderID | member | item     | orderDate  | num | status | remark | category |
++---------+--------+----------+------------+-----+--------+--------+----------+
+|       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   | 패션     |
+|       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   | 패션     |
+|       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   | 패션     |
+|       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   | 패션     |
+|       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   | 패션     |
+|       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   | 패션     |
++---------+--------+----------+------------+-----+--------+--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT O.*, I.category FROM tOrder O INNER JOIN tItem I ON I.category = '식품';
++---------+--------+----------+------------+-----+--------+--------+----------+
+| orderID | member | item     | orderDate  | num | status | remark | category |
++---------+--------+----------+------------+-----+--------+--------+----------+
+|       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   | 식품     |
+|       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   | 식품     |
+|       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   | 식품     |
+|       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   | 식품     |
+|       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   | 식품     |
+|       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   | 식품     |
+|       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   | 식품     |
+|       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   | 식품     |
+|       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   | 식품     |
+|       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   | 식품     |
+|       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   | 식품     |
+|       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   | 식품     |
++---------+--------+----------+------------+-----+--------+--------+----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT O.*, I.category FROM tOrder O INNER JOIN tItem I ON O.item = I.item WHERE I.category = '식품';
++---------+--------+------+------------+-----+--------+--------+----------+
+| orderID | member | item | orderDate  | num | status | remark | category |
++---------+--------+------+------------+-----+--------+--------+----------+
+|       2 | 향단   | 대추 | 2019-12-04 |  10 |      1 | NULL   | 식품     |
+|       4 | 향단   | 사과 | 2019-12-05 |   5 |      2 | NULL   | 식품     |
++---------+--------+------+------------+-----+--------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tMember M INNER JOIN tOrder O ON M.member = O.member;
++--------+-----+--------------------+-------------+-------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+
+| member | age | email              | addr        | money | grade | remark      | orderID | member | item     | orderDate  | num | status | remark |
++--------+-----+--------------------+-------------+-------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 | 20000 |     2 |             |       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |  5000 |     2 |             |       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |  1000 |     1 | 요주의 고객 |       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |  5000 |     2 |             |       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |  1000 |     1 | 요주의 고객 |       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   |
++--------+-----+--------------------+-------------+-------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tMember M INNER JOIN tOrder O ON M.member = O.member
+    -> INNER JOIN tItem I ON M.item = I.item;
+ERROR 1054 (42S22): Unknown column 'M.item' in 'on clause'
+mysql> SELECT * FROM tMember M INNER JOIN tOrder O ON M.member = O.member
+    -> INNER JOIN tItem I ON O.item = I.item;
++--------+-----+--------------------+-------------+-------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+----------+----------+-----+-------+----------+
+| member | age | email              | addr        | money | grade | remark      | orderID | member | item     | orderDate  | num | status | remark | item     | company  | num | price | category |
++--------+-----+--------------------+-------------+-------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+----------+----------+-----+-------+----------+
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 | 20000 |     2 |             |       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   | 청바지   | 방 방     |  80 | 32000 | 패션     |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |  5000 |     2 |             |       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   | 대추     | 보 은농원 |  19 | 15000 | 식품     |
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |  1000 |     1 | 요주의 고객 |       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   | 전자담배 | TNG      |   4 | 70000 | 성인     |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |  5000 |     2 |             |       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   | 사과     | 문 경농원 |  24 | 16000 | 식품     |
++--------+-----+--------------------+-------------+-------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+----------+----------+-----+-------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tMember M INNER JOIN tOrder O ON M.member = O.member
+    -> INNER JOIN tItem I ON O.item = I.item
+    -> INNER JOIN tCategory C ON I.category = C.category;
++--------+-----+--------------------+-------------+-------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+----------+----------+-----+-------+----------+----------+----------+----------+----------+
+| member | age | email              | addr        | money | grade | remark      | orderID | member | item     | orderDate  | num | status | remark | item     | company  | num | price | category | category | discount | delivery | takeback |
++--------+-----+--------------------+-------------+-------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+----------+----------+-----+-------+----------+----------+----------+----------+----------+
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 | 20000 |     2 |             |       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   | 청바지   | 방 방     |  80 | 32000 | 패션     | 패션     |       10 |     2000 | y        |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |  5000 |     2 |             |       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   | 대추     | 보 은농원 |  19 | 15000 | 식품     | 식품     |        0 |     3000 | n        |
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |  1000 |     1 | 요주의 고객 |       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   | 전자담배 | TNG      |   4 | 70000 | 성인     | 성인     |        5 |     1000 | n        |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |  5000 |     2 |             |       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   | 사과     | 문 경농원 |  24 | 16000 | 식품     | 식품     |        0 |     3000 | n        |
++--------+-----+--------------------+-------------+-------+-------+-------------+---------+--------+----------+------------+-----+--------+--------+----------+----------+-----+-------+----------+----------+----------+----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT M.member, O.item, O.num, O.orderDate, I.price, C.delivery FROM tMember M INNER JOIN tOrder O ON M.member = O.member
+    -> INNER JOIN tItem I ON O.item = I.item
+    -> INNER JOIN tCategory C ON I.category = C.category;
++--------+----------+-----+------------+-------+----------+
+| member | item     | num | orderDate  | price | delivery |
++--------+----------+-----+------------+-------+----------+
+| 춘향   | 청바지   |   3 | 2019-12-03 | 32000 |     2000 |
+| 향단   | 대추     |  10 | 2019-12-04 | 15000 |     3000 |
+| 방자   | 전자담배 |   4 | 2019-12-02 | 70000 |     1000 |
+| 향단   | 사과     |   5 | 2019-12-05 | 16000 |     3000 |
++--------+----------+-----+------------+-------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT M.member, O.item, O.num, O.orderDate, I.price, C.delivery
+    -> FROM (SELECT * FROM tMember WHERE age > 19) M
+    -> INNER JOIN tOrder O ON M.member = O.member
+    -> INNER JOIN tItem I ON O.item = I.item
+    -> LEFT OUTER JOIN tCategory C ON I.category = C.category AND C.category != '성인'
+    -> WHERE I.price * O.num > 100000 ORDER BY M.member;
++--------+----------+-----+------------+-------+----------+
+| member | item     | num | orderDate  | price | delivery |
++--------+----------+-----+------------+-------+----------+
+| 방자   | 전자담배 |   4 | 2019-12-02 | 70000 |     NULL |
+| 향단   | 대추     |  10 | 2019-12-04 | 15000 |     3000 |
++--------+----------+-----+------------+-------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT M.member, O.item, O.num, I.price FROM tMember M
+    -> INNER JOIN tOrder O ON M.member = O.member
+    -> INNER JOIN tItem I ON I.item = O.item;
++--------+----------+-----+-------+
+| member | item     | num | price |
++--------+----------+-----+-------+
+| 춘향   | 청바지   |   3 | 32000 |
+| 향단   | 대추     |  10 | 15000 |
+| 방자   | 전자담배 |   4 | 70000 |
+| 향단   | 사과     |   5 | 16000 |
++--------+----------+-----+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT member, num * price AS total, item FROM
+    -> (
+    -> SELECT M.member, O.item, O.num, I.price FROM tMember M
+    -> INNER JOIN tOrder O ON M.member = O.Member
+    -> INNER JOIN tItem I ON I.item = O.item
+    -> ) A;
++--------+--------+----------+
+| member | total  | item     |
++--------+--------+----------+
+| 춘향   |  96000 | 청바지   |
+| 향단   | 150000 | 대추     |
+| 방자   | 280000 | 전자담배 |
+| 향단   |  80000 | 사과     |
++--------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql>
