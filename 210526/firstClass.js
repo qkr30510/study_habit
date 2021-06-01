@@ -71,4 +71,4 @@ function printPassenger(passenger){
     return false;
 }
   
-function processPassengers(passengers, printPassenger);
+processPassengers(passengers, printPassenger);
