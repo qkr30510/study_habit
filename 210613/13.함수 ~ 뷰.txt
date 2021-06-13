@@ -1,0 +1,1114 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+새로운 크로스 플랫폼 PowerShell 사용 https://aka.ms/pscore6
+
+PS C:\Users\ddock> mysql -uroot p
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+PS C:\Users\ddock> mysql -uroot -p
+Enter password: **********
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+PS C:\Users\ddock> mysql -uroot -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use practice_Sql
+Database changed
+mysql> SELECT CAST(AVG(popu)) AS INT) FROM tCity;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS INT) FROM tCity' at line 1
+mysql> SELECT CAST(AVG(popu) AS INT) FROM tCity;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INT) FROM tCity' at line 1
+mysql> SELECT AVG(CAST(popu AS INT)) FROM tCity;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INT)) FROM tCity' at line 1
+mysql> SELECT AVG(CAST(popu AS DEMICAL)) FROM tCity;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEMICAL)) FROM tCity' at line 1
+mysql> SELECT TO_CHAR(12345, '999,999') FROM dual;
+ERROR 1305 (42000): FUNCTION practice_sql.TO_CHAR does not exist
+mysql> SELECT TO_CHAR(12345, '999,999');
+ERROR 1305 (42000): FUNCTION practice_sql.TO_CHAR does not exist
+mysql> SELECT &* FROM tCity;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '&* FROM tCity' at line 1
+mysql> SELECT * FROM tCity;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  605 | 1000 | y     | 경기   |
+| 순천 |  910 |   27 | n     | 전라   |
+| 영월 | 1127 |    4 | n     | 강원   |
+| 오산 |   42 |   42 | n     | 경기   |
+| 용인 |  293 |   98 | n     | 경기   |
+| 이천 |  461 |   21 | n     | 경기   |
+| 전주 |  205 |   65 | n     | 전라   |
+| 청주 |  940 |   83 | n     | 충청   |
+| 춘천 | 1116 |   27 | n     | 강원   |
+| 평택 |  453 |   51 | n     | 경기   |
+| 홍천 | 1819 |    7 | n     | 강원   |
++------+------+------+-------+--------+
+12 rows in set (0.01 sec)
+
+mysql> SELECT name, CAST(popu AS DEMICAL) FROM tCity;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEMICAL) FROM tCity' at line 1
+mysql> SELECT name, CAST(popu AS DECIMAL) FROM tCity;
++------+-----------------------+
+| name | CAST(popu AS DECIMAL) |
++------+-----------------------+
+| 부산 |                   342 |
+| 서울 |                  1000 |
+| 순천 |                    27 |
+| 영월 |                     4 |
+| 오산 |                    42 |
+| 용인 |                    98 |
+| 이천 |                    21 |
+| 전주 |                    65 |
+| 청주 |                    83 |
+| 춘천 |                    27 |
+| 평택 |                    51 |
+| 홍천 |                     7 |
++------+-----------------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT name, AVG(CAST(popu AS DECIMAL)) FROM tCity;
++------+----------------------------+
+| name | AVG(CAST(popu AS DECIMAL)) |
++------+----------------------------+
+| 부산 |                   147.2500 |
++------+----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SEELCT name IFNULL(score, 10) FROM tStaff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SEELCT name IFNULL(score, 10) FROM tStaff' at line 1
+mysql> SEELCT name, IFNULL(score, 10) FROM tStaff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SEELCT name, IFNULL(score, 10) FROM tStaff' at line 1
+mysql> SELECT name, IFNULL(score, 10) FROM tStaff;
++----------+-------------------+
+| name     | IFNULL(score, 10) |
++----------+-------------------+
+| 강감찬   |             56.00 |
+| 김유신   |             88.80 |
+| 논개     |             46.20 |
+| 대조영   |             49.90 |
+| 선덕여왕 |             45.10 |
+| 성삼문   |             87.75 |
+| 신사임당 |             92.00 |
+| 안중근   |             76.50 |
+| 안창호   |             74.20 |
+| 유관순   |             10.00 |
+| 윤봉길   |             71.25 |
+| 을지문덕 |             10.00 |
+| 이사부   |             50.00 |
+| 이율곡   |             65.40 |
+| 장보고   |             58.30 |
+| 정몽주   |             89.50 |
+| 정약용   |             69.80 |
+| 허난설헌 |             44.50 |
+| 홍길동   |             77.70 |
+| 황진이   |             52.50 |
++----------+-------------------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT name, NULLIF(score, 52.5) FROM tStaff;
++----------+---------------------+
+| name     | NULLIF(score, 52.5) |
++----------+---------------------+
+| 강감찬   |               56.00 |
+| 김유신   |               88.80 |
+| 논개     |               46.20 |
+| 대조영   |               49.90 |
+| 선덕여왕 |               45.10 |
+| 성삼문   |               87.75 |
+| 신사임당 |               92.00 |
+| 안중근   |               76.50 |
+| 안창호   |               74.20 |
+| 유관순   |                NULL |
+| 윤봉길   |               71.25 |
+| 을지문덕 |                NULL |
+| 이사부   |               50.00 |
+| 이율곡   |               65.40 |
+| 장보고   |               58.30 |
+| 정몽주   |               89.50 |
+| 정약용   |               69.80 |
+| 허난설헌 |               44.50 |
+| 홍길동   |               77.70 |
+| 황진이   |                NULL |
++----------+---------------------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT name, IFNULL(NULLIF(score, 52.5), 0) FROM tStaff;
++----------+--------------------------------+
+| name     | IFNULL(NULLIF(score, 52.5), 0) |
++----------+--------------------------------+
+| 강감찬   |                          56.00 |
+| 김유신   |                          88.80 |
+| 논개     |                          46.20 |
+| 대조영   |                          49.90 |
+| 선덕여왕 |                          45.10 |
+| 성삼문   |                          87.75 |
+| 신사임당 |                          92.00 |
+| 안중근   |                          76.50 |
+| 안창호   |                          74.20 |
+| 유관순   |                           0.00 |
+| 윤봉길   |                          71.25 |
+| 을지문덕 |                           0.00 |
+| 이사부   |                          50.00 |
+| 이율곡   |                          65.40 |
+| 장보고   |                          58.30 |
+| 정몽주   |                          89.50 |
+| 정약용   |                          69.80 |
+| 허난설헌 |                          44.50 |
+| 홍길동   |                          77.70 |
+| 황진이   |                           0.00 |
++----------+--------------------------------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT name NVL2(score, salary * score / 100, 50) FROM tStaff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(score, salary * score / 100, 50) FROM tStaff' at line 1
+mysql> SELECT * FROM tcity;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  605 | 1000 | y     | 경기   |
+| 순천 |  910 |   27 | n     | 전라   |
+| 영월 | 1127 |    4 | n     | 강원   |
+| 오산 |   42 |   42 | n     | 경기   |
+| 용인 |  293 |   98 | n     | 경기   |
+| 이천 |  461 |   21 | n     | 경기   |
+| 전주 |  205 |   65 | n     | 전라   |
+| 청주 |  940 |   83 | n     | 충청   |
+| 춘천 | 1116 |   27 | n     | 강원   |
+| 평택 |  453 |   51 | n     | 경기   |
+| 홍천 | 1819 |    7 | n     | 강원   |
++------+------+------+-------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT *, CASE
+    -> WHEN metro = 'y'
+    -> THEN '광역시'
+    -> ELSE '지방도시'
+    -> END AS 도시구분 FROM tcity;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '도시구분 FROM tcity' at line 5
+mysql> SELECT *, CASE
+    -> WHEN metro = 'y'
+    -> THEN '광역시'
+    -> ELSE '지방도시'
+    -> END AS 도시구분 FROM tcity;
++------+------+------+-------+--------+----------+
+| name | area | popu | metro | region | 도시구분 |
++------+------+------+-------+--------+----------+
+| 부산 |  765 |  342 | y     | 경상   | 광역시   |
+| 서울 |  605 | 1000 | y     | 경기   | 광역시   |
+| 순천 |  910 |   27 | n     | 전라   | 지방도시 |
+| 영월 | 1127 |    4 | n     | 강원   | 지방도시 |
+| 오산 |   42 |   42 | n     | 경기   | 지방도시 |
+| 용인 |  293 |   98 | n     | 경기   | 지방도시 |
+| 이천 |  461 |   21 | n     | 경기   | 지방도시 |
+| 전주 |  205 |   65 | n     | 전라   | 지방도시 |
+| 청주 |  940 |   83 | n     | 충청   | 지방도시 |
+| 춘천 | 1116 |   27 | n     | 강원   | 지방도시 |
+| 평택 |  453 |   51 | n     | 경기   | 지방도시 |
+| 홍천 | 1819 |    7 | n     | 강원   | 지방도시 |
++------+------+------+-------+--------+----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT *, CASE
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SELECT *, (CASE
+    -> WHEN metro = 'y'
+    -> THEN '광역시'
+    -> ELSE '지방도시'
+    -> END AS 도시구분)
+    -> FROM tCity;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AS 도시구분)
+FROM tCity' at line 5
+mysql> SELECT curdate FROM tcity;
+ERROR 1054 (42S22): Unknown column 'curdate' in 'field list'
+mysql> SELECT curdate() FROM tcity;
++------------+
+| curdate()  |
++------------+
+| 2021-06-13 |
+| 2021-06-13 |
+| 2021-06-13 |
+| 2021-06-13 |
+| 2021-06-13 |
+| 2021-06-13 |
+| 2021-06-13 |
+| 2021-06-13 |
+| 2021-06-13 |
+| 2021-06-13 |
+| 2021-06-13 |
+| 2021-06-13 |
++------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT curtime() FROM tcity;
++-----------+
+| curtime() |
++-----------+
+| 11:19:55  |
+| 11:19:55  |
+| 11:19:55  |
+| 11:19:55  |
+| 11:19:55  |
+| 11:19:55  |
+| 11:19:55  |
+| 11:19:55  |
+| 11:19:55  |
+| 11:19:55  |
+| 11:19:55  |
+| 11:19:55  |
++-----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT curtime();
++-----------+
+| curtime() |
++-----------+
+| 11:21:40  |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(NOW(), '%Y%m%d %H:%i:%s');
++---------------------------------------+
+| DATE_FORMAT(NOW(), '%Y%m%d %H:%i:%s') |
++---------------------------------------+
+| 20210613 11:22:50                     |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(NOW(), '%Y년 %m%d %H:%i:%s');
++------------------------------------------+
+| DATE_FORMAT(NOW(), '%Y년 %m%d %H:%i:%s') |
++------------------------------------------+
+| 2021년 0613 11:22:56                     |
++------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(NOW(), '%Y년 %m월 %d일 %H시 %i분 %s초');
++-----------------------------------------------------+
+| DATE_FORMAT(NOW(), '%Y년 %m월 %d일 %H시 %i분 %s초') |
++-----------------------------------------------------+
+| 2021년 06월 13일 11시 23분 18초                     |
++-----------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(NOW(), '%Y년 %m월 %d일 %H시 %i분 %s초') AS 시간;
++---------------------------------+
+| 시간                            |
++---------------------------------+
+| 2021년 06월 13일 11시 23분 27초 |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(joindate, '%Y'), count(*) FROM tStaff GROUP BY DATE_FORMAT(joindate, '%Y') ORDER BY DATE_FORMAT(joindate, '%Y');
++-----------------------------+----------+
+| DATE_FORMAT(joindate, '%Y') | count(*) |
++-----------------------------+----------+
+| 2000                        |        2 |
+| 2005                        |        1 |
+| 2009                        |        1 |
+| 2010                        |        2 |
+| 2012                        |        2 |
+| 2013                        |        1 |
+| 2014                        |        1 |
+| 2015                        |        2 |
+| 2016                        |        1 |
+| 2017                        |        1 |
+| 2018                        |        1 |
+| 2019                        |        2 |
+| 2020                        |        3 |
++-----------------------------+----------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT DATE_ADD(NOW(), INTERVAL 12 YEAR);
++-----------------------------------+
+| DATE_ADD(NOW(), INTERVAL 12 YEAR) |
++-----------------------------------+
+| 2033-06-13 11:25:57               |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_ADD(NOW(), INTERVAL 4 MONTH);
++-----------------------------------+
+| DATE_ADD(NOW(), INTERVAL 4 MONTH) |
++-----------------------------------+
+| 2021-10-13 11:26:10               |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_ADD(NOW(), INTERVAL 20 MONTH);
++------------------------------------+
+| DATE_ADD(NOW(), INTERVAL 20 MONTH) |
++------------------------------------+
+| 2023-02-13 11:26:14                |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_ADD(NOW(), INTERVAL 20 MINUTE);
++-------------------------------------+
+| DATE_ADD(NOW(), INTERVAL 20 MINUTE) |
++-------------------------------------+
+| 2021-06-13 11:46:22                 |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT name, DATEDIFF(NOW(), joindate) FROM tStaff;
++----------+---------------------------+
+| name     | DATEDIFF(NOW(), joindate) |
++----------+---------------------------+
+| 강감찬   |                       978 |
+| 김유신   |                      7801 |
+| 논개     |                      3923 |
+| 대조영   |                       341 |
+| 선덕여왕 |                      1410 |
+| 성삼문   |                      2562 |
+| 신사임당 |                      2916 |
+| 안중근   |                      3326 |
+| 안창호   |                      2129 |
+| 유관순   |                      4487 |
+| 윤봉길   |                      2129 |
+| 을지문덕 |                       715 |
+| 이사부   |                      7801 |
+| 이율곡   |                      1923 |
+| 장보고   |                      5917 |
+| 정몽주   |                      3923 |
+| 정약용   |                       456 |
+| 허난설헌 |                       525 |
+| 홍길동   |                       675 |
+| 황진이   |                      3326 |
++----------+---------------------------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT name, DATE_FORMAT(DATEDIFF(NOW(), joindate), '%Y') FROM tStaff;
++----------+----------------------------------------------+
+| name     | DATE_FORMAT(DATEDIFF(NOW(), joindate), '%Y') |
++----------+----------------------------------------------+
+| 강감찬   | NULL                                         |
+| 김유신   | NULL                                         |
+| 논개     | NULL                                         |
+| 대조영   | NULL                                         |
+| 선덕여왕 | NULL                                         |
+| 성삼문   | NULL                                         |
+| 신사임당 | NULL                                         |
+| 안중근   | NULL                                         |
+| 안창호   | NULL                                         |
+| 유관순   | NULL                                         |
+| 윤봉길   | NULL                                         |
+| 을지문덕 | 2000                                         |
+| 이사부   | NULL                                         |
+| 이율곡   | NULL                                         |
+| 장보고   | NULL                                         |
+| 정몽주   | NULL                                         |
+| 정약용   | NULL                                         |
+| 허난설헌 | 2000                                         |
+| 홍길동   | NULL                                         |
+| 황진이   | NULL                                         |
++----------+----------------------------------------------+
+20 rows in set, 18 warnings (0.00 sec)
+
+mysql> SELECT name, DATE_FORMAT(DATEDIFF(NOW(), joindate), '%y') FROM tStaff;
++----------+----------------------------------------------+
+| name     | DATE_FORMAT(DATEDIFF(NOW(), joindate), '%y') |
++----------+----------------------------------------------+
+| 강감찬   | NULL                                         |
+| 김유신   | NULL                                         |
+| 논개     | NULL                                         |
+| 대조영   | NULL                                         |
+| 선덕여왕 | NULL                                         |
+| 성삼문   | NULL                                         |
+| 신사임당 | NULL                                         |
+| 안중근   | NULL                                         |
+| 안창호   | NULL                                         |
+| 유관순   | NULL                                         |
+| 윤봉길   | NULL                                         |
+| 을지문덕 | 00                                           |
+| 이사부   | NULL                                         |
+| 이율곡   | NULL                                         |
+| 장보고   | NULL                                         |
+| 정몽주   | NULL                                         |
+| 정약용   | NULL                                         |
+| 허난설헌 | 00                                           |
+| 홍길동   | NULL                                         |
+| 황진이   | NULL                                         |
++----------+----------------------------------------------+
+20 rows in set, 18 warnings (0.00 sec)
+
+mysql> SELECT name, DATE_FORMAT(DATEDIFF(NOW(), joindate), '%d') FROM tStaff;
++----------+----------------------------------------------+
+| name     | DATE_FORMAT(DATEDIFF(NOW(), joindate), '%d') |
++----------+----------------------------------------------+
+| 강감찬   | NULL                                         |
+| 김유신   | NULL                                         |
+| 논개     | NULL                                         |
+| 대조영   | NULL                                         |
+| 선덕여왕 | NULL                                         |
+| 성삼문   | NULL                                         |
+| 신사임당 | NULL                                         |
+| 안중근   | NULL                                         |
+| 안창호   | NULL                                         |
+| 유관순   | NULL                                         |
+| 윤봉길   | NULL                                         |
+| 을지문덕 | 15                                           |
+| 이사부   | NULL                                         |
+| 이율곡   | NULL                                         |
+| 장보고   | NULL                                         |
+| 정몽주   | NULL                                         |
+| 정약용   | NULL                                         |
+| 허난설헌 | 25                                           |
+| 홍길동   | NULL                                         |
+| 황진이   | NULL                                         |
++----------+----------------------------------------------+
+20 rows in set, 18 warnings (0.00 sec)
+
+mysql> SELECT year, count(*) FROM (SELECT *, DATE_FORMAT(joindate, '%Y') as year FROM tStaff S) GROUP BY year ORDER BY year;
+ERROR 1248 (42000): Every derived table must have its own alias
+mysql> SELECT year, count(*) FROM (SELECT *, DATE_FORMAT(joindate, '%Y') as year FROM tStaff) S GROUP BY year ORDER BY year;
++------+----------+
+| year | count(*) |
++------+----------+
+| 2000 |        2 |
+| 2005 |        1 |
+| 2009 |        1 |
+| 2010 |        2 |
+| 2012 |        2 |
+| 2013 |        1 |
+| 2014 |        1 |
+| 2015 |        2 |
+| 2016 |        1 |
+| 2017 |        1 |
+| 2018 |        1 |
+| 2019 |        2 |
+| 2020 |        3 |
++------+----------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT year, count(*) FROM (SELECT *, DATE_FORMAT(joindate, '%Y') as year FROM tStaff) GROUP BY year ORDER BY year;
+ERROR 1248 (42000): Every derived table must have its own alias
+mysql> SELECT year, count(*) FROM (SELECT *, DATE_FORMAT(joindate, '%Y') as year FROM tStaff) S GROUP BY year ORDER BY year;
++------+----------+
+| year | count(*) |
++------+----------+
+| 2000 |        2 |
+| 2005 |        1 |
+| 2009 |        1 |
+| 2010 |        2 |
+| 2012 |        2 |
+| 2013 |        1 |
+| 2014 |        1 |
+| 2015 |        2 |
+| 2016 |        1 |
+| 2017 |        1 |
+| 2018 |        1 |
+| 2019 |        2 |
+| 2020 |        3 |
++------+----------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT year, count(*) FROM (SELECT DATE_FORMAT(joindate, '%Y') as year FROM tStaff) S GROUP BY year ORDER BY year;
++------+----------+
+| year | count(*) |
++------+----------+
+| 2000 |        2 |
+| 2005 |        1 |
+| 2009 |        1 |
+| 2010 |        2 |
+| 2012 |        2 |
+| 2013 |        1 |
+| 2014 |        1 |
+| 2015 |        2 |
+| 2016 |        1 |
+| 2017 |        1 |
+| 2018 |        1 |
+| 2019 |        2 |
+| 2020 |        3 |
++------+----------+
+13 rows in set (0.00 sec)
+
+mysql> CREATE VIEW vMenber AS SELECT member, age, addr FROM tMemeber;
+ERROR 1146 (42S02): Table 'practice_sql.tmemeber' doesn't exist
+mysql> use shopping;
+Database changed
+mysql> cREATE VIEW vMember AS SELECT member, age, addr FROM tMember;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DESC TABLE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> DESC TABLES;
+ERROR 1146 (42S02): Table 'shopping.tables' doesn't exist
+mysql> show TABLES;
++--------------------+
+| Tables_in_shopping |
++--------------------+
+| tcategory          |
+| titem              |
+| tmember            |
+| torder             |
+| vmember            |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> desc vmember;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| member | varchar(20) | NO   |     | NULL    |       |
+| age    | int         | NO   |     | NULL    |       |
+| addr   | varchar(50) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> DROP VIEW vMember;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE OR REPLACE VIEW vMember AS SELECT member, age, addr, email FROM tMember;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SHOW TABLES;
++--------------------+
+| Tables_in_shopping |
++--------------------+
+| tcategory          |
+| titem              |
+| tmember            |
+| torder             |
+| vmember            |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use practice_Sql;
+Database changed
+mysql> CREATE VIEW vUnion AS SELECT name, salary FROM tStaff WHERE depart = '인사과'
+    -> UNION
+    -> SELECT name, salary FROM tEmployee;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM vUnion;
++----------+--------+
+| name     | salary |
++----------+--------+
+| 논개     |    340 |
+| 선덕여왕 |    315 |
+| 안중근   |    256 |
+| 장보고   |    440 |
+| 허난설헌 |    285 |
+| 홍길동   |    380 |
+| 황진이   |    275 |
+| 권성직   |    625 |
+| 윤승현   |    480 |
++----------+--------+
+9 rows in set (0.01 sec)
+
+mysql> use shopping
+Database changed
+mysql> DESC titem;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| item     | varchar(20) | NO   | PRI | NULL    |       |
+| company  | varchar(20) | YES  |     | NULL    |       |
+| num      | int         | NO   |     | NULL    |       |
+| price    | int         | NO   |     | NULL    |       |
+| category | varchar(10) | NO   | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> CREATE VIEW vItemPrice AS SELECT name, price FROM tItem;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> CREATE VIEW vItemPrice AS SELECT item, price FROM tItem;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM vItemPrice;
++----------+--------+
+| item     | price  |
++----------+--------+
+| 노트북   | 820000 |
+| 대추     |  15000 |
+| 마우스   |  90000 |
+| 사과     |  16000 |
+| 전자담배 |  70000 |
+| 청바지   |  32000 |
++----------+--------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT * FROM tOrder;
++---------+--------+----------+------------+-----+--------+--------+
+| orderID | member | item     | orderDate  | num | status | remark |
++---------+--------+----------+------------+-----+--------+--------+
+|       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+|       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+|       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+|       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+|       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   |
+|       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   |
++---------+--------+----------+------------+-----+--------+--------+
+6 rows in set (0.01 sec)
+
+mysql> CREATE VIEW vDelivering AS tOrder SELECT * FROM tOrder WHERE status = 2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tOrder SELECT * FROM tOrder WHERE status = 2' at line 1
+mysql> CREATE VIEW vDelivering AS SELECT * FROM tOrder WHERE status = 2;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM vDelivering;
++---------+--------+--------+------------+-----+--------+--------+
+| orderID | member | item   | orderDate  | num | status | remark |
++---------+--------+--------+------------+-----+--------+--------+
+|       1 | 춘향   | 청바지 | 2019-12-03 |   3 |      2 | NULL   |
+|       4 | 향단   | 사과   | 2019-12-05 |   5 |      2 | NULL   |
++---------+--------+--------+------------+-----+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tStaff;
+ERROR 1146 (42S02): Table 'shopping.tstaff' doesn't exist
+mysql> use practice_sql;
+Database changed
+mysql> SELECT * FROM tStaff;
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 강감찬   | 영업부 | 남     | 2018-10-09 | 사원  |    352 | 56.00 |
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 논개     | 인사과 | 여     | 2010-09-16 | 대리  |    340 | 46.20 |
+| 대조영   | 총무부 | 남     | 2020-07-07 | 차장  |    290 | 49.90 |
+| 선덕여왕 | 인사과 | 여     | 2017-08-03 | 대리  |    315 | 45.10 |
+| 성삼문   | 영업부 | 남     | 2014-06-08 | 대리  |    314 | 87.75 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    430 | 92.00 |
+| 안중근   | 인사과 | 남     | 2012-05-05 | 대리  |    256 | 76.50 |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    407 | 74.20 |
+| 유관순   | 영업부 | 여     | 2009-03-01 | 대리  |    418 |  NULL |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 을지문덕 | 영업부 | 남     | 2019-06-29 | 사원  |    363 |  NULL |
+| 이사부   | 총무부 | 남     | 2000-02-03 | 대리  |    375 | 50.00 |
+| 이율곡   | 총무부 | 남     | 2016-03-08 | 과장  |    385 | 65.40 |
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
+| 정몽주   | 총무부 | 남     | 2010-09-16 | 대리  |    370 | 89.50 |
+| 정약용   | 총무부 | 남     | 2020-03-14 | 과장  |    380 | 69.80 |
+| 허난설헌 | 인사과 | 여     | 2020-01-05 | 대리  |    285 | 44.50 |
+| 홍길동   | 인사과 | 남     | 2019-08-08 | 차장  |    380 | 77.70 |
+| 황진이   | 인사과 | 여     | 2012-05-05 | 대리  |    275 | 52.50 |
++----------+--------+--------+------------+-------+--------+-------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT name, score * salary / 100 AS bonus FROM tStaff;
++----------+------------+
+| name     | bonus      |
++----------+------------+
+| 강감찬   | 197.120000 |
+| 김유신   | 372.960000 |
+| 논개     | 157.080000 |
+| 대조영   | 144.710000 |
+| 선덕여왕 | 142.065000 |
+| 성삼문   | 275.535000 |
+| 신사임당 | 395.600000 |
+| 안중근   | 195.840000 |
+| 안창호   | 301.994000 |
+| 유관순   |       NULL |
+| 윤봉길   | 274.312500 |
+| 을지문덕 |       NULL |
+| 이사부   | 187.500000 |
+| 이율곡   | 251.790000 |
+| 장보고   | 256.520000 |
+| 정몽주   | 331.150000 |
+| 정약용   | 265.240000 |
+| 허난설헌 | 126.825000 |
+| 홍길동   | 295.260000 |
+| 황진이   | 144.375000 |
++----------+------------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT name, TRUNCATE(score * salary /) 100 AS bonus FROM tStaff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') 100 AS bonus FROM tStaff' at line 1
+mysql> SELECT name, TRUNCATE(score * salary / 100) AS bonus FROM tStaff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS bonus FROM tStaff' at line 1
+mysql> SELECT name, TRUNCATE(score * salary / 100, 0) AS bonus FROM tStaff;
++----------+-------+
+| name     | bonus |
++----------+-------+
+| 강감찬   |   197 |
+| 김유신   |   372 |
+| 논개     |   157 |
+| 대조영   |   144 |
+| 선덕여왕 |   142 |
+| 성삼문   |   275 |
+| 신사임당 |   395 |
+| 안중근   |   195 |
+| 안창호   |   301 |
+| 유관순   |  NULL |
+| 윤봉길   |   274 |
+| 을지문덕 |  NULL |
+| 이사부   |   187 |
+| 이율곡   |   251 |
+| 장보고   |   256 |
+| 정몽주   |   331 |
+| 정약용   |   265 |
+| 허난설헌 |   126 |
+| 홍길동   |   295 |
+| 황진이   |   144 |
++----------+-------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT name, IFNULL(TRUNCATE(score * salary / 100, 0), 0) AS bonus FROM tStaff;
++----------+-------+
+| name     | bonus |
++----------+-------+
+| 강감찬   |   197 |
+| 김유신   |   372 |
+| 논개     |   157 |
+| 대조영   |   144 |
+| 선덕여왕 |   142 |
+| 성삼문   |   275 |
+| 신사임당 |   395 |
+| 안중근   |   195 |
+| 안창호   |   301 |
+| 유관순   |     0 |
+| 윤봉길   |   274 |
+| 을지문덕 |     0 |
+| 이사부   |   187 |
+| 이율곡   |   251 |
+| 장보고   |   256 |
+| 정몽주   |   331 |
+| 정약용   |   265 |
+| 허난설헌 |   126 |
+| 홍길동   |   295 |
+| 황진이   |   144 |
++----------+-------+
+20 rows in set (0.00 sec)
+
+mysql> CREATE TEMPORARY TABLE tTemp (
+    -> name VARCHAR(20) PRIMARY KEY,
+    -> score INT);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO (name, score) VALUES ('김한솔', 20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(name, score) VALUES ('김한솔', 20)' at line 1
+mysql> INSERT INTO tTemp (name, score) VALUES ('김한솔', 20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM tTemp;
++--------+-------+
+| name   | score |
++--------+-------+
+| 김한솔 |    20 |
++--------+-------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TEMPORARY TABLE tTaskForce AS SELECT * FROM tStaff;
+Query OK, 20 rows affected (0.00 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM tTaskForce;
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 강감찬   | 영업부 | 남     | 2018-10-09 | 사원  |    352 | 56.00 |
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 논개     | 인사과 | 여     | 2010-09-16 | 대리  |    340 | 46.20 |
+| 대조영   | 총무부 | 남     | 2020-07-07 | 차장  |    290 | 49.90 |
+| 선덕여왕 | 인사과 | 여     | 2017-08-03 | 대리  |    315 | 45.10 |
+| 성삼문   | 영업부 | 남     | 2014-06-08 | 대리  |    314 | 87.75 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    430 | 92.00 |
+| 안중근   | 인사과 | 남     | 2012-05-05 | 대리  |    256 | 76.50 |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    407 | 74.20 |
+| 유관순   | 영업부 | 여     | 2009-03-01 | 대리  |    418 |  NULL |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 을지문덕 | 영업부 | 남     | 2019-06-29 | 사원  |    363 |  NULL |
+| 이사부   | 총무부 | 남     | 2000-02-03 | 대리  |    375 | 50.00 |
+| 이율곡   | 총무부 | 남     | 2016-03-08 | 과장  |    385 | 65.40 |
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
+| 정몽주   | 총무부 | 남     | 2010-09-16 | 대리  |    370 | 89.50 |
+| 정약용   | 총무부 | 남     | 2020-03-14 | 과장  |    380 | 69.80 |
+| 허난설헌 | 인사과 | 여     | 2020-01-05 | 대리  |    285 | 44.50 |
+| 홍길동   | 인사과 | 남     | 2019-08-08 | 차장  |    380 | 77.70 |
+| 황진이   | 인사과 | 여     | 2012-05-05 | 대리  |    275 | 52.50 |
++----------+--------+--------+------------+-------+--------+-------+
+20 rows in set (0.00 sec)
+
+mysql> INSERT INTO tTaskForce SELECT * FROM (SELECT * FROM tStaff WHERE joindate <= '20160101' ORDER BY salary DESC) WHERE rownum <= 10;
+ERROR 1248 (42000): Every derived table must have its own alias
+mysql> INSERT INTO tTaskForce SELECT * FROM (SELECT * FROM tStaff WHERE joindate <= '20160101' ORDER BY salary DESC) S WHERE rownum <= 10;
+ERROR 1054 (42S22): Unknown column 'rownum' in 'where clause'
+mysql> DROP TABLE tTaskForce;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TEMPORARY TABLE tTaskForce AS SELECT * FROM tStaff WHERE joindate <= '20160101' ORDER BY salary DESC LIMIT 10;
+Query OK, 10 rows affected (0.00 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM tTaskForce;
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    430 | 92.00 |
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 유관순   | 영업부 | 여     | 2009-03-01 | 대리  |    418 |  NULL |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    407 | 74.20 |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 이사부   | 총무부 | 남     | 2000-02-03 | 대리  |    375 | 50.00 |
+| 정몽주   | 총무부 | 남     | 2010-09-16 | 대리  |    370 | 89.50 |
+| 논개     | 인사과 | 여     | 2010-09-16 | 대리  |    340 | 46.20 |
+| 성삼문   | 영업부 | 남     | 2014-06-08 | 대리  |    314 | 87.75 |
++----------+--------+--------+------------+-------+--------+-------+
+10 rows in set (0.00 sec)
+
+mysql> DELETE FROM tTaskForce WHERE score < (SELECT AVG(score) FROM tTaskForce WHERE gender = '남') AND gender = '남';
+ERROR 1137 (HY000): Can't reopen table: 'tTaskForce'
+mysql> SELECT AVG(score) FROM tTaskForce WHERE gender = '남';
++------------+
+| AVG(score) |
++------------+
+|  74.257143 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> DELETE FROM tTaskForce WHERE score < (SELECT AVG(score) FROM tTaskForce WHERE gender = '남') AND gender = '남';
+ERROR 1137 (HY000): Can't reopen table: 'tTaskForce'
+mysql> DELETE FROM tTaskForce WHERE score > (SELECT AVG(score) FROM tTaskForce WHERE gender = '남') AND gender = '남';
+ERROR 1137 (HY000): Can't reopen table: 'tTaskForce'
+mysql> DELETE FROM tTaskForce WHERE score < (SELECT AVG(score) FROM tTaskForce WHERE gender = '남') AND gender = '남';
+ERROR 1137 (HY000): Can't reopen table: 'tTaskForce'
+mysql> with CTE as DELETE FROM tTaskForce WHERE score < (SELECT AVG(score) FROM tTaskForce WHERE gender = '남') AND gender = '남';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DELETE FROM tTaskForce WHERE score < (SELECT AVG(score) FROM tTaskForce WHERE ge' at line 1
+mysql> with CTE as DELETE FROM tTaskForce WHERE score < 74.257143 AND gender = '남';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DELETE FROM tTaskForce WHERE score < 74.257143 AND gender = '남'' at line 1
+mysql> DELETE FROM tTaskForce WHERE score < 74.257143 AND gender = '남';
+Query OK, 4 rows affected (0.00 sec)
+
+mysql> SELECT AVG(salary) FROM tTaskForce WHERE gender = '여';
++-------------+
+| AVG(salary) |
++-------------+
+|    396.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> DELETE FROM tTaskForce WHERE salary < (SELECT AVG(salary) FROM tStaff WHERE gender = '여') AND gender = '여';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM tTaskForce WHERE salary > 300 AND grade = "대리";
+Query OK, 4 rows affected (0.00 sec)
+
+mysql> INSERT INTO tTaskForce SELECT * FROM tStaff WHERE salart > 380 AND grade = '과장';
+ERROR 1054 (42S22): Unknown column 'salart' in 'where clause'
+mysql> INSERT INTO tTaskForce SELECT * FROM tStaff WHERE salary > 380 AND grade = '과장';
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM tCity;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  605 | 1000 | y     | 경기   |
+| 순천 |  910 |   27 | n     | 전라   |
+| 영월 | 1127 |    4 | n     | 강원   |
+| 오산 |   42 |   42 | n     | 경기   |
+| 용인 |  293 |   98 | n     | 경기   |
+| 이천 |  461 |   21 | n     | 경기   |
+| 전주 |  205 |   65 | n     | 전라   |
+| 청주 |  940 |   83 | n     | 충청   |
+| 춘천 | 1116 |   27 | n     | 강원   |
+| 평택 |  453 |   51 | n     | 경기   |
+| 홍천 | 1819 |    7 | n     | 강원   |
++------+------+------+-------+--------+
+12 rows in set (0.00 sec)
+
+mysql> CREATE TEMPORARY TABLE tCityTemp AS SELECT * FROM tCity;
+Query OK, 12 rows affected (0.00 sec)
+Records: 12  Duplicates: 0  Warnings: 0
+
+mysql> DELETE FROM tcity WHERE region != '전라' AND area < 500;
+Query OK, 4 rows affected (0.01 sec)
+
+mysql> SELECT * FROM tCity;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  605 | 1000 | y     | 경기   |
+| 순천 |  910 |   27 | n     | 전라   |
+| 영월 | 1127 |    4 | n     | 강원   |
+| 전주 |  205 |   65 | n     | 전라   |
+| 청주 |  940 |   83 | n     | 충청   |
+| 춘천 | 1116 |   27 | n     | 강원   |
+| 홍천 | 1819 |    7 | n     | 강원   |
++------+------+------+-------+--------+
+8 rows in set (0.00 sec)
+
+mysql> DROP TABLE tCityTemp;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TEMPORARY TABLE tCityTemp AS SELECT * FROM tCity;
+Query OK, 8 rows affected (0.00 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> DELETE FROM tCityTemp WHERE region != '전라';
+Query OK, 6 rows affected (0.00 sec)
+
+mysql> SELECT name, area * 10000 FROM tCityTemp;
++------+--------------+
+| name | area * 10000 |
++------+--------------+
+| 순천 |      9100000 |
+| 전주 |      2050000 |
++------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT name, area * 10000 as area FROM tCityTemp;
++------+---------+
+| name | area    |
++------+---------+
+| 순천 | 9100000 |
+| 전주 | 2050000 |
++------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tStaff;
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 강감찬   | 영업부 | 남     | 2018-10-09 | 사원  |    352 | 56.00 |
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 논개     | 인사과 | 여     | 2010-09-16 | 대리  |    340 | 46.20 |
+| 대조영   | 총무부 | 남     | 2020-07-07 | 차장  |    290 | 49.90 |
+| 선덕여왕 | 인사과 | 여     | 2017-08-03 | 대리  |    315 | 45.10 |
+| 성삼문   | 영업부 | 남     | 2014-06-08 | 대리  |    314 | 87.75 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    430 | 92.00 |
+| 안중근   | 인사과 | 남     | 2012-05-05 | 대리  |    256 | 76.50 |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    407 | 74.20 |
+| 유관순   | 영업부 | 여     | 2009-03-01 | 대리  |    418 |  NULL |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 을지문덕 | 영업부 | 남     | 2019-06-29 | 사원  |    363 |  NULL |
+| 이사부   | 총무부 | 남     | 2000-02-03 | 대리  |    375 | 50.00 |
+| 이율곡   | 총무부 | 남     | 2016-03-08 | 과장  |    385 | 65.40 |
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
+| 정몽주   | 총무부 | 남     | 2010-09-16 | 대리  |    370 | 89.50 |
+| 정약용   | 총무부 | 남     | 2020-03-14 | 과장  |    380 | 69.80 |
+| 허난설헌 | 인사과 | 여     | 2020-01-05 | 대리  |    285 | 44.50 |
+| 홍길동   | 인사과 | 남     | 2019-08-08 | 차장  |    380 | 77.70 |
+| 황진이   | 인사과 | 여     | 2012-05-05 | 대리  |    275 | 52.50 |
++----------+--------+--------+------------+-------+--------+-------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT name, salary, score FROM tStaff WHERE depart = '영업부' AND gender = '남';
++----------+--------+-------+
+| name     | salary | score |
++----------+--------+-------+
+| 강감찬   |    352 | 56.00 |
+| 성삼문   |    314 | 87.75 |
+| 안창호   |    407 | 74.20 |
+| 윤봉길   |    385 | 71.25 |
+| 을지문덕 |    363 |  NULL |
++----------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TEMPORARY TABLE tBusiman AS SELECT name, salary, score FROM tStaff WHERE depart = '영업부' AND gender = ' 남';
+    '> ㅁㄴㄹ
+    '> ;
+    '> ;
+    '> ^C
+mysql> CREATE TEMPORARY TABLE tBusiman AS SELECT name, salary, score FROM tStaff WHERE depart = '영업부' AND gender = ' 남';
+    -> ;
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM tBusiman;
++----------+--------+-------+
+| name     | salary | score |
++----------+--------+-------+
+| 강감찬   |    352 | 56.00 |
+| 성삼문   |    314 | 87.75 |
+| 안창호   |    407 | 74.20 |
+| 윤봉길   |    385 | 71.25 |
+| 을지문덕 |    363 |  NULL |
++----------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tBusiman WHERE salary > AVG(salary);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> SELECT * FROM tBusiman WHERE salary > (SELECT AVG(salary) FROM tBusiman);
+ERROR 1137 (HY000): Can't reopen table: 'tBusiman'
+mysql> WITH tBusiman AS (SELECT name, salary, score FROM tStaff WHERE depart = '영업부' AND gender = '남') SELECT * FROM tBusiman WHERE salary >= (SELECT avg(salary) FROM tBusiman);
++--------+--------+-------+
+| name   | salary | score |
++--------+--------+-------+
+| 안창호 |    407 | 74.20 |
+| 윤봉길 |    385 | 71.25 |
++--------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> WITH tBusiman(이름, 월급, 성취도) AS
+    -> (SELECT name, salary, score FROM tSTaff WHERE depart = '영업부' AND gender = '남')
+    -> SELECT * FROM tBusiman WHERE 월급 >= (SELECT avg(월급) FROM tBusiman);
++--------+------+--------+
+| 이름   | 월급 | 성취도 |
++--------+------+--------+
+| 안창호 |  407 |  74.20 |
+| 윤봉길 |  385 |  71.25 |
++--------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> WITH tBusiMan AS (SELECT name, salary, score FROM tStaff WHERE depart = '영업부' AND gender = '남'),
+    -> tBusiGirl AS (SELECT name, salary, score FROM tStaff WHERE depart = '영업부' AND gender = '여')
+    -> SELECT * FROM tBusiGirl WHERE salary > (SELECT AVG(salary) FROM tBUsiMan);
++----------+--------+-------+
+| name     | salary | score |
++----------+--------+-------+
+| 신사임당 |    430 | 92.00 |
+| 유관순   |    418 |  NULL |
++----------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> WIDTH tBUsiman AS (SELECT name, salary, score FROM tStaff depart = '영업부' AND gender = '남'),
+    -> ^C
+mysql> WITH tBUsiman AS (SELECT name, salary, score FROM tStaff depart = '영업부' AND gender = '남'),
+    -> tBusiManGod AS (SELECT name, salary, score FROM tBusiMan WHERE score > 70)
+    -> SELECT * FROM tBUsiManGod;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= '영업부' AND gender = '남'),
+tBusiManGod AS (SELECT name, salary, score FR' at line 1
+mysql> WITH tBUsiman AS (SELECT name, salary, score FROM tStaff WHERE depart = '영업부' AND gender = '남'),
+    -> tBusiManGod AS (SELECT name, salary, score FROM tBusiMan WHERE score > 70)
+    -> SELECT * FROM tBUsiManGod;
++--------+--------+-------+
+| name   | salary | score |
++--------+--------+-------+
+| 성삼문 |    314 | 87.75 |
+| 안창호 |    407 | 74.20 |
+| 윤봉길 |    385 | 71.25 |
++--------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> use shopping
+Database changed
+mysql> WITH Shopping AS
+    -> (SELECT M.member, M.addr, O.item, O.num, O.orderDate FROM tMember M
+    -> INNER JOIN tOrder O ON M.member = O.member)
+    -> SELECT * FROM Shopping WHERE num >= (SELECT AVG(num) FROM Shopping);
++--------+-------------+------+-----+------------+
+| member | addr        | item | num | orderDate  |
++--------+-------------+------+-----+------------+
+| 향단   | 전남 남원시 | 대추 |  10 | 2019-12-04 |
+| 향단   | 전남 남원시 | 사과 |   5 | 2019-12-05 |
++--------+-------------+------+-----+------------+
+2 rows in set (0.01 sec)
+
+mysql> WITH tFact(num, sum) AS (
+    -> SELECT 1 AS num, 1 AS sum ^C
+mysql> DESC tTree;
+ERROR 1146 (42S02): Table 'shopping.ttree' doesn't exist
+mysql> use practice_sql
+Database changed
+mysql> DESC tTree;
+ERROR 1146 (42S02): Table 'practice_sql.ttree' doesn't exist
+mysql>
