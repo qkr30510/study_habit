@@ -1,0 +1,590 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+새로운 크로스 플랫폼 PowerShell 사용 https://aka.ms/pscore6
+
+PS C:\Users\ddock> mysql -uroot -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++-----------------------+
+| Database              |
++-----------------------+
+| base_sql              |
+| clone_blackdesert_lab |
+| information_schema    |
+| mysql                 |
+| nodebird              |
+| nodejs                |
+| performance_schema    |
+| practice_sql          |
+| ssss                  |
+| sys                   |
++-----------------------+
+10 rows in set (0.01 sec)
+
+mysql> drop database ssss;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE DATABASE tMember;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use tMember;
+Database changed
+mysql> DROP DATABASE tMember;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE DATATABLE shopping
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATATABLE shopping' at line 1
+mysql> CREATE DATABASE shopping;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use shopping;
+Database changed
+mysql> CREATE TABLE tMember (
+    -> member VARCHAR(20) PRIMARY KEY,
+    -> age INT NOT NULL,
+    -> email VARCHAR(30) NOT NULL,
+    -> addr VARCHAR(50) NOT NULL,
+    -> money INT DEFAULT 1000 NOT NULL,
+    -> grade INT DEFAULT 1 NOT NULL,
+    -> remark VARCHAR(100) NULL
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO tMember
+    -> VALUES ('춘향', 16, '1004@naver.com', '전남 남원시', 20000, 2, '');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tMember
+    -> VALUES ('이도령', 18, 'wolf@gmail.com', '서울 신사동', 150000, 3, '');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tMember
+    -> VALUES ('향단', 25, 'candy@daum.net', '전남 남원시', 5000, 2, '');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tMember
+    -> VALUES (
+    ->         '방자',
+    ->         28,
+    ->         'devlin@ssang.co.kr',
+    ->         '서울 개포동',
+    ->         1000,
+    ->         1,
+    ->         '요주의 고객'
+    ->     );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE TABLE tCategory (
+    -> category VARCHAR(10) PRIMARY KEY,
+    -> discount INT NOT NULL,
+    -> delivery INT NOT NULL,
+    -> takeback CHAR(1)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE tItem (
+    -> item VARCHAR(20) PRIMARY KEY,
+    -> company VARCHAR(20) NULL,
+    -> num INT NOT NULL,
+    -> price INT NOT NULL,
+    -> category VARCHAR(10) NOT NULL,
+    -> CONSTRAINT int_fk FOREIGN KEY (category) REFERENCES tCategory (category)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO tItem (item, company, num, price, category)
+    -> VALUES ('노트북', '샘성', 3, 820000, '가전');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`shopping`.`titem`, CONSTRAINT `int_fk` FOREIGN KEY (`category`) REFERENCES `tcategory` (`category`))
+mysql> INSERT INTO tItem (item, company, num, price, category)
+    -> VALUES ('청바지', '방방', 80, 32000, '패션');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`shopping`.`titem`, CONSTRAINT `int_fk` FOREIGN KEY (`category`) REFERENCES `tcategory` (`category`))
+mysql> INSERT INTO tItem (item, company, num, price, category)
+    -> VALUES ('사과', '문경농원', 24, 16000, '식품');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`shopping`.`titem`, CONSTRAINT `int_fk` FOREIGN KEY (`category`) REFERENCES `tcategory` (`category`))
+mysql> INSERT INTO tItem (item, company, num, price, category)
+    -> VALUES ('대추', '보은농원', 19, 15000, '식품');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`shopping`.`titem`, CONSTRAINT `int_fk` FOREIGN KEY (`category`) REFERENCES `tcategory` (`category`))
+mysql> INSERT INTO tItem (item, company, num, price, category)
+    -> VALUES ('전자담배', 'TNG', 4, 70000, '성인');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`shopping`.`titem`, CONSTRAINT `int_fk` FOREIGN KEY (`category`) REFERENCES `tcategory` (`category`))
+mysql> INSERT INTO tItem (item, company, num, price, category)
+    -> VALUES ('마우스', '논리텍', 3, 90000, '가전');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`shopping`.`titem`, CONSTRAINT `int_fk` FOREIGN KEY (`category`) REFERENCES `tcategory` (`category`))
+mysql> show tables;
++--------------------+
+| Tables_in_shopping |
++--------------------+
+| tcategory          |
+| titem              |
+| tmember            |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> desc titem;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| item     | varchar(20) | NO   | PRI | NULL    |       |
+| company  | varchar(20) | YES  |     | NULL    |       |
+| num      | int         | NO   |     | NULL    |       |
+| price    | int         | NO   |     | NULL    |       |
+| category | varchar(10) | NO   | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO tItem (item, company, num, price, category) VALUES ('노트북', '샘성', 3, 820000, '가전');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`shopping`.`titem`, CONSTRAINT `int_fk` FOREIGN KEY (`category`) REFERENCES `tcategory` (`category`))
+mysql> SELECT * FROM tCategory;
+Empty set (0.01 sec)
+
+mysql> INSERT INTO tCategory (category, discount, delivery, takeback)
+    -> VALUES ('식품', 0, 3000, 'n');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tCategory (category, discount, delivery, takeback)
+    -> VALUES ('패션', 10, 2000, 'y');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tCategory (category, discount, delivery, takeback)
+    -> VALUES ('가전', 20, 2500, 'y');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tCategory (category, discount, delivery, takeback)
+    -> VALUES ('성인', 5, 1000, 'n');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tItem (item, company, num, price, category) VALUES ('노트북', '샘성', 3, 820000, '가전');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tItem (item, company, num, price, category)
+    -> VALUES ('청바지', '방방', 80, 32000, '패션');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tItem (item, company, num, price, category)
+    -> VALUES ('사과', '문경농원', 24, 16000, '식품');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tItem (item, company, num, price, category)
+    -> VALUES ('대추', '보은농원', 19, 15000, '식품');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tItem (item, company, num, price, category)
+    -> VALUES ('전자담배', 'TNG', 4, 70000, '성인');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tItem (item, company, num, price, category)
+    -> VALUES ('마우스', '논리텍', 3, 90000, '가전');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE TABLE tOrder (
+    -> orderID INT AUTO_INCREMENT PRIMARY KEY,
+    -> member VARCHAR(20) NOT NULL,
+    -> item VARCHAR(20) NOT NULL,
+    -> orderDate DATE DEFAULT CURDATE() NOT NULL,
+    -> num INT NOT NULL,
+    -> remark VARCHAR(1000) NULL
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CURDATE() NOT NULL,
+num INT NOT NULL,
+remark VARCHAR(1000) NULL
+)' at line 5
+mysql> CREATE TABLE tOrder (
+    -> orderID INT AUTO_INCREMENT PRIMARY KEY,
+    -> member VARCHAR(20) NOT NULL,
+    -> item VARCHAR(20) NOT NULL,
+    -> orderDate DATE DEFAULT CURDATE() NOT NULL,
+    -> num INT NOT NULL,
+    -> status INT DEFAULT 1 NOT NULL,
+    -> remark VARCHAR(1000) NULL
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CURDATE() NOT NULL,
+num INT NOT NULL,
+status INT DEFAULT 1 NOT NULL,
+remark VARC' at line 5
+mysql> CREATE TABLE tOrder (
+    -> orderID INT AUTO_INCREMENT PRIMARY KEY,
+    -> member VARCHAR(20) NOT NULL,
+    -> item VARCHAR(20) NOT NULL,
+    -> orderDate DATE NOT NULL DEFAULT CURDATE(),
+    -> num INT NOT NULL,
+    -> status INT DEFAULT 1 NOT NULL,
+    -> remark VARCHAR(1000) NULL
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CURDATE(),
+num INT NOT NULL,
+status INT DEFAULT 1 NOT NULL,
+remark VARCHAR(1000)' at line 5
+mysql> CREATE TABLE tOrder (
+    ->     orderID INT AUTO_INCREMENT PRIMARY KEY,
+    ->     -- 주문 번호
+    ->     member VARCHAR(20) NOT NULL,
+    ->     -- 주문자
+    ->     item VARCHAR(20) NOT NULL,
+    ->     -- 상품
+    ->     orderDate DATE DEFAULT CURDATE() NOT NULL,
+    ->     -- 주문 날자
+    ->     num INT NOT NULL,
+    ->     -- 개수
+    ->     status INT DEFAULT 1 NOT NULL,
+    ->     -- 1:주문, 2:배송중, 3:배송완료, 4:반품
+    ->     remark VARCHAR(1000) NULL -- 메모 사항
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CURDATE() NOT NULL,
+
+    num INT NOT NULL,
+
+    status INT DEFAULT 1 NOT' at line 8
+mysql> CREATE TABLE tOrder (
+    ->     orderID INT AUTO_INCREMENT PRIMARY KEY,
+    ->     -- 주문 번호
+    ->     member VARCHAR(20) NOT NULL,
+    ->     -- 주문자
+    ->     item VARCHAR(20) NOT NULL,
+    ->     orderDate DATETIME DEFAULT CURDATE() NOT NULL,
+    ->     -- 주문 날자
+    ->     num INT NOT NULL,
+    ->     -- 개수
+    ->     status INT DEFAULT 1 NOT NULL,
+    ->     -- 1:주문, 2:배송중, 3:배송완료, 4:반품
+    ->     remark VARCHAR(1000) NULL -- 메모 사항
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CURDATE() NOT NULL,
+
+    num INT NOT NULL,
+
+    status INT DEFAULT 1 NOT' at line 7
+mysql> CREATE TABLE tOrder (
+    ->     orderID INT AUTO_INCREMENT PRIMARY KEY,
+    ->     -- 주문 번호
+    ->     member VARCHAR(20) NOT NULL,
+    ->     -- 주문자
+    ->     item VARCHAR(20) NOT NULL,
+    ->     -- 상품
+    ->     orderDate DATE DEFAULT CURDATE() NOT NULL,
+    ->     -- 주문 날자
+    ->     num INT NOT NULL,
+    ->     -- 개수
+    ->     status INT DEFAULT 1 NOT NULL,
+    ->     -- 1:주문, 2:배송중, 3:배송완료, 4:반품
+    ->     remark VARCHAR(1000) NULL -- 메모 사항
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CURDATE() NOT NULL,
+
+    num INT NOT NULL,
+
+    status INT DEFAULT 1 NOT' at line 8
+mysql> CREATE TABLE tOrder (
+    ->     orderID INT AUTO_INCREMENT PRIMARY KEY,
+    ->     -- 주문 번호
+    ->     member VARCHAR(20) NOT NULL,
+    ->     -- 주문자
+    ->     item VARCHAR(20) NOT NULL,
+    ->     -- 상품
+    ->     orderDate DATE DEFAULT CURDATE() NOT NULL,
+    -> ^C
+mysql> CREATE TABLE tOrder (
+    ->     orderID INT AUTO_INCREMENT PRIMARY KEY,
+    ->     -- 주문 번호
+    ->     member VARCHAR(20) NOT NULL,
+    ->     -- 주문자
+    ->     item VARCHAR(20) NOT NULL,
+    ->     -- 상품
+    ->     orderDate DATE DEFAULT CURRENT_DATE() NOT NULL,
+    ->     -- 주문 날자
+    ->     num INT NOT NULL,
+    ->     -- 개수
+    ->     status INT DEFAULT 1 NOT NULL,
+    ->     -- 1:주문, 2:배송중, 3:배송완료, 4:반품
+    ->     remark VARCHAR(1000) NULL -- 메모 사항
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CURRENT_DATE() NOT NULL,
+
+    num INT NOT NULL,
+
+    status INT DEFAULT ' at line 8
+mysql> CREATE TABLE tOrder (
+    ->     orderID INT AUTO_INCREMENT PRIMARY KEY,
+    ->     -- 주문 번호
+    ->     member VARCHAR(20) NOT NULL,
+    ->     -- 주문자
+    ->     item VARCHAR(20) NOT NULL,
+    ->     -- 상품
+    ->     orderDate DATE DEFAULT (CURRENT_DATE) NOT NULL,
+    ->     -- 주문 날자
+    ->     num INT NOT NULL,
+    ->     -- 개수
+    ->     status INT DEFAULT 1 NOT NULL,
+    ->     -- 1:주문, 2:배송중, 3:배송완료, 4:반품
+    ->     remark VARCHAR(1000) NULL -- 메모 사항
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO tOrder (member, item, orderDate, num, status)
+    -> VALUES ('춘향', '청바지', '2019-12-3', 3, 2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tOrder (member, item, orderDate, num, status)
+    -> VALUES ('향단', '대추', '2019-12-4', 10, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tOrder (member, item, orderDate, num, status)
+    -> VALUES ('방자', '전자담배', '2019-12-2', 4, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tOrder (member, item, orderDate, num, status)
+    -> VALUES ('향단', '사과', '2019-12-5', 5, 2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tOrder (member, item, orderDate, num, status)
+    -> VALUES ('흥부', '노트북', '2019-12-5', 2, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tOrder (member, item, orderDate, num, status)
+    -> VALUES ('방자', '핸드폰', '2019-11-1', 1, 3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> drop table torder;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE tOrder (
+    ->     orderID INT AUTO_INCREMENT PRIMARY KEY,
+    ->     -- 주문 번호
+    ->     member VARCHAR(20) NOT NULL,
+    ->     -- 주문자
+    ->     item VARCHAR(20) NOT NULL,
+    ->     -- 상품
+    ->     orderDate DATE DEFAULT (CURDATE()) NOT NULL,
+    ->     -- 주문 날자
+    ->     num INT NOT NULL,
+    ->     -- 개수
+    ->     status INT DEFAULT 1 NOT NULL,
+    ->     -- 1:주문, 2:배송중, 3:배송완료, 4:반품
+    ->     remark VARCHAR(1000) NULL -- 메모 사항
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> use practice_sql;
+Database changed
+mysql> SELECT * FROM tcity;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  605 | 1000 | y     | 충청   |
+| 순천 |  910 |   27 | n     | 전라   |
+| 영월 | 1127 |    4 | n     | 강원   |
+| 오산 |   42 |   42 | n     | 경기   |
+| 용인 |  293 |   98 | n     | 경기   |
+| 이천 |  461 |   21 | n     | 경기   |
+| 전주 |  205 |   65 | n     | 전라   |
+| 청주 |  940 |   83 | n     | 충청   |
+| 춘천 | 1116 |   27 | n     | 강원   |
+| 평택 |  453 |   51 | n     | 경기   |
+| 홍천 | 1819 |    7 | n     | 강원   |
++------+------+------+-------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT name FROM tcity WHERE popu = (SELECT MAX(popu) FROM tcity);
++------+
+| name |
++------+
+| 서울 |
++------+
+1 row in set (0.00 sec)
+
+mysql> SELECT name, popu FROM tcity WHERE popu = (SELECT MAX(popu) FROM tcity);
++------+------+
+| name | popu |
++------+------+
+| 서울 | 1000 |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM shopping.tItem;
++----------+----------+-----+--------+----------+
+| item     | company  | num | price  | category |
++----------+----------+-----+--------+----------+
+| 노트북   | 샘성     |   3 | 820000 | 가전     |
+| 대추     | 보은농원 |  19 |  15000 | 식품     |
+| 마우스   | 논리텍   |   3 |  90000 | 가전     |
+| 사과     | 문경농원 |  24 |  16000 | 식품     |
+| 전자담배 | TNG      |   4 |  70000 | 성인     |
+| 청바지   | 방방     |  80 |  32000 | 패션     |
++----------+----------+-----+--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT item, num FROM shopping.tItem WHERE num = (SELECT MAX(num) FROM shopping.tItem);
++--------+-----+
+| item   | num |
++--------+-----+
+| 청바지 |  80 |
++--------+-----+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM tstaff;
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 강감찬   | 영업부 | 남     | 2018-10-09 | 사원  |    352 | 56.00 |
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 논개     | 인사과 | 여     | 2010-09-16 | 대리  |    340 | 46.20 |
+| 대조영   | 총무부 | 남     | 2020-07-07 | 차장  |    290 | 49.90 |
+| 선덕여왕 | 인사과 | 여     | 2017-08-03 | 대리  |    315 | 45.10 |
+| 성삼문   | 영업부 | 남     | 2014-06-08 | 대리  |    314 | 87.75 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    440 | 92.00 |
+| 안중근   | 인사과 | 남     | 2012-05-05 | 대리  |    256 | 76.50 |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    407 | 74.20 |
+| 유관순   | 영업부 | 여     | 2009-03-01 | 대리  |    418 |  NULL |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 을지문덕 | 영업부 | 남     | 2019-06-29 | 사원  |    363 |  NULL |
+| 이사부   | 총무부 | 남     | 2000-02-03 | 대리  |    375 | 50.00 |
+| 이율곡   | 총무부 | 남     | 2016-03-08 | 과장  |    385 | 65.40 |
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
+| 정몽주   | 총무부 | 남     | 2010-09-16 | 대리  |    370 | 89.50 |
+| 정약용   | 총무부 | 남     | 2020-03-14 | 과장  |    380 | 69.80 |
+| 허난설헌 | 인사과 | 여     | 2020-01-05 | 대리  |    285 | 44.50 |
+| 홍길동   | 인사과 | 남     | 2019-08-08 | 차장  |    380 | 77.70 |
+| 황진이   | 인사과 | 여     | 2012-05-05 | 대리  |    275 | 52.50 |
++----------+--------+--------+------------+-------+--------+-------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tstaff WHERE score = (SELECT MAX(score) FROM tstaff);
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    440 | 92.00 |
++----------+--------+--------+------------+-------+--------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM tstaff WHERE salary >= (SELECT AVG(salary) FROM tstaff);
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    440 | 92.00 |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    407 | 74.20 |
+| 유관순   | 영업부 | 여     | 2009-03-01 | 대리  |    418 |  NULL |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 을지문덕 | 영업부 | 남     | 2019-06-29 | 사원  |    363 |  NULL |
+| 이사부   | 총무부 | 남     | 2000-02-03 | 대리  |    375 | 50.00 |
+| 이율곡   | 총무부 | 남     | 2016-03-08 | 과장  |    385 | 65.40 |
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
+| 정몽주   | 총무부 | 남     | 2010-09-16 | 대리  |    370 | 89.50 |
+| 정약용   | 총무부 | 남     | 2020-03-14 | 과장  |    380 | 69.80 |
+| 홍길동   | 인사과 | 남     | 2019-08-08 | 차장  |    380 | 77.70 |
++----------+--------+--------+------------+-------+--------+-------+
+12 rows in set (0.00 sec)
+
+mysql> use shopping;
+Database changed
+mysql> SELECT * FROM tEmployee;
+ERROR 1146 (42S02): Table 'shopping.temployee' doesn't exist
+mysql> show tables;
++--------------------+
+| Tables_in_shopping |
++--------------------+
+| tcategory          |
+| titem              |
+| tmember            |
+| torder             |
++--------------------+
+4 rows in set (0.01 sec)
+
+mysql> use practice_sql;
+Database changed
+mysql> show tables;
++------------------------+
+| Tables_in_practice_sql |
++------------------------+
+| custom_tstaff          |
+| tchecktest             |
+| tcity                  |
+| tcitycompokey          |
+| tcitycopy              |
+| tcitydefault           |
+| tcityunique            |
+| tcityunique2           |
+| temployee              |
+| tproject               |
+| tsale                  |
+| tstaff                 |
+| tstaffdefault          |
+| tstaffdefault2         |
+| tsudo                  |
++------------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT * FROM temployee;
++--------+--------+--------+
+| name   | salary | addr   |
++--------+--------+--------+
+| 권성직 |    625 | 안동시 |
+| 윤승현 |    480 | 대구시 |
++--------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tProject;
++-----------+----------+------------------+------+
+| projectID | employee | project          | cost |
++-----------+----------+------------------+------+
+|         4 | 윤승현   | 경영 혁신안 작성 |  120 |
+|         5 | 윤승현   | 대리점 계획      |   85 |
+|         6 | 권성직   | 노조 협상건      |   24 |
++-----------+----------+------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT name, salary FROM temployee WHERE employee = (SELECT employee FROM tProject);
+ERROR 1054 (42S22): Unknown column 'employee' in 'where clause'
+mysql> SELECT name, salary FROM temployee WHERE employee = (SELECT employee FROM tProject WHERE project = '노조 협상건'');
+    '> ㅁ
+    '> ;
+    '> ;
+    '> ㅁㄴ^C
+mysql> SELECT name, salary FROM temployee WHERE employee = (SELECT employee FROM tProject WHERE project = '노조 협상건');
+ERROR 1054 (42S22): Unknown column 'employee' in 'where clause'
+mysql> SELECT name, salary FROM temployee WHERE name = (SELECT employee FROM tProject WHERE project = '노조 협상건');
++--------+--------+
+| name   | salary |
++--------+--------+
+| 권성직 |    625 |
++--------+--------+
+1 row in set (0.00 sec)
+
+mysql> show tMember;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tMember' at line 1
+mysql> use shopping;
+Database changed
+mysql> SELECT * FROM tMember;
++--------+-----+--------------------+-------------+--------+-------+-------------+
+| member | age | email              | addr        | money  | grade | remark      |
++--------+-----+--------------------+-------------+--------+-------+-------------+
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |   1000 |     1 | 요주의 고객 |
+| 이도령 |  18 | wolf@gmail.com     | 서울 신사동 | 150000 |     3 |             |
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 |  20000 |     2 |             |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |   5000 |     2 |             |
++--------+-----+--------------------+-------------+--------+-------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT member,addr FROM tMember WHERE age = (SELECT MAX(age) FROM tMember);
++--------+-------------+
+| member | addr        |
++--------+-------------+
+| 방자   | 서울 개포동 |
++--------+-------------+
+1 row in set (0.00 sec)
+
+mysql>

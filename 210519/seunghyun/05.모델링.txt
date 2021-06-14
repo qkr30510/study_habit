@@ -1,0 +1,215 @@
+mysql> CREATE TABLE tEmployee (
+    -> name CHAR(10) PRIMARY KEY,
+    -> salary INT NOT NULL,
+    -> addr VARCHAR(30) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO tEmployee VALUES ('김상형', 650, '이천시');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tEmployee VALUES ('문종민', 480, '대구시');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tEmployee VALUES ('권성직', 625, '안동시');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE TABLE tProject (
+    -> projectID INT PRIMARY KEY,
+    -> employee CHAR(10) NOT NULL,
+    -> project VARCHAR(30) NOT NULL,
+    -> cost INT
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO tProject VALUES (1, '김상형', '홍콩 수출건', 800);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tProject VALUES (2, '김상형', 'TV 광고건', 3400);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tProject VALUES (3, '김상형', '매출 분석건', 200);;
+Query OK, 1 row affected (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> INSERT INTO tProject VALUES (3, '김상형', '매출 분석건', 200);
+ERROR 1062 (23000): Duplicate entry '3' for key 'tproject.PRIMARY'
+mysql> INSERT INTO tProject VALUES (4, '문종민', '경영 혁신안 작성', 120);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tProject VALUES (5, '문종민', '대리점 계획', 85);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tProject VALUES (6, '권성직', '노조 협상건', 24);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DROP tProject;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tProject' at line 1
+mysql> DROP TABLE tProject;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE tProject (
+    -> projectID INT PRIMARY KEY,
+    -> employee CHAR(10) NOT NULL,
+    -> project VARCHAR(30) NOT NULL,
+    -> cost INT
+    -> CONSTRAINT FK_emp FOREIGN KEY (employee)
+    -> REFERENCES tEmployee(name)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY (employee)
+REFERENCES tEmployee(name)
+)' at line 6
+mysql> CREATE TABLE tProject (
+    -> projectID INT PRIMARY KEY,
+    -> employee CHAR(10) NOT NULL,
+    -> project VARCHAR(30) NOT NULL,
+    -> cost INT
+    -> CONSTRAINT FK_emp FOREIGN KEY (employee) REFERENCES tEmployee(name)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY (employee) REFERENCES tEmployee(name)
+)' at line 6
+mysql> DESC tEmployee
+    -> ;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | char(10)    | NO   | PRI | NULL    |       |
+| salary | int         | NO   |     | NULL    |       |
+| addr   | varchar(30) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> DESC tProject;
+ERROR 1146 (42S02): Table 'practice_sql.tproject' doesn't exist
+mysql> CREATE TABLE tProject (
+    -> projectID INT PRIMARY KEY,
+    -> employee CHAR(10) NOT NULL,
+    -> project VARCHAR(30) NOT NULL,
+    -> cost INT
+    -> CONSTRAINT FK_emp FOREIGN KEY(employee) REFERENCES tEmployee(name)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY(employee) REFERENCES tEmployee(name)
+)' at line 6
+mysql> CREATE TABLE tProject (
+    -> projectID INT PRIMARY KEY,
+    -> employee CHAR(10) NOT NULL,
+    -> project VARCHAR(30) NOT NULL,
+    -> cost INT
+    -> ,CONSTRAINT FK_emp FOREIGN KEY(employee) REFERENCES tEmployee(name)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DESC tProject;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| projectID | int         | NO   | PRI | NULL    |       |
+| employee  | char(10)    | NO   | MUL | NULL    |       |
+| project   | varchar(30) | NO   |     | NULL    |       |
+| cost      | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> DROP TABLE tProject;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE tProject (
+    -> projectID INT PRIMARY KEY,
+    -> employee CHAR(10) NOT NULL,
+    -> project VARCHAR(30) NOT NULL,
+    -> cost INT
+    -> ,CONSTRAINT FK_emp FOREIGN KEY(employee) REFERENCES tEmployee(name) ON DELETE CASCADE ON UPDATE CASCADE
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM tEployee;
+ERROR 1146 (42S02): Table 'practice_sql.teployee' doesn't exist
+mysql> SELECT * FROM tEmployee;
++--------+--------+--------+
+| name   | salary | addr   |
++--------+--------+--------+
+| 권성직 |    625 | 안동시 |
+| 김상형 |    650 | 이천시 |
+| 문종민 |    480 | 대구시 |
++--------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO tProject VALUES (1, '김상형', '홍콩 수출건', 800);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tProject VALUES (2, '김상형', 'TV 광고건', 3400);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tProject VALUES (3, '김상형', '매출분석건', 200);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tProject VALUES (4, '문종민', '경영 혁신안 작성', 120);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tProject VALUES (5, '문종민', '대리점 계획', 85);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tProject VALUES (6, '권성직', '노조 협상건', 24);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM tEmployee WHERE name = '김상형';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM tEmployee;
++--------+--------+--------+
+| name   | salary | addr   |
++--------+--------+--------+
+| 권성직 |    625 | 안동시 |
+| 김상형 |    650 | 이천시 |
+| 문종민 |    480 | 대구시 |
++--------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> DELETE FROM tEmployee WHERE name = '김상형';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM tEmployee;
++--------+--------+--------+
+| name   | salary | addr   |
++--------+--------+--------+
+| 권성직 |    625 | 안동시 |
+| 문종민 |    480 | 대구시 |
++--------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tProject;
++-----------+----------+------------------+------+
+| projectID | employee | project          | cost |
++-----------+----------+------------------+------+
+|         4 | 문종민   | 경영 혁신안 작성 |  120 |
+|         5 | 문종민   | 대리점 계획      |   85 |
+|         6 | 권성직   | 노조 협상건      |   24 |
++-----------+----------+------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE tEmployee SET name = '윤승현' WHERE name = '문종민';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM tEmployee;
++--------+--------+--------+
+| name   | salary | addr   |
++--------+--------+--------+
+| 권성직 |    625 | 안동시 |
+| 윤승현 |    480 | 대구시 |
++--------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tProject;
++-----------+----------+------------------+------+
+| projectID | employee | project          | cost |
++-----------+----------+------------------+------+
+|         4 | 윤승현   | 경영 혁신안 작성 |  120 |
+|         5 | 윤승현   | 대리점 계획      |   85 |
+|         6 | 권성직   | 노조 협상건      |   24 |
++-----------+----------+------------------+------+
+3 rows in set (0.00 sec)
+
+mysql>
