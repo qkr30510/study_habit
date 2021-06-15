@@ -10,3 +10,25 @@ var products = [
     { name: "루트 비어", calories: 200, color: "갈색", sold: 9909 },
     { name: "생수", calories: 0, color: "무색", sold: 62123 },
 ]
+
+function compareSold(colaA, colaB) {
+    if (colaA.sold > colaB.sold){
+        return 1;
+    } else if (colaA.sold === colaB.sold){
+        return 0;
+    } else {
+        return -1;
+    }
+}
+
+function printProducts(products) {
+    for (var i = 0; i < products.length; i++){
+        console.log("제품명: " + products[i].name +
+                    ", 칼로리: " + products[i].calories +
+                    ", 색상: " + products[i].color +
+                    ", 판매량: " + products[i].sold)
+    }
+}
+
+products.sort(compareSold); // 판매량 오름차순 정렬
+printProducts(products);
