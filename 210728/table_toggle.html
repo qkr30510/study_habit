@@ -110,12 +110,6 @@
 
         var clicked = $(this).attr('id');
         var clicked_under = $('.' + clicked + '_under');
-        var underIds = [];
-        $.each(clicked_under, function(index, item){
-            console.log(item.id);
-            underIds = item.id;
-        })
-        console.log(underIds);
 
         if ($(this).is('.under_2') || $(this).is('.under_3')){
             console.log('22');
@@ -124,12 +118,9 @@
         } else {
             if($(this).hasClass('open')){
                 $(this).removeClass('open');
-                //$(this).find($('[class^="' + clicked + '"]')).removeClass('open');
+                $('[id^="' + clicked + '"]').removeClass('open');
                 console.log(clicked);
-                console.log($('[class^="' + clicked + '"]'));
-                // for () {
-
-                // }
+                console.log($('[id^="' + clicked + '"]'));
             } else {
                 $(this).addClass('open');
                 clicked_under.addClass('open');
