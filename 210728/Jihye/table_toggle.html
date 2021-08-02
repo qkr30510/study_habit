@@ -72,8 +72,9 @@
 </style>
 <body>
     <div class="control_buttons">
-        <button type="button">2단열기</button>
-        <button type="button">전체열기</button>
+        <button id="table_number_stage_2" type="button">2단열기</button>
+        <button id="table_number_stage_all" type="button">전체열기</button>
+        <button id="table_number_stage_close" type="button">전체닫기</button>
     </div>
     <table class="table_number">
         <thead>
@@ -191,89 +192,84 @@
     </table>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script>
-    // $('table tbody tr').click(function(){
+<script>        
+$('.table_number tr').click(function(){
 
-    //     var clicked = $(this).attr('id');
-    //     var clicked_under = $('.' + clicked + '_under');
+    // highlight color
+    $('.table_number tr').removeClass('on');
+    $(this).addClass('on');
+    });
 
-    //     if ($(this).is('.under_2') || $(this).is('.under_3')){
-    //         console.log('22');
-                
-    //         clicked_under.toggleClass('open');
-    //     } else {
-    //         if($(this).hasClass('open')){
-    //             $(this).removeClass('open');
-    //             $('[id^="' + clicked + '"]').removeClass('open');
-    //             console.log(clicked);
-    //             console.log($('[id^="' + clicked + '"]'));
-    //         } else {
-    //             $(this).addClass('open');
-    //             clicked_under.addClass('open');
-    //         }
-    //     }
-    // });
+    $('.table_number tr .name').click(function(){
+    var $this = $(this).parent('tr');
 
-    
-    $('.table_number tr').click(function(){
+    // 하위 항목 열림/닫힘
+    var clickedId = $this.attr('id');
+    var clickedId_under = $('.' + clickedId + '_under');
 
-        // highlight color
-        $('.table_number tr').removeClass('on');
-            $(this).addClass('on');
-        });
+    var underEls = $('[id^="' + clickedId + '"]');
+    var underIds = [];
+    $.each(underEls, function (index, el) {
+        underIds[index] = $(el).attr('id');
+    })
 
-        $('.table_number tr .name').click(function(){
-            var $this = $(this).parent('tr');
+    if($this.hasClass('open')){
+        $this.removeClass('open');
+        for (var i = 0; i < underIds.length; i++){
+            $('#' + underIds[i]).not($this).removeClass('open').removeClass('sub_open');
+        }
+    } else if($this.next().is('[id^="' + clickedId + '_"]')) {
+        $this.addClass('open');
+        clickedId_under.addClass('sub_open');
+    }
+    });
 
-            // 하위 항목 열림/닫힘
-            var clickedId = $this.attr('id');
-            var clickedId_under = $('.' + clickedId + '_under');
+    function getElementList(element){
+        var elements = $(element);
+        var result = [];
 
-            var underEls = $('[id^="' + clickedId + '"]');
-            var underIds = [];
-            $.each(underEls, function (index, el) {
-                underIds[index] = $(el).attr('id');
-            })
-            //console.log(underIds);
+        $.each(elements, function (index, el) {
+            result[index] = $(el);
+        })
+        return result;
+    }
 
-            if($this.hasClass('open')){
-                $this.removeClass('open');
-                //console.log('close');
-                for (var i = 0; i < underIds.length; i++){
-                    $('#' + underIds[i]).not($this).removeClass('open').removeClass('sub_open');
-                }
-            } else if($this.next().is('[id^="' + clickedId + '_"]')) {
-                //console.log('open');
-                $this.addClass('open');
-                clickedId_under.addClass('sub_open');
-            }
-        });
+    // 2단 보기
+    $('#table_number_stage_2').click(function () {
+    $('.table_number tbody tr').removeClass('open').removeClass('sub_open');
 
-        // 2단 보기
-        $('#table_number_stage_2').click(function () {
-            $('.table_number tbody tr').removeClass('open').removeClass('sub_open');
-            $('.under_1').addClass('open');
+    var elementsArr = getElementList('.table_number tbody tr[class*="under_1"]');
+
+    for (var i = 0; i < elementsArr.length; i++){
+        var elementId = elementsArr[i].attr('id');
+        if (elementsArr[i].is('.under_1') && elementsArr[i].next().is('[id^="' + elementId + '_"]')){
+            elementsArr[i].addClass('open');
+        } else {
             $('.under_2').addClass('sub_open');
-        })
+        }
+    }
+    })
 
-        // 전체보기
-        $('#table_number_stage_all').click(function () {
+    // 전체보기
+    $('#table_number_stage_all').click(function () {
+    var elementsArr = getElementList('.table_number tbody tr[id^="name"]');
 
-            var elements = $('.table_number tbody tr[id^="name"]');
-            var elementsArr = [];
-
-            $.each(elements, function (index, el) {
-                elementsArr[index] = $(el);
-            })
-
-            for (var i = 0; i < elementsArr.length; i++){
-                var elementId = elementsArr[i].attr('id');
-                if (elementsArr[i].is('.under_1') && elementsArr[i].next().is('[id^="' + elementId + '_"]')){
-                    elementsArr[i].addClass('open');
-                } else {
-                    elementsArr[i].addClass('open').addClass('sub_open');
-                }
+    for (var i = 0; i < elementsArr.length; i++){
+        var elementId = elementsArr[i].attr('id');
+        if (elementsArr[i].next().is('[class*="' + elementId + '_under"]')){
+            elementsArr[i].addClass('open');
+            if (!elementsArr[i].is('.under_1')){
+                elementsArr[i].addClass('sub_open');
             }
-        })
+        } else if(!elementsArr[i].is('.under_1')) {
+            elementsArr[i].addClass('sub_open');
+        }
+    }
+    })
+
+    // 전체닫기
+    $('#table_number_stage_close').click(function () {
+    $('.table_number tbody tr').removeClass('open').removeClass('sub_open');
+});
 </script>
 </html>
