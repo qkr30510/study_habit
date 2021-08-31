@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .chart-wrap {
+            display: flex;
+        }
+
+        .chart-wrap .chart-area {
+            width: 60%;
+        }
+
+        .legend i {
+            display: inline-flex;
+            width: 5px;
+            height: 5px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    차트ab
+    <div class="chart-wrap">
+        <div class="chart-area">
+            <canvas id="chart" class="chart"></canvas>
+        </div>
+        <div class="legend"></div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="index.js"></script>
+
+</html>
