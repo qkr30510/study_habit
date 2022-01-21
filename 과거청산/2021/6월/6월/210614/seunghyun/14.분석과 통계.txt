@@ -1,0 +1,252 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+새로운 크로스 플랫폼 PowerShell 사용 https://aka.ms/pscore6
+
+PS C:\Users\y> mysql -u root -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.23 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> practice_sql
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'practice_sql' at line 1
+mysql> use practice_sql
+Database changed
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_practice_sql |
++------------------------+
+| tcity                  |
+| tstaff                 |
++------------------------+
+2 rows in set (0.02 sec)
+
+mysql> CREATE TABLE tMonthSale (
+    -> year INT,
+    -> month INT,
+    -> sales INT
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> INSERT INTO tMonthSale VALUES(2021, 9, 3650);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tMonthSale VALUES(2021, 10, 4120);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tMonthSale VALUES(2021, 11, 5000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tMonthSale VALUES(2021, 12, 4420);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tMonthSale VALUES(2022, 1, 3800);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tMonthSale VALUES(2022, 2, 4200);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tMonthSale VALUES(2022, 3, 4150);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM tStaff;
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 강감찬   | 영업부 | 남     | 2018-10-09 | 사원  |    320 | 56.00 |
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 논개     | 인사과 | 여     | 2010-09-16 | 대리  |    340 | 46.20 |
+| 대조영   | 총무부 | 남     | 2020-07-07 | 차장  |    290 | 49.90 |
+| 선덕여왕 | 인사과 | 여     | 2017-08-03 | 사원  |    315 | 45.10 |
+| 성삼문   | 영업부 | 남     | 2014-06-08 | 대리  |    285 | 87.75 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 부장  |    400 | 92.00 |
+| 안중근   | 인사과 | 남     | 2012-05-05 | 대리  |    256 | 76.50 |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    370 | 74.20 |
+| 유관순   | 영업부 | 여     | 2009-03-01 | 과장  |    380 |  NULL |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    350 | 71.25 |
+| 을지문덕 | 영업부 | 남     | 2019-06-29 | 사원  |    330 |  NULL |
+| 이사부   | 총무부 | 남     | 2000-02-03 | 대리  |    375 | 50.00 |
+| 이율곡   | 총무부 | 남     | 2016-03-08 | 과장  |    385 | 65.40 |
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
+| 정몽주   | 총무부 | 남     | 2010-09-16 | 대리  |    370 | 89.50 |
+| 정약용   | 총무부 | 남     | 2020-03-14 | 과장  |    380 | 69.80 |
+| 허난설헌 | 인사과 | 여     | 2020-01-05 | 사원  |    285 | 44.50 |
+| 홍길동   | 인사과 | 남     | 2019-08-08 | 차장  |    380 | 77.70 |
+| 황진이   | 인사과 | 여     | 2012-05-05 | 사원  |    275 | 52.50 |
++----------+--------+--------+------------+-------+--------+-------+
+20 rows in set (0.01 sec)
+
+mysql> SELECT gender, SUM(salary) FROM tStaff GROUP BY gender;
++--------+-------------+
+| gender | SUM(salary) |
++--------+-------------+
+| 남     |        4951 |
+| 여     |        1995 |
++--------+-------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT depart, SUM(salary) FROM tStaff GROUP BY depart;
++--------+-------------+
+| depart | SUM(salary) |
++--------+-------------+
+| 영업부 |        2435 |
+| 총무부 |        2220 |
+| 인사과 |        2291 |
++--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT depart, gender, SUM(salary) FROM tStaff GROUP depart, gender;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'depart, gender' at line 1
+mysql> SELECT depart, gender, SUM(salary) FROM tStaff GROUP BY depart, gender;
++--------+--------+-------------+
+| depart | gender | SUM(salary) |
++--------+--------+-------------+
+| 영업부 | 남     |        1655 |
+| 총무부 | 남     |        2220 |
+| 인사과 | 여     |        1215 |
+| 영업부 | 여     |         780 |
+| 인사과 | 남     |        1076 |
++--------+--------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT depart, gender, SUM(salary) FROM tStaff GROUP BY ROLLUP(depart, gender);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(depart, gender)' at line 1
+mysql> SELECT depart, gender, SUM(salary) FROM tStaff GROUP BY ROLLUP(depart);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(depart)' at line 1
+mysql> SELECT depart, gender, SUM(salary) FROM tStaff GROUP BY WITH ROLLUP(depart);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WITH ROLLUP(depart)' at line 1
+mysql> SELECT depart, gender, SUM(salary) FROM tStaff GROUP BY depart WITH ROLLUP;
++--------+--------+-------------+
+| depart | gender | SUM(salary) |
++--------+--------+-------------+
+| 영업부 | 남     |        2435 |
+| 인사과 | 여     |        2291 |
+| 총무부 | 남     |        2220 |
+| NULL   | 남     |        6946 |
++--------+--------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT depart, gender, SUM(salary) FROM tStaff GROUP BY depart, gender WITH ROLLUP;
++--------+--------+-------------+
+| depart | gender | SUM(salary) |
++--------+--------+-------------+
+| 영업부 | 남     |        1655 |
+| 영업부 | 여     |         780 |
+| 영업부 | NULL   |        2435 |
+| 인사과 | 남     |        1076 |
+| 인사과 | 여     |        1215 |
+| 인사과 | NULL   |        2291 |
+| 총무부 | 남     |        2220 |
+| 총무부 | NULL   |        2220 |
+| NULL   | NULL   |        6946 |
++--------+--------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT depart, gender, SUM(salary) FROM tStaff GROUP BY depart, (gender WITH ROLLUP);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WITH ROLLUP)' at line 1
+mysql> SELECT depart, gender, SUM(salary) FROM tStaff GROUP BY depart WITH ROLLUP, gender;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', gender' at line 1
+mysql> SELECT * FROM tCity;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  609 |  974 | y     | 경기   |
+| 순천 |  910 |   27 | n     | 전라   |
+| 오산 |   42 |   21 | n     | 경기   |
+| 전주 |  205 |   65 | n     | 전라   |
+| 청주 |  940 |   83 | n     | 충청   |
+| 춘천 | 1126 |   27 | n     | 강원   |
+| 홍천 | 1819 |    7 | n     | 강원   |
++------+------+------+-------+--------+
+8 rows in set (0.02 sec)
+
+mysql> SELECT region, ANG(popu) FROM tCity GROUP BY region WITH ROLLUP;
+ERROR 1305 (42000): FUNCTION practice_sql.ANG does not exist
+mysql> SELECT region, AVG(popu) FROM tCity GROUP BY region WITH ROLLUP;
++--------+-----------+
+| region | AVG(popu) |
++--------+-----------+
+| 강원   |   17.0000 |
+| 경기   |  497.5000 |
+| 경상   |  342.0000 |
+| 전라   |   46.0000 |
+| 충청   |   83.0000 |
+| NULL   |  193.2500 |
++--------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT region, TRUNCATE(AVG(popu), 0) FROM tCity GROUP BY region WITH ROLLUP;
++--------+------------------------+
+| region | TRUNCATE(AVG(popu), 0) |
++--------+------------------------+
+| 강원   |                     17 |
+| 경기   |                    497 |
+| 경상   |                    342 |
+| 전라   |                     46 |
+| 충청   |                     83 |
+| NULL   |                    193 |
++--------+------------------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT region, TRUNCATE(AVG(popu), 0) as 평균인구 FROM tCity GROUP BY region WITH ROLLUP;
++--------+----------+
+| region | 평균인구 |
++--------+----------+
+| 강원   |       17 |
+| 경기   |      497 |
+| 경상   |      342 |
+| 전라   |       46 |
+| 충청   |       83 |
+| NULL   |      193 |
++--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT region, TRUNCATE(AVG(popu), 0) as 평균인구 FROM tCity GROUP BY CUBE(region);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CUBE(region)' at line 1
+mysql> SELECT GROUPING(region), region, TRUNCATE(AVG(popu), 0) as 평균인구 FROM tCity GROUP BY region;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> SELECT region, GROUPING(region), TRUNCATE(AVG(popu), 0) as 평균인구 FROM tCity GROUP BY region;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> SELECT region, GROUPING(region), TRUNCATE(AVG(popu), 0) as 평균인구 FROM tCity GROUP BY region WITH ROLLUP;
++--------+------------------+----------+
+| region | GROUPING(region) | 평균인구 |
++--------+------------------+----------+
+| 강원   |                0 |       17 |
+| 경기   |                0 |      497 |
+| 경상   |                0 |      342 |
+| 전라   |                0 |       46 |
+| 충청   |                0 |       83 |
+| NULL   |                1 |      193 |
++--------+------------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT CASE GROUPING(depart) WHEN 1 THEN '전체부서' ELSE depart END AS depart1, TRUNCATE(AVG(popu), 0) as 평균인
+구 FROM tCity GROUP BY region WITH ROLLUP;
+ERROR 1054 (42S22): Unknown column 'depart' in 'field list'
+mysql> SELECT CASE GROUPING(depart) WHEN 1 THEN '전체부서' ELSE depart END AS depart1, TRUNCATE(AVG(popu), 0) as 평균인 구 FROM tStaff GROUP BY region WITH ROLLUP;
+ERROR 1054 (42S22): Unknown column 'popu' in 'field list'
+mysql> SELECT CASE GROUPING(depart) WHEN 1 THEN '전체부서' ELSE depart END AS depart1, TRUNCATE(AVG(salary), 0) as 평균 월급 FROM tStaff GROUP BY region WITH ROLLUP;
+ERROR 1054 (42S22): Unknown column 'region' in 'group statement'
+mysql> SELECT CASE GROUPING(depart) WHEN 1 THEN '전체부서' ELSE depart END AS depart1, TRUNCATE(AVG(salary), 0) as 평균 월급 FROM tStaff GROUP BY depart WITH ROLLUP;
++----------+----------+
+| depart1  | 평균월급 |
++----------+----------+
+| 영업부   |      347 |
+| 인사과   |      327 |
+| 총무부   |      370 |
+| 전체부서 |      347 |
++----------+----------+
+4 rows in set (0.00 sec)
+
+mysql>
