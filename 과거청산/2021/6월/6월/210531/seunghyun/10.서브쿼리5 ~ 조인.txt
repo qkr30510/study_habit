@@ -1,0 +1,650 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+새로운 크로스 플랫폼 PowerShell 사용 https://aka.ms/pscore6
+
+PS C:\Users\ddock> mysql -uroot -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE TABLE tCityPopu (
+    -> name CHAR(10) PRIMARY,
+    -> popu INT NULL
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+popu INT NULL
+)' at line 2
+mysql> CREATE TABLE tCityPopu (
+    -> name CHAR(10) PRIMARY KEY,
+    -> popu INT NULL
+    -> );
+ERROR 1046 (3D000): No database selected
+mysql> use practice_sql;
+Database changed
+mysql> CREATE TABLE tCityPopu (
+    -> name CHAR(10) PRIMARY KEY,
+    -> popu INT NULL
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO tCityPopu VALUES ('서울', 1000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tCityPopu VALUES ('부산', 500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tCityPopu VALUES ('춘천', 100);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM tCityPopu;
++------+------+
+| name | popu |
++------+------+
+| 부산 |  500 |
+| 서울 | 1000 |
+| 춘천 |  100 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE tCity popu = tCityPopu.popu FROM tCityPopu WHERE tCity.name = tCityPopu.name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= tCityPopu.popu FROM tCityPopu WHERE tCity.name = tCityPopu.name' at line 1
+mysql> UPDATE tCity popu = tCityPopu.popu FROM tCityPopu WHERE tCity.name = tCityPopu.name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= tCityPopu.popu FROM tCityPopu WHERE tCity.name = tCityPopu.name' at line 1
+mysql> CREATE TABLE tCar (
+    -> car VARCHAR(30) NOT NULL,
+    -> capacity INT NOT NULL<
+    -> ^C
+mysql> CREATE TABLE tCar (
+    -> car VARCHAR(30) NOT NULL,
+    -> capacity INT NOT NULL,
+    -> price INT NOT NULL,
+    -> maker VARCHAR(30) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO tCar (car, capacity, price, maker) VALUES ('소나타', 2000, 2500, '현대');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tCar (car, capacity, price, maker) VALUES ('티볼리', 1600, 2300, '쌍용');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tCar (car, capacity, price, maker) VALUES ('A8', 3000, 4800, 'Audi');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tCar (car, capacity, price, maker) VALUES ('SM5', 2000, 2600, '삼성');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE TABLE tMaker (
+    -> maker VARCHAR(30) NOT NULL,
+    -> factory CHAR(10) NOT NULL,
+    -> domestic CHAR(1) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO tMaker (maker, factory, domestic) VALUES ('쌍용', '청주', 'y');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tMaker (maker, factory, domestic) VALUES ('Audi', '독일', 'n');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tMaker (maker, factory, domestic) VALUES ('기아', '서울', 'y');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM tCar, tMaker;
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| 소나타 |     2000 |  2500 | 현대  | 쌍용  | 청주    | y        |
+| 소나타 |     2000 |  2500 | 현대  | Audi  | 독일    | n        |
+| 소나타 |     2000 |  2500 | 현대  | 기아  | 서울    | y        |
+| 티볼리 |     1600 |  2300 | 쌍용  | 쌍용  | 청주    | y        |
+| 티볼리 |     1600 |  2300 | 쌍용  | Audi  | 독일    | n        |
+| 티볼리 |     1600 |  2300 | 쌍용  | 기아  | 서울    | y        |
+| A8     |     3000 |  4800 | Audi  | 쌍용  | 청주    | y        |
+| A8     |     3000 |  4800 | Audi  | Audi  | 독일    | n        |
+| A8     |     3000 |  4800 | Audi  | 기아  | 서울    | y        |
+| SM5    |     2000 |  2600 | 삼성  | 쌍용  | 청주    | y        |
+| SM5    |     2000 |  2600 | 삼성  | Audi  | 독일    | n        |
+| SM5    |     2000 |  2600 | 삼성  | 기아  | 서울    | y        |
++--------+----------+-------+-------+-------+---------+----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCar CROSS JOIN tMaker;
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| 소나타 |     2000 |  2500 | 현대  | 쌍용  | 청주    | y        |
+| 소나타 |     2000 |  2500 | 현대  | Audi  | 독일    | n        |
+| 소나타 |     2000 |  2500 | 현대  | 기아  | 서울    | y        |
+| 티볼리 |     1600 |  2300 | 쌍용  | 쌍용  | 청주    | y        |
+| 티볼리 |     1600 |  2300 | 쌍용  | Audi  | 독일    | n        |
+| 티볼리 |     1600 |  2300 | 쌍용  | 기아  | 서울    | y        |
+| A8     |     3000 |  4800 | Audi  | 쌍용  | 청주    | y        |
+| A8     |     3000 |  4800 | Audi  | Audi  | 독일    | n        |
+| A8     |     3000 |  4800 | Audi  | 기아  | 서울    | y        |
+| SM5    |     2000 |  2600 | 삼성  | 쌍용  | 청주    | y        |
+| SM5    |     2000 |  2600 | 삼성  | Audi  | 독일    | n        |
+| SM5    |     2000 |  2600 | 삼성  | 기아  | 서울    | y        |
++--------+----------+-------+-------+-------+---------+----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCar;
++--------+----------+-------+-------+
+| car    | capacity | price | maker |
++--------+----------+-------+-------+
+| 소나타 |     2000 |  2500 | 현대  |
+| 티볼리 |     1600 |  2300 | 쌍용  |
+| A8     |     3000 |  4800 | Audi  |
+| SM5    |     2000 |  2600 | 삼성  |
++--------+----------+-------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tMaker;
++-------+---------+----------+
+| maker | factory | domestic |
++-------+---------+----------+
+| 쌍용  | 청주    | y        |
+| Audi  | 독일    | n        |
+| 기아  | 서울    | y        |
++-------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO tMaker (maker, factory, domestic) VALUES ('현대', '부산)
+    '> ^C
+mysql> INSERT INTO tMaker (maker, factory, domestic) VALUES ('현대', '부산', 'y');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM tCar, tMaker;
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| 소나타 |     2000 |  2500 | 현대  | 쌍용  | 청주    | y        |
+| 티볼리 |     1600 |  2300 | 쌍용  | 쌍용  | 청주    | y        |
+| A8     |     3000 |  4800 | Audi  | 쌍용  | 청주    | y        |
+| SM5    |     2000 |  2600 | 삼성  | 쌍용  | 청주    | y        |
+| 소나타 |     2000 |  2500 | 현대  | Audi  | 독일    | n        |
+| 티볼리 |     1600 |  2300 | 쌍용  | Audi  | 독일    | n        |
+| A8     |     3000 |  4800 | Audi  | Audi  | 독일    | n        |
+| SM5    |     2000 |  2600 | 삼성  | Audi  | 독일    | n        |
+| 소나타 |     2000 |  2500 | 현대  | 기아  | 서울    | y        |
+| 티볼리 |     1600 |  2300 | 쌍용  | 기아  | 서울    | y        |
+| A8     |     3000 |  4800 | Audi  | 기아  | 서울    | y        |
+| SM5    |     2000 |  2600 | 삼성  | 기아  | 서울    | y        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 부산    | y        |
+| 티볼리 |     1600 |  2300 | 쌍용  | 현대  | 부산    | y        |
+| A8     |     3000 |  4800 | Audi  | 현대  | 부산    | y        |
+| SM5    |     2000 |  2600 | 삼성  | 현대  | 부산    | y        |
++--------+----------+-------+-------+-------+---------+----------+
+16 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCar CROSS JOIN tMaker;
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| 소나타 |     2000 |  2500 | 현대  | 쌍용  | 청주    | y        |
+| 티볼리 |     1600 |  2300 | 쌍용  | 쌍용  | 청주    | y        |
+| A8     |     3000 |  4800 | Audi  | 쌍용  | 청주    | y        |
+| SM5    |     2000 |  2600 | 삼성  | 쌍용  | 청주    | y        |
+| 소나타 |     2000 |  2500 | 현대  | Audi  | 독일    | n        |
+| 티볼리 |     1600 |  2300 | 쌍용  | Audi  | 독일    | n        |
+| A8     |     3000 |  4800 | Audi  | Audi  | 독일    | n        |
+| SM5    |     2000 |  2600 | 삼성  | Audi  | 독일    | n        |
+| 소나타 |     2000 |  2500 | 현대  | 기아  | 서울    | y        |
+| 티볼리 |     1600 |  2300 | 쌍용  | 기아  | 서울    | y        |
+| A8     |     3000 |  4800 | Audi  | 기아  | 서울    | y        |
+| SM5    |     2000 |  2600 | 삼성  | 기아  | 서울    | y        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 부산    | y        |
+| 티볼리 |     1600 |  2300 | 쌍용  | 현대  | 부산    | y        |
+| A8     |     3000 |  4800 | Audi  | 현대  | 부산    | y        |
+| SM5    |     2000 |  2600 | 삼성  | 현대  | 부산    | y        |
++--------+----------+-------+-------+-------+---------+----------+
+16 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCar, tMaker WHERE tCar.maker = tMaker.maker;
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| 티볼리 |     1600 |  2300 | 쌍용  | 쌍용  | 청주    | y        |
+| A8     |     3000 |  4800 | Audi  | Audi  | 독일    | n        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 부산    | y        |
++--------+----------+-------+-------+-------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT tCar.*, tMaker.factory, tMaker.domestic FROM tCar, tMaker WHERE tCar.maker = tMaker.factory;
+Empty set (0.00 sec)
+
+mysql> SELECT tCar.*, tMaker.factory, tMaker.domestic FROM tCar, tMaker WHERE tCar.maker = tMaker.maker;
++--------+----------+-------+-------+---------+----------+
+| car    | capacity | price | maker | factory | domestic |
++--------+----------+-------+-------+---------+----------+
+| 티볼리 |     1600 |  2300 | 쌍용  | 청주    | y        |
+| A8     |     3000 |  4800 | Audi  | 독일    | n        |
+| 소나타 |     2000 |  2500 | 현대  | 부산    | y        |
++--------+----------+-------+-------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tEmployee;
++--------+--------+--------+
+| name   | salary | addr   |
++--------+--------+--------+
+| 권성직 |    625 | 안동시 |
+| 윤승현 |    480 | 대구시 |
++--------+--------+--------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM tProject;
++-----------+----------+------------------+------+
+| projectID | employee | project          | cost |
++-----------+----------+------------------+------+
+|         4 | 윤승현   | 경영 혁신안 작성 |  120 |
+|         5 | 윤승현   | 대리점 계획      |   85 |
+|         6 | 권성직   | 노조 협상건      |   24 |
++-----------+----------+------------------+------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT tEmployee.name, tEmployee.salary, tProject.project FROM tEmployee, tProject WHERE tEmployee.name = tProject.employee;
++--------+--------+------------------+
+| name   | salary | project          |
++--------+--------+------------------+
+| 윤승현 |    480 | 경영 혁신안 작성 |
+| 윤승현 |    480 | 대리점 계획      |
+| 권성직 |    625 | 노조 협상건      |
++--------+--------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT C.car, C.price, M.factory FROM tCar C, tMaker M WHERE C.maker = M.maker;
++--------+-------+---------+
+| car    | price | factory |
++--------+-------+---------+
+| 티볼리 |  2300 | 청주    |
+| A8     |  4800 | 독일    |
+| 소나타 |  2500 | 부산    |
++--------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT C.car, C.price, M.factory FROM tCar C JOIN tMaker M ON C.maker = M.maker;
++--------+-------+---------+
+| car    | price | factory |
++--------+-------+---------+
+| 티볼리 |  2300 | 청주    |
+| A8     |  4800 | 독일    |
+| 소나타 |  2500 | 부산    |
++--------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT C.car, C.price, M.factory FROM tCar C JOIN tMaker M USING(maker);
++--------+-------+---------+
+| car    | price | factory |
++--------+-------+---------+
+| 티볼리 |  2300 | 청주    |
+| A8     |  4800 | 독일    |
+| 소나타 |  2500 | 부산    |
++--------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT tEmployee.name, tEmployee.salary, tProject.project FROM tEmployee INNER JOIN tProject ON tEmployee.name = tProject.employee;
++--------+--------+------------------+
+| name   | salary | project          |
++--------+--------+------------------+
+| 윤승현 |    480 | 경영 혁신안 작성 |
+| 윤승현 |    480 | 대리점 계획      |
+| 권성직 |    625 | 노조 협상건      |
++--------+--------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT C.car, C.price, M.maker, M.factory FROM tCar C LEFT OUTER JOIN tMaker M ON C.maker = M.maker;
++--------+-------+-------+---------+
+| car    | price | maker | factory |
++--------+-------+-------+---------+
+| 소나타 |  2500 | 현대  | 부산    |
+| 티볼리 |  2300 | 쌍용  | 청주    |
+| A8     |  4800 | Audi  | 독일    |
+| SM5    |  2600 | NULL  | NULL    |
++--------+-------+-------+---------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT C.car, C.price, M.maker, M.factory FROM tCar C RIGHT JOIN tMaker M ON C.maker = M.maker;
++--------+-------+-------+---------+
+| car    | price | maker | factory |
++--------+-------+-------+---------+
+| 티볼리 |  2300 | 쌍용  | 청주    |
+| A8     |  4800 | Audi  | 독일    |
+| NULL   |  NULL | 기아  | 서울    |
+| 소나타 |  2500 | 현대  | 부산    |
++--------+-------+-------+---------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tEmployee;
++--------+--------+--------+
+| name   | salary | addr   |
++--------+--------+--------+
+| 권성직 |    625 | 안동시 |
+| 윤승현 |    480 | 대구시 |
++--------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tProject;
++-----------+----------+------------------+------+
+| projectID | employee | project          | cost |
++-----------+----------+------------------+------+
+|         4 | 윤승현   | 경영 혁신안 작성 |  120 |
+|         5 | 윤승현   | 대리점 계획      |   85 |
+|         6 | 권성직   | 노조 협상건      |   24 |
++-----------+----------+------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tEmployee E INNER JOIN tProject P ON E.name = P.employee;
++--------+--------+--------+-----------+----------+------------------+------+
+| name   | salary | addr   | projectID | employee | project          | cost |
++--------+--------+--------+-----------+----------+------------------+------+
+| 윤승현 |    480 | 대구시 |         4 | 윤승현   | 경영 혁신안 작성 |  120 |
+| 윤승현 |    480 | 대구시 |         5 | 윤승현   | 대리점 계획      |   85 |
+| 권성직 |    625 | 안동시 |         6 | 권성직   | 노조 협상건      |   24 |
++--------+--------+--------+-----------+----------+------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tEmployee E LEFT OUTER JOIN tProject P ON E.name = P.employee;
++--------+--------+--------+-----------+----------+------------------+------+
+| name   | salary | addr   | projectID | employee | project          | cost |
++--------+--------+--------+-----------+----------+------------------+------+
+| 권성직 |    625 | 안동시 |         6 | 권성직   | 노조 협상건      |   24 |
+| 윤승현 |    480 | 대구시 |         4 | 윤승현   | 경영 혁신안 작성 |  120 |
+| 윤승현 |    480 | 대구시 |         5 | 윤승현   | 대리점 계획      |   85 |
++--------+--------+--------+-----------+----------+------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tEmployee E RIGHT OUTER JOIN tProject P ON E.name = P.employee;
++--------+--------+--------+-----------+----------+------------------+------+
+| name   | salary | addr   | projectID | employee | project          | cost |
++--------+--------+--------+-----------+----------+------------------+------+
+| 윤승현 |    480 | 대구시 |         4 | 윤승현   | 경영 혁신안 작성 |  120 |
+| 윤승현 |    480 | 대구시 |         5 | 윤승현   | 대리점 계획      |   85 |
+| 권성직 |    625 | 안동시 |         6 | 권성직   | 노조 협상건      |   24 |
++--------+--------+--------+-----------+----------+------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCar C INNER JOIN tMaker M ON C.maker = M.maker INNER JOIN tCity T ON M.factory = T.name;
++--------+----------+-------+-------+-------+---------+----------+------+------+------+-------+--------+
+| car    | capacity | price | maker | maker | factory | domestic | name | area | popu | metro | region |
++--------+----------+-------+-------+-------+---------+----------+------+------+------+-------+--------+
+| 티볼리 |     1600 |  2300 | 쌍용  | 쌍용  | 청주    | y        | 청주 |  940 |   83 | n     | 충청   |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 부산    | y        | 부산 |  765 |  342 | y     | 경상   |
++--------+----------+-------+-------+-------+---------+----------+------+------+------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCar C LEFT OUTER JOIN tMaker M ON C.maker = M.maker LEFT OUTER JOIN tCity T ON M.factory = T.name;
++--------+----------+-------+-------+-------+---------+----------+------+------+------+-------+--------+
+| car    | capacity | price | maker | maker | factory | domestic | name | area | popu | metro | region |
++--------+----------+-------+-------+-------+---------+----------+------+------+------+-------+--------+
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 부산    | y        | 부산 |  765 |  342 | y     | 경상   |
+| 티볼리 |     1600 |  2300 | 쌍용  | 쌍용  | 청주    | y        | 청주 |  940 |   83 | n     | 충청   |
+| A8     |     3000 |  4800 | Audi  | Audi  | 독일    | n        | NULL | NULL | NULL | NULL  | NULL   |
+| SM5    |     2000 |  2600 | 삼성  | NULL  | NULL    | NULL     | NULL | NULL | NULL | NULL  | NULL   |
++--------+----------+-------+-------+-------+---------+----------+------+------+------+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SEELCT * FROM tCar;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SEELCT * FROM tCar' at line 1
+mysql> SELECT * FROM tCar;
++--------+----------+-------+-------+
+| car    | capacity | price | maker |
++--------+----------+-------+-------+
+| 소나타 |     2000 |  2500 | 현대  |
+| 티볼리 |     1600 |  2300 | 쌍용  |
+| A8     |     3000 |  4800 | Audi  |
+| SM5    |     2000 |  2600 | 삼성  |
++--------+----------+-------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tMaker WHERE maker = '쌍용';
++-------+---------+----------+
+| maker | factory | domestic |
++-------+---------+----------+
+| 쌍용  | 청주    | y        |
++-------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM tMaker WHERE maker = (SELECT maker FROM tCar WHERE car = '티볼리');
++-------+---------+----------+
+| maker | factory | domestic |
++-------+---------+----------+
+| 쌍용  | 청주    | y        |
++-------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM tCar C INNER JOIN tMaker M ON C.maker = M.maker;
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| 티볼리 |     1600 |  2300 | 쌍용  | 쌍용  | 청주    | y        |
+| A8     |     3000 |  4800 | Audi  | Audi  | 독일    | n        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 부산    | y        |
++--------+----------+-------+-------+-------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCar C INNER JOIN tMaker M ON C.maker = M.maker AND C.car = '티볼리';
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| 티볼리 |     1600 |  2300 | 쌍용  | 쌍용  | 청주    | y        |
++--------+----------+-------+-------+-------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT M.factory FROM tCar C INNER JOIN tMaker M ON C.maker = M.maker AND C.car = '티볼리';
++---------+
+| factory |
++---------+
+| 청주    |
++---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT factory, (SELECT price FROM tCar WHERE car = '티볼리') AS price FROM tMaker WHERE maker = (SELECT maker FROM tCar WHERE car = '티볼리');
++---------+-------+
+| factory | price |
++---------+-------+
+| 청주    |  2300 |
++---------+-------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO tCar (car, capacity, price, maker) VALUES ('티볼리', 1800, 2600, '쌍용');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT factory, (SELECT price FROM tCar WHERE car = '티볼리') AS price FROM tMaker WHERE maker = (SELECT maker FROM tCar WHERE car = '티볼리');
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> SELECT M.factory FROM tCar C INNER JOIN tMaker M ON C.maker = M.maker AND C.car = '티볼리';
++---------+
+| factory |
++---------+
+| 청주    |
+| 청주    |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> DELETE tCar WHERE
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE' at line 1
+mysql> DELETE FROM tCar WHERE car = '티볼리' AND capacity = 1800;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM tCar;
++--------+----------+-------+-------+
+| car    | capacity | price | maker |
++--------+----------+-------+-------+
+| 소나타 |     2000 |  2500 | 현대  |
+| 티볼리 |     1600 |  2300 | 쌍용  |
+| A8     |     3000 |  4800 | Audi  |
+| SM5    |     2000 |  2600 | 삼성  |
++--------+----------+-------+-------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO tCar (car, capacity, price, maker) VALUES ('소나타', 2400, 2900, '현대');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tMaker (maker, factory, domestic) VALUES ('현대', '울산', 'y');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tMaker (maker, factory, domestic) VALUES ('현대', '마산', 'y');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM tCar;
++--------+----------+-------+-------+
+| car    | capacity | price | maker |
++--------+----------+-------+-------+
+| 소나타 |     2000 |  2500 | 현대  |
+| 티볼리 |     1600 |  2300 | 쌍용  |
+| A8     |     3000 |  4800 | Audi  |
+| SM5    |     2000 |  2600 | 삼성  |
+| 소나타 |     2400 |  2900 | 현대  |
++--------+----------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tMaker;
++-------+---------+----------+
+| maker | factory | domestic |
++-------+---------+----------+
+| 쌍용  | 청주    | y        |
+| Audi  | 독일    | n        |
+| 기아  | 서울    | y        |
+| 현대  | 부산    | y        |
+| 현대  | 울산    | y        |
+| 현대  | 마산    | y        |
++-------+---------+----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCar C INNER JOIN tMaker M ON C.maker = M.maker;
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| 티볼리 |     1600 |  2300 | 쌍용  | 쌍용  | 청주    | y        |
+| A8     |     3000 |  4800 | Audi  | Audi  | 독일    | n        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 부산    | y        |
+| 소나타 |     2400 |  2900 | 현대  | 현대  | 부산    | y        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 울산    | y        |
+| 소나타 |     2400 |  2900 | 현대  | 현대  | 울산    | y        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 마산    | y        |
+| 소나타 |     2400 |  2900 | 현대  | 현대  | 마산    | y        |
++--------+----------+-------+-------+-------+---------+----------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCar C INNER JOIN tMaker M ON USING(maker);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'USING(maker)' at line 1
+mysql> SELECT * FROM tCar C INNER JOIN tMaker M USING(maker);
++-------+--------+----------+-------+---------+----------+
+| maker | car    | capacity | price | factory | domestic |
++-------+--------+----------+-------+---------+----------+
+| 쌍용  | 티볼리 |     1600 |  2300 | 청주    | y        |
+| Audi  | A8     |     3000 |  4800 | 독일    | n        |
+| 현대  | 소나타 |     2000 |  2500 | 부산    | y        |
+| 현대  | 소나타 |     2400 |  2900 | 부산    | y        |
+| 현대  | 소나타 |     2000 |  2500 | 울산    | y        |
+| 현대  | 소나타 |     2400 |  2900 | 울산    | y        |
+| 현대  | 소나타 |     2000 |  2500 | 마산    | y        |
+| 현대  | 소나타 |     2400 |  2900 | 마산    | y        |
++-------+--------+----------+-------+---------+----------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCar C INNER JOIN tMaker M ON C.maker = M.maker WHERE C.capacity = 2000;
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 부산    | y        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 울산    | y        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 마산    | y        |
++--------+----------+-------+-------+-------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCar C LEFT OUTER JOIN tMaker M ON C.maker = M.maker WHERE C.capacity = 2000;
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 부산    | y        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 울산    | y        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 마산    | y        |
+| SM5    |     2000 |  2600 | 삼성  | NULL  | NULL    | NULL     |
++--------+----------+-------+-------+-------+---------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCar C LEFT OUTER JOIN tMaker M ON C.maker = M.maker AND C.capacity = 2000;
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 부산    | y        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 울산    | y        |
+| 소나타 |     2000 |  2500 | 현대  | 현대  | 마산    | y        |
+| 티볼리 |     1600 |  2300 | 쌍용  | NULL  | NULL    | NULL     |
+| A8     |     3000 |  4800 | Audi  | NULL  | NULL    | NULL     |
+| SM5    |     2000 |  2600 | 삼성  | NULL  | NULL    | NULL     |
+| 소나타 |     2400 |  2900 | 현대  | NULL  | NULL    | NULL     |
++--------+----------+-------+-------+-------+---------+----------+
+7 rows in set (0.00 sec)
+
+mysql> SEELCT * FROM tCar WHERE capacity > 2000 C LEFT OUTER JOIN tMaker M ON C.maker = M.maker;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SEELCT * FROM tCar WHERE capacity > 2000 C LEFT OUTER JOIN tMaker M ON C.maker =' at line 1
+mysql> SELECT * FROM tCar WHERE capacity > 2000 C LEFT OUTER JOIN tMaker M ON C.maker = M.maker;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'C LEFT OUTER JOIN tMaker M ON C.maker = M.maker' at line 1
+mysql> SELECT * FROM (SELECT * FROM tCar WHERE capacity > 2000) C LEFT OUTER JOIN tMaker M ON C.maker = M.maker;
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| A8     |     3000 |  4800 | Audi  | Audi  | 독일    | n        |
+| 소나타 |     2400 |  2900 | 현대  | 현대  | 부산    | y        |
+| 소나타 |     2400 |  2900 | 현대  | 현대  | 울산    | y        |
+| 소나타 |     2400 |  2900 | 현대  | 현대  | 마산    | y        |
++--------+----------+-------+-------+-------+---------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT * FROM tCar WHERE capacity > 2000) C LEFT JOIN (SELECT * FROM tmaker WHERE factory = '울산') M ON C.maker = M.maker;
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| A8     |     3000 |  4800 | Audi  | NULL  | NULL    | NULL     |
+| 소나타 |     2400 |  2900 | 현대  | 현대  | 울산    | y        |
++--------+----------+-------+-------+-------+---------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT * FROM tCar WHERE capacity > 2000) C LEFT JOIN tMaker M ON C.maker = M.maker WHERE M.factory = '울산';
++--------+----------+-------+-------+-------+---------+----------+
+| car    | capacity | price | maker | maker | factory | domestic |
++--------+----------+-------+-------+-------+---------+----------+
+| 소나타 |     2400 |  2900 | 현대  | 현대  | 울산    | y        |
++--------+----------+-------+-------+-------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM tProject;
++-----------+----------+------------------+------+
+| projectID | employee | project          | cost |
++-----------+----------+------------------+------+
+|         4 | 윤승현   | 경영 혁신안 작성 |  120 |
+|         5 | 윤승현   | 대리점 계획      |   85 |
+|         6 | 권성직   | 노조 협상건      |   24 |
++-----------+----------+------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tEmployee;
++--------+--------+--------+
+| name   | salary | addr   |
++--------+--------+--------+
+| 권성직 |    625 | 안동시 |
+| 윤승현 |    480 | 대구시 |
++--------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT * FROM tProject WHERE cost < 50) P INNER JOIN tEmployee E ON P.employee = E.name;
++-----------+----------+-------------+------+--------+--------+--------+
+| projectID | employee | project     | cost | name   | salary | addr   |
++-----------+----------+-------------+------+--------+--------+--------+
+|         6 | 권성직   | 노조 협상건 |   24 | 권성직 |    625 | 안동시 |
++-----------+----------+-------------+------+--------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql>
