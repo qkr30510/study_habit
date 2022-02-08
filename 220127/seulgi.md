@@ -1,5 +1,5 @@
 # 오늘 공부한 것
- - 50 project in 50days : 섹션5 - Scroll Animation
+ - 50 project in 50days : 섹션6 - Scroll Animation
 
 
 
