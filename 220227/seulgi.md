@@ -1,3 +1,3 @@
 # 오늘 공부한 것
- - 50 project in 50days : 섹션16 - Theme Clock
+ - 50 project in 50days : 섹션18 - Theme Clock
 
