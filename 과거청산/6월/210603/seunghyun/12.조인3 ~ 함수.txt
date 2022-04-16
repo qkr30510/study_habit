@@ -1,0 +1,254 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+새로운 크로스 플랫폼 PowerShell 사용 https://aka.ms/pscore6
+
+PS C:\Users\ddock> mysql -uroot -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use practice_Sql
+Database changed
+mysql> SELECT M.member, O.item, I.price FROM tMember M
+    -> INNER JOIN tOrder O ON M.member = O.member
+    -> INNER JOIN tItem I ON I.item = O.item;
+ERROR 1146 (42S02): Table 'practice_sql.tmember' doesn't exist
+mysql> use shopping
+Database changed
+mysql> SELECT M.member, O.item, I.price FROM tMember M
+    -> INNER JOIN tOrder O ON M.member = O.member
+    -> INNER JOIN tItem I ON I.item = O.item;
++--------+----------+-------+
+| member | item     | price |
++--------+----------+-------+
+| 춘향   | 청바지   | 32000 |
+| 향단   | 대추     | 15000 |
+| 방자   | 전자담배 | 70000 |
+| 향단   | 사과     | 16000 |
++--------+----------+-------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT member, num * price AS total, item FROM
+    -> (
+    -> SELECT M.member, O.item, O.num, I.price FROM tMember M
+    -> INNER JOIN tOrder O ON M.member = O.member
+    -> INNER JOIN tItem I ON I.item = O.item
+    -> ) A;
++--------+--------+----------+
+| member | total  | item     |
++--------+--------+----------+
+| 춘향   |  96000 | 청바지   |
+| 향단   | 150000 | 대추     |
+| 방자   | 280000 | 전자담배 |
+| 향단   |  80000 | 사과     |
++--------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (
+    -> SELECT M.member ,M.addr, O.item, O.num, O.orderDate, I.price, C.delivery FROM (SELECT * FROM tMember WHERE age > 19) M
+    -> INNER JOIN tOrder O ON M.member = O.member
+    -> INNER JOIN tItem I ON I.item = O.item
+    -> LEFT OUTER JOIN tCategory C ON I.category = C.category AND C.category != '성인' WHERE I.price * O.num > 100000
+    -> ) A
+    -> LEFT OUTER JOIN practice_sql.tCity T ON TRIM(T.name) = SUBSTR(A.addr, 0, 2);
++--------+-------------+----------+-----+------------+-------+----------+------+------+------+-------+--------+
+| member | addr        | item     | num | orderDate  | price | delivery | name | area | popu | metro | region |
++--------+-------------+----------+-----+------------+-------+----------+------+------+------+-------+--------+
+| 향단   | 전남 남원시 | 대추     |  10 | 2019-12-04 | 15000 |     3000 | NULL | NULL | NULL | NULL  | NULL   |
+| 방자   | 서울 개포동 | 전자담배 |   4 | 2019-12-02 | 70000 |     NULL | NULL | NULL | NULL | NULL  | NULL   |
++--------+-------------+----------+-----+------------+-------+----------+------+------+------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> use practice_sql
+Database changed
+mysql> CREATE TABLE tDirectory (
+    -> id INT PRIMARY KEY,
+    -> name VARCHAR(20) NOT NULL,
+    -> parent INT NOT NULL
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO tDirectory (id, Name, parent) VALUES (1, 'Root', 0);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tDirectory (id, Name, parent) VALUES (2, 'Data', 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tDirectory (id, Name, parent) VALUES (3, 'Program', 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tDirectory (id, Name, parent) VALUES (4, 'Sound', 2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tDirectory (id, Name, parent) VALUES (5, 'Picture', 2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tDirectory (id, Name, parent) VALUES (6, 'Game', 3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tDirectory (id, Name, parent) VALUES (7, 'StarCraft', 6);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT A.name 부모 B.name 자식 FROM tDIrectory A
+    -> INNER JOIN tDirectory B ON A.id = B.parent;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'B.name 자식 FROM tDIrectory A
+INNER JOIN tDirectory B ON A.id = B.parent' at line 1
+mysql> SELECT A.name as 부모 B.name as 자식 FROM tDirectory A
+    -> INNER JOIN tDirectory B ON A.id = B.parent;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'B.name as 자식 FROM tDirectory A
+INNER JOIN tDirectory B ON A.id = B.parent' at line 1
+mysql> DESC tDirectory
+    -> ;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | NO   |     | NULL    |       |
+| parent | int         | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT A.name as 부모 B.name as 자식 FROM tDirectory A CROSS JOIN tDirecttoy B;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'B.name as 자식 FROM tDirectory A CROSS JOIN tDirecttoy B' at line 1
+mysql> SELECT ROUND(AVG(score), 2) FROM tSTaff WHERE depart = '영업부';
++----------------------+
+| ROUND(AVG(score), 2) |
++----------------------+
+|                76.24 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ROUND(AVG(score), 0) FROM tSTaff WHERE depart = '영업부';
++----------------------+
+| ROUND(AVG(score), 0) |
++----------------------+
+|                   76 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT name, REPLACE(depart, '부', '팀') FROM tStaff;
++----------+-----------------------------+
+| name     | REPLACE(depart, '부', '팀') |
++----------+-----------------------------+
+| 강감찬   | 영업팀                      |
+| 김유신   | 총무팀                      |
+| 논개     | 인사과                      |
+| 대조영   | 총무팀                      |
+| 선덕여왕 | 인사과                      |
+| 성삼문   | 영업팀                      |
+| 신사임당 | 영업팀                      |
+| 안중근   | 인사과                      |
+| 안창호   | 영업팀                      |
+| 유관순   | 영업팀                      |
+| 윤봉길   | 영업팀                      |
+| 을지문덕 | 영업팀                      |
+| 이사부   | 총무팀                      |
+| 이율곡   | 총무팀                      |
+| 장보고   | 인사과                      |
+| 정몽주   | 총무팀                      |
+| 정약용   | 총무팀                      |
+| 허난설헌 | 인사과                      |
+| 홍길동   | 인사과                      |
+| 황진이   | 인사과                      |
++----------+-----------------------------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT TRIM(name) || ' ' || grade, salary FROM tSTaff WHERE depart = '인사과';
++----------------------------+--------+
+| TRIM(name) || ' ' || grade | salary |
++----------------------------+--------+
+|                          0 |    340 |
+|                          0 |    315 |
+|                          0 |    256 |
+|                          0 |    440 |
+|                          0 |    285 |
+|                          0 |    380 |
+|                          0 |    275 |
++----------------------------+--------+
+7 rows in set, 9 warnings (0.00 sec)
+
+mysql> SELECT CONCAT(name, ' ',grade), salary FROM tSTaff WHERE depart = '인사과';
++-------------------------+--------+
+| CONCAT(name, ' ',grade) | salary |
++-------------------------+--------+
+| 논개 대리               |    340 |
+| 선덕여왕 대리           |    315 |
+| 안중근 대리             |    256 |
+| 장보고 부장             |    440 |
+| 허난설헌 대리           |    285 |
+| 홍길동 차장             |    380 |
+| 황진이 대리             |    275 |
++-------------------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT CONCAT(name, ' ',grade) as 이름, salary FROM tSTaff WHERE depart = '인사과';
++---------------+--------+
+| 이름          | salary |
++---------------+--------+
+| 논개 대리     |    340 |
+| 선덕여왕 대리 |    315 |
+| 안중근 대리   |    256 |
+| 장보고 부장   |    440 |
+| 허난설헌 대리 |    285 |
+| 홍길동 차장   |    380 |
+| 황진이 대리   |    275 |
++---------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT name, area, ROUND(area, -2) FROM tCity;
++------+------+-----------------+
+| name | area | ROUND(area, -2) |
++------+------+-----------------+
+| 부산 |  765 |             800 |
+| 서울 |  605 |             600 |
+| 순천 |  910 |             900 |
+| 영월 | 1127 |            1100 |
+| 오산 |   42 |               0 |
+| 용인 |  293 |             300 |
+| 이천 |  461 |             500 |
+| 전주 |  205 |             200 |
+| 청주 |  940 |             900 |
+| 춘천 | 1116 |            1100 |
+| 평택 |  453 |             500 |
+| 홍천 | 1819 |            1800 |
++------+------+-----------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT name, area, CHAR_LENGTH(area) FROM tCity;
++------+------+-------------------+
+| name | area | CHAR_LENGTH(area) |
++------+------+-------------------+
+| 부산 |  765 |                 3 |
+| 서울 |  605 |                 3 |
+| 순천 |  910 |                 3 |
+| 영월 | 1127 |                 4 |
+| 오산 |   42 |                 2 |
+| 용인 |  293 |                 3 |
+| 이천 |  461 |                 3 |
+| 전주 |  205 |                 3 |
+| 청주 |  940 |                 3 |
+| 춘천 | 1116 |                 4 |
+| 평택 |  453 |                 3 |
+| 홍천 | 1819 |                 4 |
++------+------+-------------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT name, area FROM tCity WHERE CHAR_LENGTH(area) = 2;
++------+------+
+| name | area |
++------+------+
+| 오산 |   42 |
++------+------+
+1 row in set (0.00 sec)
+
+mysql>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테이블 토글메뉴 테스트</title>
+</head>
+<style>
+    .table_number {
+        width: 100%;
+        max-width: 400px;
+        border-collapse: collapse;
+        border: 1px solid #ccc;
+    }
+    .table_number tr td {
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+    .table_number thead tr {
+        background-color: bisque;
+    }
+
+    .under_2, .under_3 {
+        display: none;
+    }
+    .under_2 {
+        background-color: rgb( 0 0 0 / 5%);
+    }
+    .under_2 .name {
+        padding-left: 20px;
+    }
+    .under_3 {
+        background-color: rgb( 0 0 0 / 10%);
+    }
+    .under_3 .name {
+        padding-left: 30px;
+    }
+    .under_4 {
+        background-color: rgb( 0 0 0 / 15%);
+    }
+    .under_4 .name {
+        padding-left: 40px;
+    }
+
+    .table_number tr.on {
+        background-color: aquamarine;
+    }
+    .table_number tr.open {
+        display: table-row;
+    }
+    .table_number tr.sub_open {
+        display: table-row;
+    }
+
+    .table_number tr .name i {
+        font-style: normal;
+    }
+    .table_number tr.open .name .icon_on {
+        display: inline;
+    }
+    .table_number tr.open .name .icon_off {
+        display: none;
+    }
+    .table_number tr:not(.open) .name .icon_on {
+        display: none;
+    }
+    .table_number tr:not(.open) .name .icon_off {
+        display: inline;
+    }
+
+</style>
+<body>
+    <div class="control_buttons">
+        <button id="table_number_stage_2" type="button">2단열기</button>
+        <button id="table_number_stage_all" type="button">전체열기</button>
+        <button id="table_number_stage_close" type="button">전체닫기</button>
+    </div>
+    <table class="table_number">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>number</th>
+                <th>content</th>
+                <th>date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="name1" class="under_1">
+                <td class="name">
+                    <span class="icon">
+                        <i>-</i>
+                    </span>
+                    Kim
+                </td>
+                <td>1</td>
+                <td>efgraegafea</td>
+                <td>2021-07-28</td>
+            </tr>
+            <tr id="name2" class="under_1">
+                <td class="name">
+                    <span class="icon">
+                        <i class="icon_on">-</i>
+                        <i class="icon_off">+</i>
+                    </span>
+                    Lee
+                </td>
+                <td>2</td>
+                <td>efgraegafea</td>
+                <td>2021-07-28</td>
+            </tr>
+            <tr id="name2_1" class="under_2 name2_under">
+                <td class="name">
+                    <span class="icon">
+                        <i>-</i>
+                    </span>
+                    Park
+                </td>
+                <td>2_1</td>
+                <td>asdfsd</td>
+                <td>2021-07-28</td>
+            </tr>
+            <tr id="name2_2" class="under_2 name2_under">
+                <td class="name">
+                    <span class="icon">
+                        <i class="icon_on">-</i>
+                        <i class="icon_off">+</i>
+                    </span>
+                    Choi
+                </td>
+                <td>2_2</td>
+                <td>efgraegafea</td>
+                <td>2021-07-28</td>
+            </tr>
+            <tr id="name2_2_1" class="under_3 name2_2_under">
+                <td class="name">
+                    <span class="icon">
+                        <i>-</i>
+                    </span>
+                    Choi
+                </td>
+                <td>2_2_1</td>
+                <td>asdfsd</td>
+                <td>2021-07-28</td>
+            </tr>
+            <tr id="name2_2_2" class="under_3 name2_2_under">
+                <td class="name">
+                    <span class="icon">
+                        <i>-</i>
+                    </span>
+                    Choi
+                </td>
+                <td>2_2_2</td>
+                <td>efgraegafea</td>
+                <td>2021-07-28</td>
+            </tr>
+            <tr id="name3" class="under_1">
+                <td class="name">
+                    <span class="icon">
+                        <i class="icon_on">-</i>
+                        <i class="icon_off">+</i>
+                    </span>
+                    Jeong
+                </td>
+                <td>3</td>
+                <td>asdfsd</td>
+                <td>2021-07-28</td>
+            </tr>
+            <tr id="name3_1" class="under_2 name3_under">
+                <td class="name">
+                    <span class="icon">
+                        <i>-</i>
+                    </span>
+                    Yoon
+                </td>
+                <td>3_1</td>
+                <td>efgraegafea</td>
+                <td>2021-07-28</td>
+            </tr>
+            <tr id="name3_2" class="under_2 name3_under">
+                <td class="name">
+                    <span class="icon">
+                        <i>-</i>
+                    </span>
+                    Lim
+                </td>
+                <td>3_2</td>
+                <td>asdfsd</td>
+                <td>2021-07-28</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>        
+$('.table_number tr').click(function(){
+
+    // highlight color
+    $('.table_number tr').removeClass('on');
+    $(this).addClass('on');
+    });
+
+    $('.table_number tr .name').click(function(){
+    var $this = $(this).parent('tr');
+
+    // 하위 항목 열림/닫힘
+    var clickedId = $this.attr('id');
+    var clickedId_under = $('.' + clickedId + '_under');
+
+    var underEls = $('[id^="' + clickedId + '"]');
+    var underIds = [];
+    $.each(underEls, function (index, el) {
+        underIds[index] = $(el).attr('id');
+    })
+
+    if($this.hasClass('open')){
+        $this.removeClass('open');
+        for (var i = 0; i < underIds.length; i++){
+            $('#' + underIds[i]).not($this).removeClass('open').removeClass('sub_open');
+        }
+    } else if($this.next().is('[id^="' + clickedId + '_"]')) {
+        $this.addClass('open');
+        clickedId_under.addClass('sub_open');
+    }
+    });
+
+    function getElementList(element){
+        var elements = $(element);
+        var result = [];
+
+        $.each(elements, function (index, el) {
+            result[index] = $(el);
+        })
+        return result;
+    }
+
+    // 2단 보기
+    $('#table_number_stage_2').click(function () {
+    $('.table_number tbody tr').removeClass('open').removeClass('sub_open');
+
+    var elementsArr = getElementList('.table_number tbody tr[class*="under_1"]');
+
+    for (var i = 0; i < elementsArr.length; i++){
+        var elementId = elementsArr[i].attr('id');
+        if (elementsArr[i].is('.under_1') && elementsArr[i].next().is('[id^="' + elementId + '_"]')){
+            elementsArr[i].addClass('open');
+        } else {
+            $('.under_2').addClass('sub_open');
+        }
+    }
+    })
+
+    // 전체보기
+    $('#table_number_stage_all').click(function () {
+    var elementsArr = getElementList('.table_number tbody tr[id^="name"]');
+
+    for (var i = 0; i < elementsArr.length; i++){
+        var elementId = elementsArr[i].attr('id');
+        if (elementsArr[i].next().is('[class*="' + elementId + '_under"]')){
+            elementsArr[i].addClass('open');
+            if (!elementsArr[i].is('.under_1')){
+                elementsArr[i].addClass('sub_open');
+            }
+        } else if(!elementsArr[i].is('.under_1')) {
+            elementsArr[i].addClass('sub_open');
+        }
+    }
+    })
+
+    // 전체닫기
+    $('#table_number_stage_close').click(function () {
+    $('.table_number tbody tr').removeClass('open').removeClass('sub_open');
+});
+</script>
+</html>

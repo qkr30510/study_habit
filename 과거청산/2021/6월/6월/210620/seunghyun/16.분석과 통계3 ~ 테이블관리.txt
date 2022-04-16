@@ -1,0 +1,309 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+새로운 크로스 플랫폼 PowerShell 사용 https://aka.ms/pscore6
+
+PS C:\Users\y> mysql -uroot -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.23 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use preactice_Sql
+ERROR 1049 (42000): Unknown database 'preactice_sql'
+mysql> SELECT depart, name, salary, ROUND(CUME_DIST() OVER(PARTITION BY depart ORDER BY salary) * 100, 2) AS cume,
+    -> ROUND(PERCENT_RANK() OVER(PARTITION BY depart ORDER BY salary) * 100, 2) AS rank FROM tStaff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rank FROM tStaff' at line 2
+mysql> SELECT name, salary,
+    -> FIRST_VALUE(salary) OVER(ORDER BY salary) AS first,
+    -> LAST_VALUE(salary) OVER(ORDER BY salary) AS midlast,
+    -> LAST_VALUE(salary) OVER(ORDER BY salary ROW BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS last FROM tStaff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ROW BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS last FROM tStaff' at line 4
+mysql> SELECT name, salary,
+    -> FIRST_VALUE(salary) OVER(ORDER BY salary) AS first,
+    -> LAST_VALUE(salary) OVER(ORDER BY salary) AS midlast,
+    -> LAST_VALUE(salary) OVER(ORDER BY salary ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS last FROM tStaff;
+ERROR 1046 (3D000): No database selected
+mysql> use practice_sql;
+Database changed
+mysql> show tables;
++------------------------+
+| Tables_in_practice_sql |
++------------------------+
+| tcity                  |
+| tmonthsale             |
+| tstaff                 |
++------------------------+
+3 rows in set (0.08 sec)
+
+mysql> SELECT name, salary,
+    -> FIRST_VALUE(salary) OVER(ORDER BY salary) AS first,
+    -> LAST_VALUE(salary) OVER(ORDER BY salary) AS midlast,
+    -> LAST_VALUE(salary) OVER(ORDER BY salary ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS last FROM tStaff;
++----------+--------+-------+---------+------+
+| name     | salary | first | midlast | last |
++----------+--------+-------+---------+------+
+| 안중근   |    256 |   256 |     256 |  440 |
+| 황진이   |    275 |   256 |     275 |  440 |
+| 성삼문   |    285 |   256 |     285 |  440 |
+| 허난설헌 |    285 |   256 |     285 |  440 |
+| 대조영   |    290 |   256 |     290 |  440 |
+| 선덕여왕 |    315 |   256 |     315 |  440 |
+| 강감찬   |    320 |   256 |     320 |  440 |
+| 을지문덕 |    330 |   256 |     330 |  440 |
+| 논개     |    340 |   256 |     340 |  440 |
+| 윤봉길   |    350 |   256 |     350 |  440 |
+| 안창호   |    370 |   256 |     370 |  440 |
+| 정몽주   |    370 |   256 |     370 |  440 |
+| 이사부   |    375 |   256 |     375 |  440 |
+| 유관순   |    380 |   256 |     380 |  440 |
+| 정약용   |    380 |   256 |     380 |  440 |
+| 홍길동   |    380 |   256 |     380 |  440 |
+| 이율곡   |    385 |   256 |     385 |  440 |
+| 신사임당 |    400 |   256 |     400 |  440 |
+| 김유신   |    420 |   256 |     420 |  440 |
+| 장보고   |    440 |   256 |     440 |  440 |
++----------+--------+-------+---------+------+
+20 rows in set (0.01 sec)
+
+mysql> SELECT name, salary
+    -> , salary - FIRST_VALUE(value) OVER(ORDER BY salary) AS 최소월급기준,
+    -> LAST_VALUE(value) OVER(ORDER BY salary) AS 최고월급기준 FROM tStaff;
+ERROR 1054 (42S22): Unknown column 'value' in 'field list'
+mysql> SELECT name, salary
+    -> , salary - FIRST_VALUE(salary) OVER(ORDER BY salary) AS 최소월급기준,
+    -> LAST_VALUE(salary) OVER(ORDER BY salary) AS 최고월급기준 FROM tStaff;
++----------+--------+--------------+--------------+
+| name     | salary | 최소월급기준 | 최고월급기준 |
++----------+--------+--------------+--------------+
+| 안중근   |    256 |            0 |          256 |
+| 황진이   |    275 |           19 |          275 |
+| 성삼문   |    285 |           29 |          285 |
+| 허난설헌 |    285 |           29 |          285 |
+| 대조영   |    290 |           34 |          290 |
+| 선덕여왕 |    315 |           59 |          315 |
+| 강감찬   |    320 |           64 |          320 |
+| 을지문덕 |    330 |           74 |          330 |
+| 논개     |    340 |           84 |          340 |
+| 윤봉길   |    350 |           94 |          350 |
+| 안창호   |    370 |          114 |          370 |
+| 정몽주   |    370 |          114 |          370 |
+| 이사부   |    375 |          119 |          375 |
+| 유관순   |    380 |          124 |          380 |
+| 정약용   |    380 |          124 |          380 |
+| 홍길동   |    380 |          124 |          380 |
+| 이율곡   |    385 |          129 |          385 |
+| 신사임당 |    400 |          144 |          400 |
+| 김유신   |    420 |          164 |          420 |
+| 장보고   |    440 |          184 |          440 |
++----------+--------+--------------+--------------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT name, salary
+    -> , salary - FIRST_VALUE(salary) OVER(ORDER BY salary) AS 최소월급기준,
+    -> LAST_VALUE(salary) OVER(ORDER BY salary) - salary AS 최고월급기준 FROM tStaff;
++----------+--------+--------------+--------------+
+| name     | salary | 최소월급기준 | 최고월급기준 |
++----------+--------+--------------+--------------+
+| 안중근   |    256 |            0 |            0 |
+| 황진이   |    275 |           19 |            0 |
+| 성삼문   |    285 |           29 |            0 |
+| 허난설헌 |    285 |           29 |            0 |
+| 대조영   |    290 |           34 |            0 |
+| 선덕여왕 |    315 |           59 |            0 |
+| 강감찬   |    320 |           64 |            0 |
+| 을지문덕 |    330 |           74 |            0 |
+| 논개     |    340 |           84 |            0 |
+| 윤봉길   |    350 |           94 |            0 |
+| 안창호   |    370 |          114 |            0 |
+| 정몽주   |    370 |          114 |            0 |
+| 이사부   |    375 |          119 |            0 |
+| 유관순   |    380 |          124 |            0 |
+| 정약용   |    380 |          124 |            0 |
+| 홍길동   |    380 |          124 |            0 |
+| 이율곡   |    385 |          129 |            0 |
+| 신사임당 |    400 |          144 |            0 |
+| 김유신   |    420 |          164 |            0 |
+| 장보고   |    440 |          184 |            0 |
++----------+--------+--------------+--------------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT name, salary
+    -> , salary - FIRST_VALUE(salary) OVER(ORDER BY salary) AS 최소월급기준,
+    -> LAST_VALUE(salary) OVER(ORDER BY salary ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) - salary AS 최 고월급기준 FROM tStaff;
++----------+--------+--------------+--------------+
+| name     | salary | 최소월급기준 | 최고월급기준 |
++----------+--------+--------------+--------------+
+| 안중근   |    256 |            0 |          184 |
+| 황진이   |    275 |           19 |          165 |
+| 성삼문   |    285 |           29 |          155 |
+| 허난설헌 |    285 |           29 |          155 |
+| 대조영   |    290 |           34 |          150 |
+| 선덕여왕 |    315 |           59 |          125 |
+| 강감찬   |    320 |           64 |          120 |
+| 을지문덕 |    330 |           74 |          110 |
+| 논개     |    340 |           84 |          100 |
+| 윤봉길   |    350 |           94 |           90 |
+| 안창호   |    370 |          114 |           70 |
+| 정몽주   |    370 |          114 |           70 |
+| 이사부   |    375 |          119 |           65 |
+| 유관순   |    380 |          124 |           60 |
+| 정약용   |    380 |          124 |           60 |
+| 홍길동   |    380 |          124 |           60 |
+| 이율곡   |    385 |          129 |           55 |
+| 신사임당 |    400 |          144 |           40 |
+| 김유신   |    420 |          164 |           20 |
+| 장보고   |    440 |          184 |            0 |
++----------+--------+--------------+--------------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tMonthSale;
++------+-------+-------+
+| year | month | sales |
++------+-------+-------+
+| 2021 |     9 |  3650 |
+| 2021 |    10 |  4120 |
+| 2021 |    11 |  5000 |
+| 2021 |    12 |  4420 |
+| 2022 |     1 |  3800 |
+| 2022 |     2 |  4200 |
+| 2022 |     3 |  4150 |
++------+-------+-------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT year, month, sales,
+    -> PERCENTILE_COUT(0.5) WITHIN GROUP (ORDER BY sales) OVER(PARTITION BY year),
+    -> PERCENTILE_DISC(0.5) WITHIN GROUP (ORDER BY sales) OVER(PARTITION BY year) AS disc FROM tMonthSale;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(ORDER BY sales) OVER(PARTITION BY year),
+PERCENTILE_DISC(0.5) WITHIN GROUP (OR' at line 2
+mysql> ALTER TABLE TCity mayor CHAR(12) NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mayor CHAR(12) NULL' at line 1
+mysql> ALTER TABLE TCity ADD mayor CHAR(12) NULL;
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC tcity;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| name   | char(10) | NO   | PRI | NULL    |       |
+| area   | int      | YES  |     | NULL    |       |
+| popu   | int      | YES  |     | NULL    |       |
+| metro  | char(1)  | NO   |     | NULL    |       |
+| region | char(6)  | NO   |     | NULL    |       |
+| mayor  | char(12) | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> update tCity SET mayor = "남포동" WHERE name = '부산';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM tCity;
++------+------+------+-------+--------+--------+
+| name | area | popu | metro | region | mayor  |
++------+------+------+-------+--------+--------+
+| 부산 |  765 |  342 | y     | 경상   | 남포동 |
+| 서울 |  609 |  974 | y     | 경기   | NULL   |
+| 순천 |  910 |   27 | n     | 전라   | NULL   |
+| 오산 |   42 |   21 | n     | 경기   | NULL   |
+| 전주 |  205 |   65 | n     | 전라   | NULL   |
+| 청주 |  940 |   83 | n     | 충청   | NULL   |
+| 춘천 | 1126 |   27 | n     | 강원   | NULL   |
+| 홍천 | 1819 |    7 | n     | 강원   | NULL   |
++------+------+------+-------+--------+--------+
+8 rows in set (0.00 sec)
+
+mysql> ALTER TABLE tStaff ADD tel VARCHAR(20) NULL;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC tStaff;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| name     | char(10)     | NO   | PRI | NULL    |       |
+| depart   | char(10)     | NO   |     | NULL    |       |
+| gender   | char(10)     | NO   |     | NULL    |       |
+| joindate | date         | NO   |     | NULL    |       |
+| grade    | char(10)     | NO   |     | NULL    |       |
+| salary   | int          | NO   |     | NULL    |       |
+| score    | decimal(5,2) | YES  |     | NULL    |       |
+| tel      | varchar(20)  | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> ALTER TABLE tStaff DROP COLUMN tel;
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC tSTaff;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| name     | char(10)     | NO   | PRI | NULL    |       |
+| depart   | char(10)     | NO   |     | NULL    |       |
+| gender   | char(10)     | NO   |     | NULL    |       |
+| joindate | date         | NO   |     | NULL    |       |
+| grade    | char(10)     | NO   |     | NULL    |       |
+| salary   | int          | NO   |     | NULL    |       |
+| score    | decimal(5,2) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> CREATE TABLE tProject (
+    -> projectID INT,
+    -> employee CHAR(10),
+    -> project VARCHAR(30),
+    -> cost INT )
+    -> ;
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> INSERT INTO tProject VALUES (1, '김상형', '홍콩 수출건', 800);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO tProject VALUES (1, '김상형', 'TV 광고건', 3400);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> TRUNCATE TABLE tProject;
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> SELECT * FROM tProject;
+Empty set (0.00 sec)
+
+mysql> ALTER TABLE tProject ADD CONSTRAINT PK_projectID PRIMARY KEY(projectID);
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC tProject;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| projectID | int         | NO   | PRI | NULL    |       |
+| employee  | char(10)    | YES  |     | NULL    |       |
+| project   | varchar(30) | YES  |     | NULL    |       |
+| cost      | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.06 sec)
+
+mysql> ALTER TABLE tProject ADD CONSTRAINT FK_project_employee FOREISN KEY(employee) REFERENCES tEmployee(name);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREISN KEY(employee) REFERENCES tEmployee(name)' at line 1
+mysql> ALTER TABLE tProject ADD CONSTRAINT FK_project_employee FOREIGN KEY(employee) REFERENCES tEmployee(name);
+ERROR 1824 (HY000): Failed to open the referenced table 'temployee'
+mysql> ALTER TABLE tCity MODIFY region CHAR(30);
+Query OK, 8 rows affected (0.19 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE tProject ADD CONSTRAINT cost_check CHECK(cost < 0);
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>

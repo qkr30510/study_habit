@@ -1,0 +1,625 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+새로운 크로스 플랫폼 PowerShell 사용 https://aka.ms/pscore6
+
+PS C:\Users\ddock> mysql -u root -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use practice_sql
+Database changed
+mysql> SELECT * FROM (SELECT * FROM tCity) A;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  605 | 1000 | y     | 충청   |
+| 순천 |  910 |   27 | n     | 전라   |
+| 영월 | 1127 |    4 | n     | 강원   |
+| 오산 |   42 |   42 | n     | 경기   |
+| 용인 |  293 |   98 | n     | 경기   |
+| 이천 |  461 |   21 | n     | 경기   |
+| 전주 |  205 |   65 | n     | 전라   |
+| 청주 |  940 |   83 | n     | 충청   |
+| 춘천 | 1116 |   27 | n     | 강원   |
+| 평택 |  453 |   51 | n     | 경기   |
+| 홍천 | 1819 |    7 | n     | 강원   |
++------+------+------+-------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tCity;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  605 | 1000 | y     | 충청   |
+| 순천 |  910 |   27 | n     | 전라   |
+| 영월 | 1127 |    4 | n     | 강원   |
+| 오산 |   42 |   42 | n     | 경기   |
+| 용인 |  293 |   98 | n     | 경기   |
+| 이천 |  461 |   21 | n     | 경기   |
+| 전주 |  205 |   65 | n     | 전라   |
+| 청주 |  940 |   83 | n     | 충청   |
+| 춘천 | 1116 |   27 | n     | 강원   |
+| 평택 |  453 |   51 | n     | 경기   |
+| 홍천 | 1819 |    7 | n     | 강원   |
++------+------+------+-------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT name, popu, area FROM tCity) A;
++------+------+------+
+| name | popu | area |
++------+------+------+
+| 부산 |  342 |  765 |
+| 서울 | 1000 |  605 |
+| 순천 |   27 |  910 |
+| 영월 |    4 | 1127 |
+| 오산 |   42 |   42 |
+| 용인 |   98 |  293 |
+| 이천 |   21 |  461 |
+| 전주 |   65 |  205 |
+| 청주 |   83 |  940 |
+| 춘천 |   27 | 1116 |
+| 평택 |   51 |  453 |
+| 홍천 |    7 | 1819 |
++------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT * FROM tCity WHERE metro = 'y') A;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  605 | 1000 | y     | 충청   |
++------+------+------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT * FROM tCity WHERE metro = 'n') A;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 순천 |  910 |   27 | n     | 전라   |
+| 영월 | 1127 |    4 | n     | 강원   |
+| 오산 |   42 |   42 | n     | 경기   |
+| 용인 |  293 |   98 | n     | 경기   |
+| 이천 |  461 |   21 | n     | 경기   |
+| 전주 |  205 |   65 | n     | 전라   |
+| 청주 |  940 |   83 | n     | 충청   |
+| 춘천 | 1116 |   27 | n     | 강원   |
+| 평택 |  453 |   51 | n     | 경기   |
+| 홍천 | 1819 |    7 | n     | 강원   |
++------+------+------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> update tCity SET region = '경기' WHERE name = '서울';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM tCity WHERE name = '서울';
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 서울 |  605 | 1000 | y     | 경기   |
++------+------+------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> use shopping
+Database changed
+mysql> SELECT * FROM tMember;
++--------+-----+--------------------+-------------+--------+-------+-------------+
+| member | age | email              | addr        | money  | grade | remark      |
++--------+-----+--------------------+-------------+--------+-------+-------------+
+| 방자   |  28 | devlin@ssang.co.kr | 서울 개포동 |   1000 |     1 | 요주의 고객 |
+| 이도령 |  18 | wolf@gmail.com     | 서울 신사동 | 150000 |     3 |             |
+| 춘향   |  16 | 1004@naver.com     | 전남 남원시 |  20000 |     2 |             |
+| 향단   |  25 | candy@daum.net     | 전남 남원시 |   5000 |     2 |             |
++--------+-----+--------------------+-------------+--------+-------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT * FROM tMember WHERE AGE < 19) A WHERE money >= 100000;
++--------+-----+----------------+-------------+--------+-------+--------+
+| member | age | email          | addr        | money  | grade | remark |
++--------+-----+----------------+-------------+--------+-------+--------+
+| 이도령 |  18 | wolf@gmail.com | 서울 신사동 | 150000 |     3 |        |
++--------+-----+----------------+-------------+--------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> use practice_sql;
+Database changed
+mysql> SELECT * FROM tStaff;
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 강감찬   | 영업부 | 남     | 2018-10-09 | 사원  |    352 | 56.00 |
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 논개     | 인사과 | 여     | 2010-09-16 | 대리  |    340 | 46.20 |
+| 대조영   | 총무부 | 남     | 2020-07-07 | 차장  |    290 | 49.90 |
+| 선덕여왕 | 인사과 | 여     | 2017-08-03 | 대리  |    315 | 45.10 |
+| 성삼문   | 영업부 | 남     | 2014-06-08 | 대리  |    314 | 87.75 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    430 | 92.00 |
+| 안중근   | 인사과 | 남     | 2012-05-05 | 대리  |    256 | 76.50 |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    407 | 74.20 |
+| 유관순   | 영업부 | 여     | 2009-03-01 | 대리  |    418 |  NULL |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 을지문덕 | 영업부 | 남     | 2019-06-29 | 사원  |    363 |  NULL |
+| 이사부   | 총무부 | 남     | 2000-02-03 | 대리  |    375 | 50.00 |
+| 이율곡   | 총무부 | 남     | 2016-03-08 | 과장  |    385 | 65.40 |
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
+| 정몽주   | 총무부 | 남     | 2010-09-16 | 대리  |    370 | 89.50 |
+| 정약용   | 총무부 | 남     | 2020-03-14 | 과장  |    380 | 69.80 |
+| 허난설헌 | 인사과 | 여     | 2020-01-05 | 대리  |    285 | 44.50 |
+| 홍길동   | 인사과 | 남     | 2019-08-08 | 차장  |    380 | 77.70 |
+| 황진이   | 인사과 | 여     | 2012-05-05 | 대리  |    275 | 52.50 |
++----------+--------+--------+------------+-------+--------+-------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT * FROM tStaff WHERE grade IN (과장, 부장)) A WHERE salary >= 70;
+ERROR 1054 (42S22): Unknown column '과장' in 'where clause'
+mysql> SELECT * FROM (SELECT * FROM tStaff WHERE grade IN ('과장', '부장')) A WHERE salary >= 70;
++--------+--------+--------+------------+-------+--------+-------+
+| name   | depart | gender | joindate   | grade | salary | score |
++--------+--------+--------+------------+-------+--------+-------+
+| 윤봉길 | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 이율곡 | 총무부 | 남     | 2016-03-08 | 과장  |    385 | 65.40 |
+| 장보고 | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
+| 정약용 | 총무부 | 남     | 2020-03-14 | 과장  |    380 | 69.80 |
++--------+--------+--------+------------+-------+--------+-------+
+4 rows in set (0.00 sec)
+
+mysql> use shopping
+Database changed
+mysql> SELECT * FROM tOrder;
++---------+--------+----------+------------+-----+--------+--------+
+| orderID | member | item     | orderDate  | num | status | remark |
++---------+--------+----------+------------+-----+--------+--------+
+|       1 | 춘향   | 청바지   | 2019-12-03 |   3 |      2 | NULL   |
+|       2 | 향단   | 대추     | 2019-12-04 |  10 |      1 | NULL   |
+|       3 | 방자   | 전자담배 | 2019-12-02 |   4 |      1 | NULL   |
+|       4 | 향단   | 사과     | 2019-12-05 |   5 |      2 | NULL   |
+|       5 | 흥부   | 노트북   | 2019-12-05 |   2 |      1 | NULL   |
+|       6 | 방자   | 핸드폰   | 2019-11-01 |   1 |      3 | NULL   |
++---------+--------+----------+------------+-----+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT * FROM tOrder WHERE num >= 10) A;
++---------+--------+------+------------+-----+--------+--------+
+| orderID | member | item | orderDate  | num | status | remark |
++---------+--------+------+------------+-----+--------+--------+
+|       2 | 향단   | 대추 | 2019-12-04 |  10 |      1 | NULL   |
++---------+--------+------+------------+-----+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT * FROM tMember WHERE age < 19) A WHERE A.money >= 100000;
++--------+-----+----------------+-------------+--------+-------+--------+
+| member | age | email          | addr        | money  | grade | remark |
++--------+-----+----------------+-------------+--------+-------+--------+
+| 이도령 |  18 | wolf@gmail.com | 서울 신사동 | 150000 |     3 |        |
++--------+-----+----------------+-------------+--------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT * FROM tCity WHERE metro = 'y');
+ERROR 1248 (42000): Every derived table must have its own alias
+mysql> SELECT * FROM (SELECT * FROM tCity WHERE metro = 'y') A;
+ERROR 1146 (42S02): Table 'shopping.tcity' doesn't exist
+mysql> use practice_sql;
+Database changed
+mysql> SELECT * FROM (SELECT * FROM tCity WHERE metro = 'y');
+ERROR 1248 (42000): Every derived table must have its own alias
+mysql> SELECT * FROM (SELECT * FROM tCity WHERE metro = 'y') A;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  605 | 1000 | y     | 경기   |
++------+------+------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT * FROM tCity WHERE metro = 'y') as A;
++------+------+------+-------+--------+
+| name | area | popu | metro | region |
++------+------+------+-------+--------+
+| 부산 |  765 |  342 | y     | 경상   |
+| 서울 |  605 | 1000 | y     | 경기   |
++------+------+------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT name, popu * 10000 AS ingu FROM tCity) A WHERE ingu > 1000000;
++------+----------+
+| name | ingu     |
++------+----------+
+| 부산 |  3420000 |
+| 서울 | 10000000 |
++------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM (SELECT name, popu * 10000 ingu FROM tCity) A WHERE ingu > 1000000;
++------+----------+
+| name | ingu     |
++------+----------+
+| 부산 |  3420000 |
+| 서울 | 10000000 |
++------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT name, (popu * 10000 / area) AS dens FROM tCity;
++------+------------+
+| name | dens       |
++------+------------+
+| 부산 |  4470.5882 |
+| 서울 | 16528.9256 |
+| 순천 |   296.7033 |
+| 영월 |    35.4925 |
+| 오산 | 10000.0000 |
+| 용인 |  3344.7099 |
+| 이천 |   455.5315 |
+| 전주 |  3170.7317 |
+| 청주 |   882.9787 |
+| 춘천 |   241.9355 |
+| 평택 |  1125.8278 |
+| 홍천 |    38.4827 |
++------+------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT name, (popu * 10000 / area) AS dens,
+    -> CASE
+    -> WHEN (popu * 10000 / area) > 1000 THEN '고밀도'
+    -> WHEN (popu * 10000 / area) > 100 THEN '저밀도'
+    -> ELSE '저밀도'
+    -> END densGrade
+    -> FROM tCity;
++------+------------+-----------+
+| name | dens       | densGrade |
++------+------------+-----------+
+| 부산 |  4470.5882 | 고밀도    |
+| 서울 | 16528.9256 | 고밀도    |
+| 순천 |   296.7033 | 저밀도    |
+| 영월 |    35.4925 | 저밀도    |
+| 오산 | 10000.0000 | 고밀도    |
+| 용인 |  3344.7099 | 고밀도    |
+| 이천 |   455.5315 | 저밀도    |
+| 전주 |  3170.7317 | 고밀도    |
+| 청주 |   882.9787 | 저밀도    |
+| 춘천 |   241.9355 | 저밀도    |
+| 평택 |  1125.8278 | 고밀도    |
+| 홍천 |    38.4827 | 저밀도    |
++------+------------+-----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT name, dens,
+    -> CASE
+    -> WHEN dens > 1000 THEN '고밀도'
+    -> WHEN dens > 100 THEN '중밀도'
+    -> ELSE '저밀도'
+    -> END densGrade
+    -> FROM (SELECT (popu * 10000 / area) as dens FROM tCity) A;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> SELECT name, dens,
+    -> SELECT name, dens,
+    -> ^C
+mysql> SELECT name, dens,
+    -> CASE
+    -> WHEN (popu * 10000 / area) > 1000 THEN '고밀도'
+    -> WHEN (popu * 10000 / area) > 100 THEN '저밀도'
+    -> ELSE '저밀도'^C
+mysql> SELECT name, dens,
+    -> CASE
+    -> WHEN dens > 1000 THEN '고밀도'
+    -> WHEN dens > 100 THEN '중밀도'
+    -> ELSE '저밀도'
+    -> END densGrade
+    -> FROM (SELECT name, (popu * 10000 / area) AS dens FROM tCity) A;
++------+------------+-----------+
+| name | dens       | densGrade |
++------+------------+-----------+
+| 부산 |  4470.5882 | 고밀도    |
+| 서울 | 16528.9256 | 고밀도    |
+| 순천 |   296.7033 | 중밀도    |
+| 영월 |    35.4925 | 저밀도    |
+| 오산 | 10000.0000 | 고밀도    |
+| 용인 |  3344.7099 | 고밀도    |
+| 이천 |   455.5315 | 중밀도    |
+| 전주 |  3170.7317 | 고밀도    |
+| 청주 |   882.9787 | 중밀도    |
+| 춘천 |   241.9355 | 중밀도    |
+| 평택 |  1125.8278 | 고밀도    |
+| 홍천 |    38.4827 | 저밀도    |
++------+------------+-----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT name, dens,
+    -> CASE
+    -> WHEN dens > 1000 THEN '고밀도'
+    -> WHEN dens > 100 THEN '
+    '> ^C
+mysql> SELECT name, dens,
+    -> CASE
+    -> WHEN dens > 1000 THEN '고밀도'
+    -> WHEN dens > 100 THEN '중밀도'
+    -> ELSE '저밀도'
+    -> END densGrade,
+    -> CASE
+    -> WHEN CASE
+    -> WHEN dens > 1000 THEN '고밀도'
+    -> WHEN dens > 100 THEN '중밀도'
+    -> ELSE '저밀도'
+    -> END = '고밀도' THEN '8차로'
+    -> WHEN CASE
+    -> WHEN dens > 1000 THEN '고밀도'
+    -> WHEN dens > 100 THEN '중밀도'
+    -> ELSE '저밀도'
+    -> END = '중밀도' THEN '4차로'
+    -> ELSE '2차로'
+    -> END roadplan
+    -> FROM (
+    -> SELECT name, (popu * 10000 / area) AS dens FROM tCity
+    -> )
+    -> CD;
++------+------------+-----------+----------+
+| name | dens       | densGrade | roadplan |
++------+------------+-----------+----------+
+| 부산 |  4470.5882 | 고밀도    | 8차로    |
+| 서울 | 16528.9256 | 고밀도    | 8차로    |
+| 순천 |   296.7033 | 중밀도    | 4차로    |
+| 영월 |    35.4925 | 저밀도    | 2차로    |
+| 오산 | 10000.0000 | 고밀도    | 8차로    |
+| 용인 |  3344.7099 | 고밀도    | 8차로    |
+| 이천 |   455.5315 | 중밀도    | 4차로    |
+| 전주 |  3170.7317 | 고밀도    | 8차로    |
+| 청주 |   882.9787 | 중밀도    | 4차로    |
+| 춘천 |   241.9355 | 중밀도    | 4차로    |
+| 평택 |  1125.8278 | 고밀도    | 8차로    |
+| 홍천 |    38.4827 | 저밀도    | 2차로    |
++------+------------+-----------+----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT name, dens, densGrade,
+    -> CASE
+    -> WHEN densGrade = '고밀도' THEN '8차로'
+    -> WHEN densGrade = '중밀도' THEN '4차로'
+    -> ELSE '2차로'
+    -> END roadplan
+    -> FROM (
+    -> SELECT name, dens,
+    -> CASE
+    -> WHEN dens > 1000 THEN '고밀도'
+    -> WHEN dens > 100 THEN '중밀도'
+    -> ELSE '저밀도'
+    -> END densGrade
+    -> FROM (
+    -> SELECT name, (popu * 10000 / area) AS dens FROM tCity) CD
+    -> ) CR;
++------+------------+-----------+----------+
+| name | dens       | densGrade | roadplan |
++------+------------+-----------+----------+
+| 부산 |  4470.5882 | 고밀도    | 8차로    |
+| 서울 | 16528.9256 | 고밀도    | 8차로    |
+| 순천 |   296.7033 | 중밀도    | 4차로    |
+| 영월 |    35.4925 | 저밀도    | 2차로    |
+| 오산 | 10000.0000 | 고밀도    | 8차로    |
+| 용인 |  3344.7099 | 고밀도    | 8차로    |
+| 이천 |   455.5315 | 중밀도    | 4차로    |
+| 전주 |  3170.7317 | 고밀도    | 8차로    |
+| 청주 |   882.9787 | 중밀도    | 4차로    |
+| 춘천 |   241.9355 | 중밀도    | 4차로    |
+| 평택 |  1125.8278 | 고밀도    | 8차로    |
+| 홍천 |    38.4827 | 저밀도    | 2차로    |
++------+------------+-----------+----------+
+12 rows in set (0.00 sec)
+
+mysql> use shopping
+Database changed
+mysql> SELECT * FROM tItem WHERE category = '식품'
+    -> ;
++------+----------+-----+-------+----------+
+| item | company  | num | price | category |
++------+----------+-----+-------+----------+
+| 대추 | 보은농원 |  19 | 15000 | 식품     |
+| 사과 | 문경농원 |  24 | 16000 | 식품     |
++------+----------+-----+-------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tItem WHERE category = '식품'
+    -> UNION
+    -> SELECT * FROM tItem WHERE category = '가전';
++--------+----------+-----+--------+----------+
+| item   | company  | num | price  | category |
++--------+----------+-----+--------+----------+
+| 대추   | 보은농원 |  19 |  15000 | 식품     |
+| 사과   | 문경농원 |  24 |  16000 | 식품     |
+| 노트북 | 샘성     |   3 | 820000 | 가전     |
+| 마우스 | 논리텍   |   3 |  90000 | 가전     |
++--------+----------+-----+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> use practice_sql;
+Database changed
+mysql> SELECT DISTINCT depart FROM tStaff WHERE salary > 400;
++--------+
+| depart |
++--------+
+| 총무부 |
+| 영업부 |
+| 인사과 |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT depart FROM tStaff;
++--------+
+| depart |
++--------+
+| 영업부 |
+| 총무부 |
+| 인사과 |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT depart FROM tStaff WHERE salary > 400
+    -> UNION ALL
+    -> SELECT DISTINCT depart FROM tStaff WHERE score > 80;
++--------+
+| depart |
++--------+
+| 총무부 |
+| 영업부 |
+| 인사과 |
+| 총무부 |
+| 영업부 |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT member FROM shopping.tMember
+    -> UNION
+    -> SELECT name FROM tStaff
+    -> UNION
+    -> SELECT name FROM shopping.tEmployee;
+ERROR 1146 (42S02): Table 'shopping.temployee' doesn't exist
+mysql> SELECT member FROM shopping.tMember
+    -> UNION
+    -> SELECT name FROM tStaff;
++----------+
+| member   |
++----------+
+| 방자     |
+| 이도령   |
+| 춘향     |
+| 향단     |
+| 강감찬   |
+| 김유신   |
+| 논개     |
+| 대조영   |
+| 선덕여왕 |
+| 성삼문   |
+| 신사임당 |
+| 안중근   |
+| 안창호   |
+| 유관순   |
+| 윤봉길   |
+| 을지문덕 |
+| 이사부   |
+| 이율곡   |
+| 장보고   |
+| 정몽주   |
+| 정약용   |
+| 허난설헌 |
+| 홍길동   |
+| 황진이   |
++----------+
+24 rows in set (0.00 sec)
+
+mysql> SELECT * FROM shopping.tEmployee;
+ERROR 1146 (42S02): Table 'shopping.temployee' doesn't exist
+mysql> SELECT * FROM shopping.Employee;
+ERROR 1146 (42S02): Table 'shopping.employee' doesn't exist
+mysql> show shopping.TABLES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'shopping.TABLES' at line 1
+mysql> show TABLES;
++------------------------+
+| Tables_in_practice_sql |
++------------------------+
+| custom_tstaff          |
+| tchecktest             |
+| tcity                  |
+| tcitycompokey          |
+| tcitycopy              |
+| tcitydefault           |
+| tcityunique            |
+| tcityunique2           |
+| temployee              |
+| tproject               |
+| tsale                  |
+| tstaff                 |
+| tstaffdefault          |
+| tstaffdefault2         |
+| tsudo                  |
++------------------------+
+15 rows in set (0.01 sec)
+
+mysql> SELECT tEmployee;
+ERROR 1054 (42S22): Unknown column 'tEmployee' in 'field list'
+mysql> SELECT * FROM tEmployee;
++--------+--------+--------+
+| name   | salary | addr   |
++--------+--------+--------+
+| 권성직 |    625 | 안동시 |
+| 윤승현 |    480 | 대구시 |
++--------+--------+--------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT name FROM tStaff WHERE depart = '영업부'
+    -> INTERSECT
+    -> SELECT name FROM tStaff WHERE gender = '여';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INTERSECT
+SELECT name FROM tStaff WHERE gender = '여'' at line 2
+mysql> SELECT * FROM tStaff;
++----------+--------+--------+------------+-------+--------+-------+
+| name     | depart | gender | joindate   | grade | salary | score |
++----------+--------+--------+------------+-------+--------+-------+
+| 강감찬   | 영업부 | 남     | 2018-10-09 | 사원  |    352 | 56.00 |
+| 김유신   | 총무부 | 남     | 2000-02-03 | 이사  |    420 | 88.80 |
+| 논개     | 인사과 | 여     | 2010-09-16 | 대리  |    340 | 46.20 |
+| 대조영   | 총무부 | 남     | 2020-07-07 | 차장  |    290 | 49.90 |
+| 선덕여왕 | 인사과 | 여     | 2017-08-03 | 대리  |    315 | 45.10 |
+| 성삼문   | 영업부 | 남     | 2014-06-08 | 대리  |    314 | 87.75 |
+| 신사임당 | 영업부 | 여     | 2013-06-19 | 대리  |    430 | 92.00 |
+| 안중근   | 인사과 | 남     | 2012-05-05 | 대리  |    256 | 76.50 |
+| 안창호   | 영업부 | 남     | 2015-08-15 | 사원  |    407 | 74.20 |
+| 유관순   | 영업부 | 여     | 2009-03-01 | 대리  |    418 |  NULL |
+| 윤봉길   | 영업부 | 남     | 2015-08-15 | 과장  |    385 | 71.25 |
+| 을지문덕 | 영업부 | 남     | 2019-06-29 | 사원  |    363 |  NULL |
+| 이사부   | 총무부 | 남     | 2000-02-03 | 대리  |    375 | 50.00 |
+| 이율곡   | 총무부 | 남     | 2016-03-08 | 과장  |    385 | 65.40 |
+| 장보고   | 인사과 | 남     | 2005-04-01 | 부장  |    440 | 58.30 |
+| 정몽주   | 총무부 | 남     | 2010-09-16 | 대리  |    370 | 89.50 |
+| 정약용   | 총무부 | 남     | 2020-03-14 | 과장  |    380 | 69.80 |
+| 허난설헌 | 인사과 | 여     | 2020-01-05 | 대리  |    285 | 44.50 |
+| 홍길동   | 인사과 | 남     | 2019-08-08 | 차장  |    380 | 77.70 |
+| 황진이   | 인사과 | 여     | 2012-05-05 | 대리  |    275 | 52.50 |
++----------+--------+--------+------------+-------+--------+-------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT name FROM tStaff WHERE depart = '영업부'
+    -> INTERSECT
+    -> SELECT name FROM tStaff WHERE gender = '여';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INTERSECT
+SELECT name FROM tStaff WHERE gender = '여'' at line 2
+mysql> # ㅁㅁㅁ
+mysql> SELCT * INTO tStaff2 FROM tStaff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELCT * INTO tStaff2 FROM tStaff' at line 1
+mysql> SELECT * INTO tStaff2 FROM tStaff;
+ERROR 1327 (42000): Undeclared variable: tStaff2
+mysql> CREATE TABLE tStaff2 AS SELECT * FROM tStaff;
+Query OK, 20 rows affected (0.05 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE tStaff2 SET salary = 500 WHERE name = '안창호';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE tStaff2 SET depart = '인사과' WHERE name = '성삼문';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> DELETE FROM tSTaff2 WHERE name = '홍길동';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO tSTaff2 VALUES ('어우동', '총무부', '여', '20220401', '신입', 450, 0);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM tStaff2
+    -> EXCEPT
+    -> SELECT * FROM tSTaff;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'EXCEPT
+SELECT * FROM tSTaff' at line 2
+mysql>
+
