@@ -6,8 +6,8 @@ abstract class Animal {
     abstract say(): string
 
 // animal이라는 함수 안에
-//constructor 조건을 가지고
-// say() 라는 메서드를 가질것
+//constructor 조건을 가지고 (참고사항)
+// say() 라는 메서드를 필수로 가질것
 
 }
 
